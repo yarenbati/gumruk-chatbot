@@ -1,0 +1,13 @@
+[
+  {
+    "document_id": "5326_kabahatler_kanunu",
+    "title": "Kabahatler Kanunu",
+    "document_type": "Kanun",
+    "legislation_number": "5326",
+    "issuing_authority": "TBMM",
+    "official_source_url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=5326&MevzuatTur=1&MevzuatTertip=5",
+    "retrieved_at": "2026-09-01",
+    "local_file": "data/raw/5326-kabahatler-kanunu.docx",
+    "notes": "Bu mevzuat resmi kaynak olan mevzuat.gov.tr üzerinden temin edilmiştir (official_source_url). Oradan ilk elde edilen dosya eski ikili Word biçiminde (.doc, OLE/Compound Document File V2) idi; python-docx bu dosyayı doğrudan açamadığı için, dosya Microsoft Word kullanılarak elle .docx biçimine dönüştürülmüş ve boşluksuz olarak yeniden adlandırılmıştır. local_file alanındaki .docx, ham .doc dosyasının normalize edilmiş çalışma kopyasıdır — mevzuat.gov.tr'den doğrudan .docx olarak indirilmemiştir. Bu .docx geçerli bir OOXML paketi olduğu için python-docx onu harici bir CLI aracına (antiword, LibreOffice vb.) ihtiyaç duymadan doğrudan okuyabiliyor; tek bağımlılık requirements.txt içindeki python-docx paketidir. Not: dosya ilk yeniden adlandırmada geçici olarak 'kabahatlar-kanunu.docx' (yazım hatası) olarak kaydedilmişti; daha sonra doğru yazımla '5326-kabahatler-kanunu.docx' olarak yeniden adlandırıldı. Karşılaştırmalı yapısal doğrulama için bkz. docs/source-analysis-5326.md."
+  }
+]

@@ -3,4 +3,5 @@ chromadb
 streamlit
 pypdf
 pdfplumber
+python-docx
 python-dotenv
