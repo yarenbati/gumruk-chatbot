@@ -3,8 +3,11 @@ venv/
 .venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
 data/raw/*
 !data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
 *.sqlite3
 chroma/
 chroma_db/
