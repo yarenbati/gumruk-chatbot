@@ -44,6 +44,7 @@ hedef alacağı veri sözleşmesidir.
 - `paragraph_numbers` (opsiyonel; chunk içindeki numaralı fıkra kimliklerinin listesi, ör. `["1", "2"]`. Maddenin numaralı fıkrası yoksa boş liste/`null` olabilir)
 - `source_paragraph_start`
 - `source_paragraph_end`
+- `footnote_references` (opsiyonel; kaynak `Article.footnote_references`'tan miras alınan dipnot ID'lerinin listesi. Çok parçalı (multi-chunk) maddelerde bu liste madde-seviyesi provenance'tır; chunk'a özgü tam eşleşme garanti edilmez)
 - `metadata` (diğer serbest-form alanlar için; yukarıdaki alanlar zaten en sık kullanılan durumları kapsar)
 
 ### Query
@@ -124,6 +125,7 @@ classDiagram
         +paragraph_numbers
         +source_paragraph_start
         +source_paragraph_end
+        +footnote_references
         +metadata
     }
 
