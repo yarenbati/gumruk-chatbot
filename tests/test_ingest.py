@@ -18,6 +18,7 @@ from pathlib import Path
 
 import docx
 import pytest
+from lxml import etree
 
 from src import ingest
 
@@ -58,6 +59,20 @@ def _file_hash(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _inject_footnote_reference(paragraph, footnote_id: int) -> None:
+    """Test-only helper: append a <w:footnoteReference w:id="N"/> run to a
+    paragraph's OOXML via raw lxml. python-docx's public API has no way to
+    add footnotes, so this mirrors the structure real Word footnotes use
+    (see docs/source-analysis-5326.md §4) without needing a full
+    word/footnotes.xml part — only the reference ID is under test here, not
+    footnote text/resolution.
+    """
+    w_ns = ingest.WORD_NS["w"]
+    run = etree.SubElement(paragraph._p, f"{{{w_ns}}}r")
+    ref = etree.SubElement(run, f"{{{w_ns}}}footnoteReference")
+    ref.set(f"{{{w_ns}}}id", str(footnote_id))
+
+
 # --- Core unit tests (self-contained, no data/raw/ dependency) -------------
 
 
@@ -95,6 +110,55 @@ def test_style_name_is_captured(sample_docx_path: Path) -> None:
     assert paragraphs[0].text == "KABAHATLER KANUNU"
     assert paragraphs[0].style_name == "Heading 1"
     assert paragraphs[1].style_name == "Normal"
+
+
+def test_paragraphs_without_footnotes_have_null_footnote_ids(sample_docx_path: Path) -> None:
+    document = ingest.load_docx(sample_docx_path)
+    paragraphs = ingest.extract_paragraphs(document)
+    assert all(p.footnote_reference_ids is None for p in paragraphs)
+
+
+def test_footnote_reference_ids_are_preserved(tmp_path: Path) -> None:
+    document = docx.Document()
+    document.add_paragraph("Madde 1- (1) Footnotelu test hükmü.")
+    _inject_footnote_reference(document.paragraphs[0], footnote_id=1)
+    path = tmp_path / "footnote_sample.docx"
+    document.save(str(path))
+
+    loaded = ingest.load_docx(path)
+    paragraphs = ingest.extract_paragraphs(loaded)
+
+    assert len(paragraphs) == 1
+    assert paragraphs[0].footnote_reference_ids == [1]
+    # The reference mark itself must never leak into the visible text.
+    assert "[1]" not in paragraphs[0].text
+
+
+def test_multiple_footnote_references_on_one_paragraph_are_preserved(tmp_path: Path) -> None:
+    document = docx.Document()
+    document.add_paragraph("Madde 1- (1) Birden fazla dipnotlu hüküm.")
+    _inject_footnote_reference(document.paragraphs[0], footnote_id=2)
+    _inject_footnote_reference(document.paragraphs[0], footnote_id=3)
+    path = tmp_path / "multi_footnote_sample.docx"
+    document.save(str(path))
+
+    loaded = ingest.load_docx(path)
+    paragraphs = ingest.extract_paragraphs(loaded)
+    assert paragraphs[0].footnote_reference_ids == [2, 3]
+
+
+def test_footnote_reference_ids_survive_json_roundtrip(tmp_path: Path) -> None:
+    document = docx.Document()
+    document.add_paragraph("Madde 1- (1) Footnotelu test hükmü.")
+    _inject_footnote_reference(document.paragraphs[0], footnote_id=7)
+    docx_path = tmp_path / "footnote_sample.docx"
+    document.save(str(docx_path))
+
+    result = ingest.ingest_document(docx_path)
+    output_path = ingest.write_processed_json(result, tmp_path / "out.paragraphs.json")
+    loaded = json.loads(output_path.read_text(encoding="utf-8"))
+
+    assert loaded["paragraphs"][0]["footnote_reference_ids"] == [7]
 
 
 def test_turkish_characters_survive_extraction(sample_docx_path: Path) -> None:

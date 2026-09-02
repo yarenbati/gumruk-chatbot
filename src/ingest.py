@@ -8,6 +8,16 @@ does NOT build chunks, and does NOT alter legal wording — see
 docs/source-analysis-5326.md for the parsing strategy planned for a later
 milestone (src/chunk.py), and AGENTS.md for why that stays out of scope here.
 
+Footnote references (M3A follow-up): Word footnote-reference marks
+(<w:footnoteReference w:id="N"/>) are NOT part of python-docx's high-level
+`paragraph.text` — see docs/source-analysis-5326.md §4. Since footnote
+extraction is a source-extraction concern, it belongs here rather than in
+src/chunk.py: each ExtractedParagraph additionally carries the raw
+footnote-reference IDs found in its own OOXML, read via python-docx's own
+paragraph element (`paragraph._p`), not a separate zip/XML tool. This module
+still does not resolve footnote *text* or build the amendment-history model
+— only traceable reference IDs are preserved.
+
 CLI usage:
     python -m src.ingest data/raw/5326-kabahatler-kanunu.docx
 """
@@ -35,6 +45,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 SOURCE_MANIFEST_PATH = PROJECT_ROOT / "data" / "source_manifest.json"
 
+WORD_NS = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+
 
 @dataclass(frozen=True)
 class ExtractedParagraph:
@@ -43,6 +55,7 @@ class ExtractedParagraph:
     index: int
     text: str
     style_name: str
+    footnote_reference_ids: list[int] | None = None
 
 
 def load_docx(path: Path) -> DocxDocument:
@@ -72,13 +85,39 @@ def normalize_paragraph_text(text: str) -> str:
     return single_line.strip()
 
 
+def _extract_footnote_reference_ids(paragraph: Any) -> list[int] | None:
+    """Read Word footnote-reference IDs embedded in this paragraph's OOXML.
+
+    `paragraph.text` (python-docx's public API) never surfaces
+    <w:footnoteReference> marks — they carry no run text. We instead walk
+    the paragraph's own underlying element (`paragraph._p`, the lxml/oxml
+    node python-docx already builds for every paragraph) and look up
+    footnoteReference children directly. This uses only python-docx's own
+    object model; no separate zip/XML tool or footnotes.xml lookup is
+    needed just to get the reference IDs (unlike resolving footnote *text*,
+    which does require reading word/footnotes.xml separately - out of scope
+    here, see module docstring).
+    """
+    refs = paragraph._p.findall(".//w:footnoteReference", WORD_NS)
+    ids = [int(ref.get(f"{{{WORD_NS['w']}}}id")) for ref in refs if ref.get(f"{{{WORD_NS['w']}}}id") is not None]
+    return ids or None
+
+
 def extract_paragraphs(document: DocxDocument) -> list[ExtractedParagraph]:
     """Extract non-empty paragraphs from a python-docx Document, in document order.
 
     Only body-level paragraphs (Document.paragraphs) are read. Table cell
-    text and footnote text are out of scope for this ingestion pass (see
+    text and footnote *text* are out of scope for this ingestion pass (see
     docs/source-analysis-5326.md §4-5): they live outside the paragraph
     flow and require separate handling once article-level parsing exists.
+    Footnote *reference IDs* (not their text) attached to each paragraph
+    are preserved via `footnote_reference_ids`.
+
+    Note: a paragraph whose only content is a footnote reference (no other
+    visible text) would still be filtered out as "blank" here, and its
+    reference ID would be lost — this does not occur anywhere in the real
+    5326 source (every footnote reference sits inside a paragraph that also
+    has substantial visible text), so it is not handled as a special case.
     """
     extracted: list[ExtractedParagraph] = []
     for index, paragraph in enumerate(document.paragraphs):
@@ -86,8 +125,14 @@ def extract_paragraphs(document: DocxDocument) -> list[ExtractedParagraph]:
         if not normalized:
             continue
         style_name = paragraph.style.name if paragraph.style is not None else ""
+        footnote_reference_ids = _extract_footnote_reference_ids(paragraph)
         extracted.append(
-            ExtractedParagraph(index=index, text=normalized, style_name=style_name)
+            ExtractedParagraph(
+                index=index,
+                text=normalized,
+                style_name=style_name,
+                footnote_reference_ids=footnote_reference_ids,
+            )
         )
     return extracted
 
