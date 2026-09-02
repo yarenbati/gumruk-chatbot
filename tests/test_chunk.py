@@ -322,7 +322,320 @@ def test_parse_document_and_write_articles_json(tmp_path: Path) -> None:
     assert loaded["article_count"] == 1
 
 
+# ============================================================================
+# Chunking (M3B) — build_chunks()
+# ============================================================================
+#
+# All core tests here are self-contained: Article fixtures are built
+# programmatically via `_a()` below (matching the Article dataclass built by
+# parse_articles()), so none of this requires data/raw/. A separate,
+# clearly-named integration test at the bottom exercises the real 5326
+# source end-to-end (ingest -> parse -> chunk) and SKIPs when absent.
+
+
+def _a(
+    article_no: str = "1",
+    text: str = "Madde 1- (1) Basit hüküm.",
+    *,
+    article_type: str = "normal",
+    article_title: str | None = "Başlık",
+    section_context: str | None = "Birinci Kısım > Birinci Bölüm",
+    source_paragraph_start: int = 10,
+    source_paragraph_end: int = 12,
+    footnote_references: list[int] | None = None,
+    article_id: str | None = None,
+) -> chunk.Article:
+    return chunk.Article(
+        article_id=article_id or f"5326-madde-{article_no.lower().replace('/', '-')}",
+        document_id="5326_kabahatler_kanunu",
+        legislation_number="5326",
+        article_no=article_no,
+        article_type=article_type,
+        article_title=article_title,
+        section_context=section_context,
+        text=text,
+        source_paragraph_start=source_paragraph_start,
+        source_paragraph_end=source_paragraph_end,
+        footnote_references=footnote_references,
+    )
+
+
+def _chunks_for(article: chunk.Article, max_chars: int | None = 4000) -> list[chunk.Chunk]:
+    return chunk.build_chunks([article], max_chars=max_chars)
+
+
+# --- Basic shape: short article -> one Chunk --------------------------------
+
+
+def test_short_article_produces_one_chunk() -> None:
+    article = _a(text="Madde 2- (1) Kabahat deyiminden idarî yaptırım anlaşılır.")
+    chunks = _chunks_for(article)
+    assert len(chunks) == 1
+    assert chunks[0].text == article.text
+
+
+def test_single_chunk_source_paragraph_and_footnotes_equal_article_exactly() -> None:
+    """When an Article produces exactly one Chunk (short article, or
+    max_chars=None), the Chunk's source_paragraph_start/end and
+    footnote_references must EQUAL the Article's exactly, not approximate."""
+    article = _a(
+        text="Madde 5- (1) Fıkra bir.\n(2) Fıkra iki.",
+        source_paragraph_start=41,
+        source_paragraph_end=44,
+        footnote_references=[3, 7],
+    )
+    chunks = _chunks_for(article, max_chars=4000)
+    assert len(chunks) == 1
+    c = chunks[0]
+    assert c.source_paragraph_start == article.source_paragraph_start == 41
+    assert c.source_paragraph_end == article.source_paragraph_end == 44
+    assert c.footnote_references == article.footnote_references == [3, 7]
+
+
+# --- Splitting only at fıkra boundaries --------------------------------------
+
+
+def test_long_multi_fikra_article_splits_only_at_fikra_boundaries() -> None:
+    fikra_text = "x" * 30
+    text = "\n".join(
+        [
+            "Madde 10- (Değişik: 1/1/2000-1234/1 md.)",
+            f"(1) {fikra_text}",
+            f"(2) {fikra_text}",
+            f"(3) {fikra_text}",
+            f"(4) {fikra_text}",
+        ]
+    )
+    article = _a(article_no="10", text=text)
+    chunks = _chunks_for(article, max_chars=60)
+
+    assert len(chunks) > 1
+    # every chunk starts at a fıkra boundary or the heading; none of them
+    # begins mid-sentence / mid-fıkra.
+    for c in chunks:
+        first_line = c.text.split("\n")[0]
+        assert first_line.startswith("Madde 10-") or chunk.NUMBERED_PARAGRAPH_RE.match(first_line)
+    # source order preserved: fıkra numbers appear in ascending order across chunks
+    all_numbers = [n for c in chunks for n in (c.paragraph_numbers or [])]
+    assert all_numbers == sorted(all_numbers, key=int)
+
+
+def test_lettered_subitems_never_separated_from_their_fikra() -> None:
+    text = "\n".join(
+        [
+            "Madde 1- (1) " + "x" * 30,
+            "a) alt bent bir " + "y" * 30,
+            "b) alt bent iki " + "y" * 30,
+            "(2) " + "z" * 30,
+        ]
+    )
+    article = _a(text=text)
+    chunks = _chunks_for(article, max_chars=50)
+
+    fikra1_chunk = next(c for c in chunks if c.text.split("\n")[0].startswith("Madde 1- (1)"))
+    assert "a) alt bent bir" in fikra1_chunk.text
+    assert "b) alt bent iki" in fikra1_chunk.text
+    # lettered sub-items must not leak into a different chunk
+    for c in chunks:
+        if c is not fikra1_chunk:
+            assert "a) alt bent bir" not in c.text
+            assert "b) alt bent iki" not in c.text
+
+
+def test_oversized_single_fikra_remains_intact_in_one_chunk() -> None:
+    huge_fikra = "(2) " + ("kelime " * 50)
+    text = "Madde 1- (1) kısa fıkra.\n" + huge_fikra + "\n(3) kısa fıkra iki."
+    article = _a(text=text)
+    chunks = _chunks_for(article, max_chars=20)
+
+    huge_chunks = [c for c in chunks if huge_fikra.strip() in c.text]
+    assert len(huge_chunks) == 1
+    assert huge_chunks[0].paragraph_numbers == ["2"]
+    assert len(huge_chunks[0].text) > 20  # oversized on purpose, never truncated/split
+
+
+def test_max_chars_none_produces_exactly_one_chunk_per_article() -> None:
+    text = "\n".join(["Madde 1- (1) " + "x" * 40, "(2) " + "y" * 40, "(3) " + "z" * 40])
+    article = _a(text=text)
+    chunks = chunk.build_chunks([article], max_chars=None)
+    assert len(chunks) == 1
+    assert chunks[0].text == article.text
+
+
+# --- Embedded fıkra-on-heading-line detection --------------------------------
+
+
+def test_detects_fikra_embedded_on_same_line_as_heading() -> None:
+    article = _a(
+        article_no="2",
+        text="Madde 2- (1) Kabahat deyiminden; kanunun öngördüğü haksızlık anlaşılır.",
+    )
+    chunks = _chunks_for(article)
+    assert len(chunks) == 1
+    assert chunks[0].paragraph_numbers == ["1"]
+
+
+def test_detects_fikra_on_own_line_when_amendment_note_precedes_it() -> None:
+    text = "Madde 3- (Değişik: 6/12/2006-5560/31 md.)\n(1) Değişiklik sonrası hüküm."
+    article = _a(article_no="3", text=text)
+    chunks = _chunks_for(article)
+    assert len(chunks) == 1
+    assert chunks[0].paragraph_numbers == ["1"]
+    assert chunks[0].text == article.text
+
+
+# --- Deterministic IDs, no collisions -----------------------------------------
+
+
+def test_deterministic_chunk_ids() -> None:
+    text = "\n".join(["Madde 27- (1) " + "x" * 40, "(2) " + "y" * 40])
+    article = _a(article_no="27", text=text, article_id="5326-madde-27")
+    chunks_a = chunk.build_chunks([article], max_chars=50)
+    chunks_b = chunk.build_chunks([article], max_chars=50)
+    assert [c.chunk_id for c in chunks_a] == [c.chunk_id for c in chunks_b]
+    assert len(chunks_a) > 1
+    assert chunks_a[0].chunk_id == "5326-madde-27-chunk-001"
+    assert chunks_a[1].chunk_id == "5326-madde-27-chunk-002"
+
+
+def test_no_chunk_id_collision_across_madde_ek_gecici() -> None:
+    articles = [
+        _a(article_no="1", article_type="normal", article_id="5326-madde-1", text="Madde 1- (1) A."),
+        _a(article_no="1", article_type="ek", article_id="5326-ek-madde-1", text="Ek Madde 1- (1) B."),
+        _a(
+            article_no="1",
+            article_type="gecici",
+            article_id="5326-gecici-madde-1",
+            text="Geçici Madde 1- (1) C.",
+        ),
+    ]
+    chunks = chunk.build_chunks(articles)
+    ids = [c.chunk_id for c in chunks]
+    assert len(ids) == len(set(ids))
+    assert set(ids) == {
+        "5326-madde-1-chunk-001",
+        "5326-ek-madde-1-chunk-001",
+        "5326-gecici-madde-1-chunk-001",
+    }
+
+
+# --- Metadata retention --------------------------------------------------------
+
+
+def test_every_chunk_retains_article_no_and_section_context() -> None:
+    text = "\n".join(["Madde 5- (1) " + "x" * 40, "(2) " + "y" * 40])
+    article = _a(article_no="5", text=text, section_context="İkinci Kısım > Üçüncü Bölüm")
+    chunks = chunk.build_chunks([article], max_chars=50)
+    assert len(chunks) > 1
+    assert all(c.article_no == "5" for c in chunks)
+    assert all(c.section_context == "İkinci Kısım > Üçüncü Bölüm" for c in chunks)
+
+
+# --- Lossless reconstruction ----------------------------------------------------
+
+
+def test_chunk_text_losslessly_reconstructs_article_text() -> None:
+    text = "\n".join(
+        [
+            "Madde 1- (1) " + "x" * 30,
+            "a) alt bent",
+            "(2) " + "y" * 30,
+            "(3) " + "z" * 30,
+        ]
+    )
+    article = _a(text=text)
+    chunks = chunk.build_chunks([article], max_chars=45)
+    assert len(chunks) > 1
+    reconstructed = "\n".join(c.text for c in chunks)
+    assert reconstructed == article.text
+
+
+# --- paragraph_numbers -----------------------------------------------------------
+
+
+def test_paragraph_numbers_populated_for_multi_fikra_article() -> None:
+    article = _a(text="Madde 1- (1) Bir.\n(2) İki.\n(3) Üç.")
+    chunks = _chunks_for(article)
+    assert len(chunks) == 1
+    assert chunks[0].paragraph_numbers == ["1", "2", "3"]
+
+
+def test_paragraph_numbers_empty_when_article_has_no_numbered_fikra() -> None:
+    article = _a(text="Ek Madde 1- (Ek: 11/5/2005-5348/5 md.) Doğrudan hüküm metni, fıkrasız.")
+    chunks = _chunks_for(article)
+    assert len(chunks) == 1
+    assert chunks[0].paragraph_numbers is None
+
+
+# --- Source order preserved across multiple Articles ----------------------------
+
+
+def test_chunk_order_follows_article_and_fikra_source_order() -> None:
+    a1 = _a(article_no="1", text="Madde 1- (1) Bir.")
+    a2_text = "\n".join(["Madde 2- (1) " + "x" * 40, "(2) " + "y" * 40, "(3) " + "z" * 40])
+    a2 = _a(article_no="2", text=a2_text, article_id="5326-madde-2")
+    chunks = chunk.build_chunks([a1, a2], max_chars=50)
+
+    article_nos_in_order = [c.article_no for c in chunks]
+    assert article_nos_in_order[0] == "1"
+    assert all(no == "2" for no in article_nos_in_order[1:])
+
+    a2_chunks = [c for c in chunks if c.article_no == "2"]
+    numbers_seen = [n for c in a2_chunks for n in (c.paragraph_numbers or [])]
+    assert numbers_seen == ["1", "2", "3"]
+
+
+# --- End-to-end from real JSON I/O helpers --------------------------------------
+
+
+def test_build_chunks_document_and_write_chunks_json(tmp_path: Path) -> None:
+    paragraphs_payload = {
+        "document_id": "doc_test",
+        "source_file": "data/raw/does-not-exist.docx",
+        "paragraph_count": 1,
+        "paragraphs": [{"index": 0, "text": "Madde 1- (1) Basit hüküm.", "style_name": "Normal"}],
+    }
+    import json
+
+    paragraphs_path = tmp_path / "sample.paragraphs.json"
+    paragraphs_path.write_text(json.dumps(paragraphs_payload), encoding="utf-8")
+
+    result = chunk.build_chunks_document(paragraphs_path)
+    assert result["document_id"] == "doc_test"
+    assert result["chunk_count"] == 1
+    assert {"document_id", "chunk_count", "chunks"} <= result.keys()
+
+    output_path = chunk.write_chunks_json(result, tmp_path / "sample.chunks.json")
+    loaded = json.loads(output_path.read_text(encoding="utf-8"))
+    assert loaded["chunk_count"] == 1
+
+
 # --- Optional integration test: real 5326 source ----------------------------
+
+
+@pytest.mark.skipif(
+    not REAL_SOURCE_PATH.exists(),
+    reason=f"integration test: real source not present locally: {REAL_SOURCE_PATH}",
+)
+def test_integration_real_kabahatler_kanunu_chunks() -> None:
+    """Source-validation integration test: build Chunks from the real 53
+    Articles at the configured MAX_CHUNK_CHARS soft target. Optional/local
+    only — see docs/source-analysis-5326.md."""
+    ingest_result = ingest.ingest_document(REAL_SOURCE_PATH)
+    paragraphs = chunk.paragraphs_from_json(ingest_result)
+    articles = parse_articles(
+        paragraphs, document_id=ingest_result["document_id"], legislation_number="5326"
+    )
+    assert len(articles) == 53
+
+    chunks = chunk.build_chunks(articles)
+    assert len(chunks) >= len(articles)
+
+    ids = [c.chunk_id for c in chunks]
+    assert len(ids) == len(set(ids))
+
+    for c in chunks:
+        assert c.text  # never empty/dropped
 
 
 @pytest.mark.skipif(
