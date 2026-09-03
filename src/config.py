@@ -14,6 +14,15 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
 TOP_K = int(os.getenv("TOP_K", "5"))
 TEMPERATURE = float(os.getenv("TEMPERATURE", "0"))
 
+# Whether to actually send `TEMPERATURE` to the configured LLM's Responses
+# API calls (see src/generate.py). TEMPERATURE=0 remains the desired value
+# regardless; this flag only controls whether it is forwarded to the API
+# for the *currently configured* LLM_MODEL. Defaults to "false" because the
+# current model is a reasoning-tier model that rejects an explicit
+# temperature override outright (HTTP 400). Set LLM_SEND_TEMPERATURE=true
+# only when LLM_MODEL is switched to a model that actually supports it.
+LLM_SEND_TEMPERATURE = os.getenv("LLM_SEND_TEMPERATURE", "false").strip().lower() == "true"
+
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "gumruk_mevzuati")
 
 # Local Chroma PersistentClient storage directory (see docs/indexing.md §7).
