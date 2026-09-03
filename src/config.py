@@ -16,6 +16,10 @@ TEMPERATURE = float(os.getenv("TEMPERATURE", "0"))
 
 COLLECTION_NAME = os.getenv("COLLECTION_NAME", "gumruk_mevzuati")
 
+# Local Chroma PersistentClient storage directory (see docs/indexing.md §7).
+# Generated runtime state - gitignored, never committed.
+CHROMA_PATH = os.getenv("CHROMA_PATH", "chroma")
+
 # Soft chunk-size target (characters, not tokens - no tokenizer dependency)
 # used by src/chunk.py's build_chunks(). This is a provisional default for
 # legal-semantic chunking, not tuned to any specific embedding model's token
