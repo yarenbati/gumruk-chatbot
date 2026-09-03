@@ -26,7 +26,7 @@ implementation here.
 Distance semantics: this module preserves Chroma's raw distance values
 exactly as returned and never invents a confidence/similarity/accuracy
 percentage from them. The real project collection is configured with
-`hnsw:space = "l2"` (squared Euclidean distance - see `_distance_metric`):
+`hnsw:space = "l2"` (squared Euclidean distance - see `distance_metric`):
 smaller is more similar, but the value is not bounded to [0, 1] and is not a
 probability. No relevance threshold or abstention rule is implemented here;
 that requires a systematic evaluation first (M5B).
@@ -98,7 +98,7 @@ class RetrievalResult:
     """Summary of one `retrieve()` run.
 
     `distance_metric` is a best-effort read of the collection's actual
-    configured metric (see `_distance_metric`) for reporting/documentation
+    configured metric (see `distance_metric`) for reporting/documentation
     only - `None` if it cannot be reliably obtained, never guessed.
     `latency_ms` covers the embedding call plus the Chroma query.
     """
@@ -176,7 +176,7 @@ def embed_query(
 # ============================================================================
 
 
-def _distance_metric(collection: Collection) -> str | None:
+def distance_metric(collection: Collection) -> str | None:
     """Best-effort read of the collection's actual configured distance
     metric (e.g. Chroma's `hnsw:space`), for reporting/documentation only -
     never guessed, and never used to reinterpret a raw distance value.
@@ -342,7 +342,7 @@ def retrieve(
         returned_count=len(results),
         results=results,
         embedding_usage=usage,
-        distance_metric=_distance_metric(collection),
+        distance_metric=distance_metric(collection),
         latency_ms=latency_ms,
     )
 
