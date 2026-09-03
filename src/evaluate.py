@@ -140,6 +140,7 @@ class EvaluationQuestion:
     question: str
     expected_articles: tuple[str, ...]
     normalized_expected_articles: frozenset[str]
+    expert_validated: bool = False
 
 
 def _validate_and_build_question(raw: Any, *, index: int) -> EvaluationQuestion:
@@ -160,6 +161,10 @@ def _validate_and_build_question(raw: Any, *, index: int) -> EvaluationQuestion:
     if not all(isinstance(a, str) and a.strip() for a in expected):
         raise EvaluationError(f"Question {qid!r} has a non-string or empty entry in 'expected_articles'")
 
+    expert_validated = raw.get("expert_validated", False)
+    if not isinstance(expert_validated, bool):
+        raise EvaluationError(f"Question {qid!r} has a non-boolean 'expert_validated'")
+
     # Duplicate normalized expected articles may be deduplicated for metric
     # calculation (docs §7) - a plain set is enough, order is irrelevant for
     # ANY/ALL-match set membership.
@@ -170,6 +175,7 @@ def _validate_and_build_question(raw: Any, *, index: int) -> EvaluationQuestion:
         question=question_text,
         expected_articles=tuple(expected),
         normalized_expected_articles=normalized,
+        expert_validated=expert_validated,
     )
 
 
