@@ -1,6 +1,122 @@
 [
   {
-    "question": "Gümrük beyannamesi nedir?",
-    "expected_source": ""
+    "id": "q001",
+    "question": "Kabahat nedir?",
+    "expected_articles": ["2"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Tanım"
+  },
+  {
+    "id": "q002",
+    "question": "Kabahat karşılığı uygulanacak yaptırımın türü, süresi ve miktarı hangi esasla belirlenir?",
+    "expected_articles": ["4"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Kanunîlik ilkesi"
+  },
+  {
+    "id": "q003",
+    "question": "Bir kabahatin kasten veya taksirle işlenmesi nasıl düzenlenmiştir?",
+    "expected_articles": ["9"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Kast veya taksir"
+  },
+  {
+    "id": "q004",
+    "question": "Onbeş yaşını doldurmamış çocuk hakkında idarî para cezası uygulanabilir mi?",
+    "expected_articles": ["11"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Sorumluluk / yaş küçüklüğü"
+  },
+  {
+    "id": "q005",
+    "question": "Hukuka uygunluk nedenleri ve kusurluluğu ortadan kaldıran nedenlerde hangi hükümler uygulanır?",
+    "expected_articles": ["12"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Hukuka uygunluk ve kusurluluk"
+  },
+  {
+    "id": "q006",
+    "question": "Kabahate teşebbüs cezalandırılır mı?",
+    "expected_articles": ["13"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Teşebbüs"
+  },
+  {
+    "id": "q007",
+    "question": "Bir kabahatin işlenmesine birden fazla kişi katılırsa sorumluluk nasıl belirlenir?",
+    "expected_articles": ["14"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "İştirak"
+  },
+  {
+    "id": "q008",
+    "question": "Aynı fiille birden fazla kabahat işlenirse idarî yaptırım nasıl belirlenir?",
+    "expected_articles": ["15"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "İçtima"
+  },
+  {
+    "id": "q009",
+    "question": "Kabahatler karşılığında uygulanabilecek idarî yaptırım türleri nelerdir?",
+    "expected_articles": ["16"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Yaptırım türleri"
+  },
+  {
+    "id": "q010",
+    "question": "İdarî para cezasının türleri ve ceza miktarının belirlenmesinde dikkate alınacak ölçütler nelerdir?",
+    "expected_articles": ["17"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "İdarî para cezası"
+  },
+  {
+    "id": "q011",
+    "question": "Kabahatlerde soruşturma zamanaşımı süresi nasıl belirlenir?",
+    "expected_articles": ["20"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Soruşturma zamanaşımı"
+  },
+  {
+    "id": "q012",
+    "question": "Kesinleşen idarî yaptırım kararlarının yerine getirilmesinde zamanaşımı nasıl düzenlenmiştir?",
+    "expected_articles": ["21"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Yerine getirme zamanaşımı"
+  },
+  {
+    "id": "q013",
+    "question": "İdarî yaptırım kararına ilişkin tutanakta hangi bilgilerin bulunması gerekir?",
+    "expected_articles": ["25"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "İdarî yaptırım kararı"
+  },
+  {
+    "id": "q014",
+    "question": "İdarî para cezasına karşı hangi sürede ve nereye başvurulabilir?",
+    "expected_articles": ["27"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Başvuru yolu"
+  },
+  {
+    "id": "q015",
+    "question": "Yetkili makamın hukuka uygun olarak verdiği emre aykırı davranmanın yaptırımı nedir?",
+    "expected_articles": ["32"],
+    "source": "derived_from_5326",
+    "expert_validated": false,
+    "notes": "Emre aykırı davranış"
   }
 ]
