@@ -60,6 +60,35 @@ def test_multiple_expected_requires_all_retrieved_and_cited() -> None:
     assert partial.requires_priority_review and not partial.all_expected_articles_cited
     assert not clean.requires_priority_review
 
+def test_any_recall_succeeds_while_all_match_fails_for_partial_multi_expected() -> None:
+    question = _question(("22", "25"))
+    result = evaluate_e2e.evaluate_question(question, rag_runner=lambda _: _rag_result(("25", "27", "26"), cited_indexes=(0,)))
+    summary = evaluate_e2e.summarize([result])
+    assert summary.recall_at_5 == 1.0
+    assert summary.all_match_at_5 == 0.0
+    assert summary.all_expected_articles_retrieved_rate == 0.0
+
+def test_all_match_succeeds_when_both_expected_articles_are_retrieved() -> None:
+    question = _question(("22", "25"))
+    result = evaluate_e2e.evaluate_question(question, rag_runner=lambda _: _rag_result(("25", "27", "22"), cited_indexes=(0, 2)))
+    summary = evaluate_e2e.summarize([result])
+    assert summary.recall_at_5 == summary.all_match_at_5 == 1.0
+
+def test_single_expected_any_and_all_metrics_coincide() -> None:
+    result = evaluate_e2e.evaluate_question(_question(("13",)), rag_runner=lambda _: _rag_result(("20", "13"), cited_indexes=(1,)))
+    summary = evaluate_e2e.summarize([result])
+    assert (summary.recall_at_1, summary.recall_at_3, summary.recall_at_5) == (
+        summary.all_match_at_1, summary.all_match_at_3, summary.all_match_at_5
+    )
+
+def test_all_expected_articles_cited_rate_distinguishes_partial_from_complete() -> None:
+    question = _question(("13", "20"))
+    partial = evaluate_e2e.evaluate_question(question, rag_runner=lambda _: _rag_result(cited_indexes=(0,)))
+    complete = evaluate_e2e.evaluate_question(question, rag_runner=lambda _: _rag_result(cited_indexes=(0, 1)))
+    summary = evaluate_e2e.summarize([partial, complete])
+    assert summary.expected_article_cited_rate == 1.0
+    assert summary.all_expected_articles_cited_rate == 0.5
+
 def test_pipeline_error_safe_and_batch_continues() -> None:
     calls = 0
     def runner(_: str) -> rag.RAGResult:
@@ -77,6 +106,8 @@ def test_summary_counts_rates_latency_and_tokens() -> None:
     _, summary = evaluate_e2e.evaluate_all([_question()] * 3, rag_runner=lambda _: next(outputs))
     assert summary.expected_article_present_count == 2 and summary.expected_article_present_rate == pytest.approx(2 / 3)
     assert summary.expected_article_cited_count == 2 and summary.expected_article_cited_rate == pytest.approx(2 / 3)
+    assert summary.all_expected_articles_cited_count == 2
+    assert summary.all_expected_articles_cited_rate == pytest.approx(2 / 3)
     assert (summary.yeterli_count, summary.yetersiz_count) == (2, 1)
     assert summary.requires_priority_review_rate == pytest.approx(1 / 3)
     assert summary.human_review_completed_count == 0

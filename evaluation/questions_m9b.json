@@ -1,0 +1,302 @@
+[
+  {
+    "id": "q016",
+    "question": "Kabahatler Kanunu'nun genel kuralları başka kanunlardaki idari para cezalarına hangi durumda uygulanır?",
+    "expected_articles": ["3"],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 3'ün genel kanun niteliği ve uygulama kapsamı doğrudan kontrol edildi."
+  },
+  {
+    "id": "q017",
+    "question": "Bir kabahat, davranışın yapıldığı anda mı yoksa sonucu ortaya çıktığında mı işlenmiş sayılır?",
+    "expected_articles": ["5"],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 5/2'de fiilin işlenme zamanı ile netice zamanı ayrımı kontrol edildi."
+  },
+  {
+    "id": "q018",
+    "question": "Bir şeyi yapmamak hangi şartla kabahat sayılabilir?",
+    "expected_articles": ["7"],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 7'de ihmali davranış için hukuki yükümlülük şartı kontrol edildi."
+  },
+  {
+    "id": "q019",
+    "question": "Şirket çalışanının işi sırasında işlediği kabahat yüzünden şirket sahibine de yaptırım uygulanabilir mi?",
+    "expected_articles": ["8"],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 8/1-2'de tüzel kişi, temsil edilen ve iş sahibi sorumluluğu kontrol edildi."
+  },
+  {
+    "id": "q020",
+    "question": "Kişinin yanılmasıyla ilgili ceza hukuku kuralları her kabahatte uygulanır mı?",
+    "expected_articles": ["10"],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 10'da hata hükümlerinin yalnız kasten işlenen kabahatlere uygulanması kontrol edildi."
+  },
+  {
+    "id": "q021",
+    "question": "Bir eşyaya kabahat nedeniyle devletçe el konulup mülkiyetinin alınabilmesi için mutlaka faile ayrıca ceza verilmiş olması gerekir mi?",
+    "expected_articles": ["18"],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 18/1 ve 18/5'te açık kanun hükmü ile ayrı yaptırım şartının aranmaması kontrol edildi."
+  },
+  {
+    "id": "q022",
+    "question": "Kanun cezayı verecek görevliyi açıkça söylemiyorsa idari yaptırım kararını kim verir?",
+    "expected_articles": ["22"],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 22/2'de ilgili kurum veya kuruluşun en üst amirinin yetkisi kontrol edildi."
+  },
+  {
+    "id": "q023",
+    "question": "İdari yaptırım kararı kişiye bildirilirken itiraz edebileceği yer ve süre de yazılmak zorunda mı?",
+    "expected_articles": ["26"],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 26/1'de tebligatta kanun yolu, merci ve sürenin belirtilmesi kontrol edildi."
+  },
+  {
+    "id": "q024",
+    "question": "Kabahate teşebbüs hangi istisnai durumda cezalandırılabilir ve bu durumda hangi hükümler uygulanır?",
+    "expected_articles": ["13"],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 13'te ilgili kanundaki açık hüküm istisnası ve TCK hükümlerine gönderme kontrol edildi."
+  },
+  {
+    "id": "q025",
+    "question": "Tek bir davranış hem suç hem kabahat olarak düzenlenmişse hangi yaptırım uygulanır; suçtan ceza verilemezse ne olur?",
+    "expected_articles": ["15"],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 15/3'te suç-kabahat çakışması ve yaptırım uygulanamaması istisnası kontrol edildi."
+  },
+  {
+    "id": "q026",
+    "question": "İdari para cezası ödeme süresinde ödenirse indirim uygulanır mı ve ödeme itiraz hakkını ortadan kaldırır mı?",
+    "expected_articles": ["17"],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 17/6'da yüzde 25 indirim ve kanun yolunun korunması birlikte kontrol edildi."
+  },
+  {
+    "id": "q027",
+    "question": "Nispi idari para cezasını gerektiren bir kabahatte soruşturma zamanaşımı kaç yıldır?",
+    "expected_articles": ["20"],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 20/3'te nispi para cezaları için sekiz yıllık özel süre kontrol edildi."
+  },
+  {
+    "id": "q028",
+    "question": "Mücbir sebeple on beş günlük başvuru süresi kaçırılırsa ne kadar sürede başvurulabilir ve başvuru kesinleşmeyi durdurur mu?",
+    "expected_articles": ["27"],
+    "case_type": "exception_condition",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 27/2'de yedi günlük ek süre, kesinleşme ve yerine getirmenin durdurulması kontrol edildi."
+  },
+  {
+    "id": "q029",
+    "question": "Kanun yolu başvurusundan vazgeçen kişi aynı konuda yeniden başvurabilir mi?",
+    "expected_articles": ["30"],
+    "case_type": "exception_condition",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 30/1'de karar öncesi vazgeçme ve yeniden başvuru yasağı kontrol edildi."
+  },
+  {
+    "id": "q030",
+    "question": "Kamu binasında sigara içme yasağı, sigara içmek için ayrılmış bölümde de uygulanır mı?",
+    "expected_articles": ["39"],
+    "case_type": "exception_condition",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 39/1'de tütün tüketimine tahsis edilen alan istisnası kontrol edildi."
+  },
+  {
+    "id": "q031",
+    "question": "Çevreyi kirleten kişi kirliliği hemen temizlerse yine de idari para cezası verilmesi zorunlu mudur?",
+    "expected_articles": ["41"],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 41/8'de kirliliğin derhal giderilmesi halinde ceza verilmeyebilmesi kontrol edildi."
+  },
+  {
+    "id": "q032",
+    "question": "İdari yaptırım kararını vermeye kim yetkilidir ve karar tutanağında kişi ile fiil hakkında hangi temel bilgiler bulunmalıdır?",
+    "expected_articles": ["22", "25"],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Yetki Madde 22'den, tutanak içeriği Madde 25'ten doğrudan kontrol edildi."
+  },
+  {
+    "id": "q033",
+    "question": "Bir fiilin soruşturma sırasında veya kovuşturma sırasında kabahat olduğu anlaşılırsa idari yaptırım kararını sırasıyla kim verir?",
+    "expected_articles": ["23", "24"],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Soruşturma aşaması Madde 23, kovuşturma aşaması Madde 24 üzerinden kontrol edildi."
+  },
+  {
+    "id": "q034",
+    "question": "İdari yaptırım kararı nasıl tebliğ edilir ve bu karara karşı olağan başvurunun mercii ile süresi nedir?",
+    "expected_articles": ["26", "27"],
+    "case_type": "multi_part",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Tebliğ usulü Madde 26, sulh ceza başvurusu ve süresi Madde 27'den kontrol edildi."
+  },
+  {
+    "id": "q035",
+    "question": "İdari para cezasını süresinde ödeyen kişi indirimden yararlanıp yine de kanun yoluna başvurabilir mi ve bu başvuru harca tabi midir?",
+    "expected_articles": ["17", "31"],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "İndirim ve başvuru hakkı Madde 17/6, harç kuralı Madde 31/1'den kontrol edildi."
+  },
+  {
+    "id": "q036",
+    "question": "Eşyanın mülkiyetinin kamuya geçirilmesi kararı ne zaman yerine getirilir ve bu karar için yerine getirme zamanaşımı ne kadardır?",
+    "expected_articles": ["18", "21"],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Kesinleşme sonrası yerine getirme Madde 18/8, on yıllık süre Madde 21/3'ten kontrol edildi."
+  },
+  {
+    "id": "q037",
+    "question": "Dilencilik ve kumar kabahatlerinde gelire ne olur ve mülkiyetin kamuya geçirilmesine hangi makamlar karar verir?",
+    "expected_articles": ["33", "34"],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Dilencilik için Madde 33, kumar için Madde 34'te gelir ve yetkili makamlar kontrol edildi."
+  },
+  {
+    "id": "q038",
+    "question": "112'yi kasıtlı biçimde meşgul eden veya asılsız ihbarda bulunan kişi bir yıl içinde aynı fiili tekrarlarsa ceza nasıl uygulanır?",
+    "expected_articles": ["42/A"],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 42/A'nın iki fiili ve bir yıl içinde tekrarda iki kat ceza kuralı kontrol edildi."
+  },
+  {
+    "id": "q039",
+    "question": "Bir şirket yararına rüşvet veya dolandırıcılık işlenirse şirkete ayrıca idari para cezasını hangi mahkeme verebilir?",
+    "expected_articles": ["43/A"],
+    "case_type": "long_tail",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 43/A'da sayılan suçlar, tüzel kişi yararı ve görevli mahkeme kontrol edildi."
+  },
+  {
+    "id": "q040",
+    "question": "Bir banka kendisine verilen paranın sahte olduğunu fark ettiği halde bildirim yapmazsa tüzel kişiye kim idari para cezası verebilir?",
+    "expected_articles": ["43/B"],
+    "case_type": "long_tail",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 43/B'de kapsanan kuruluş, sahte para bildirimi ve savcı yetkisi kontrol edildi."
+  },
+  {
+    "id": "q041",
+    "question": "On sekiz yaşından küçüklerin kapsam dışı bıçakları satın alması veya taşıması yasak mıdır; meslek ya da eğitim için kullanım bu kurala tabi midir?",
+    "expected_articles": ["43/C"],
+    "case_type": "long_tail",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 43/C'de çocuklara ilişkin yasak ile sanat, meslek ve eğitim istisnası kontrol edildi."
+  },
+  {
+    "id": "q042",
+    "question": "Türkiye'de gerçekleşmeyen bir davranışa Kabahatler Kanunu'nun uygulanıp uygulanmayacağı hangi yer kuralına göre belirlenir?",
+    "expected_articles": ["6"],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 6'nın TCK 8 yer kuralına göndermesi ve aksi hüküm istisnası kontrol edildi."
+  },
+  {
+    "id": "q043",
+    "question": "İşyeri kapatma veya ruhsat geri alma gibi süreli yaptırımlar Kabahatler Kanunu yürürlüğe girince kendiliğinden ortadan kalkmış sayılır mı?",
+    "expected_articles": ["19"],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 19'da diğer kanunlardaki belirli süreli yaptırımların geçici olarak saklı tutulması kontrol edildi."
+  },
+  {
+    "id": "q044",
+    "question": "Mahkeme, alt ve üst sınırı kanunda yazılı bir idari para cezasına yapılan başvuruda ceza miktarını değiştirerek karar verebilir mi?",
+    "expected_articles": ["28"],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 28/9'daki miktarı değiştirerek başvuruyu kabul yetkisi kontrol edildi."
+  },
+  {
+    "id": "q045",
+    "question": "Sulh ceza mahkemesinin idari yaptırım başvurusunda verdiği son karara karşı hangi yola, ne kadar sürede gidilebilir?",
+    "expected_articles": ["29"],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 29/1'de CMK itiraz yolu ve tebliğden itibaren iki haftalık süre kontrol edildi."
+  }
+]

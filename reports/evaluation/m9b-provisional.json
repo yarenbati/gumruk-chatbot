@@ -1,0 +1,2894 @@
+{
+  "metadata": {
+    "run_timestamp": "2026-09-03T13:35:06.986758+00:00",
+    "evaluation_question_count": 45,
+    "collection_name": "gumruk_mevzuati",
+    "collection_count_before": 53,
+    "collection_count_after": 53,
+    "embedding_model": "text-embedding-3-small",
+    "llm_model": "gpt-5.6-terra",
+    "top_k": 5,
+    "distance_metric": "l2",
+    "dataset_path": "tests/questions.json + evaluation/questions_m9b.json",
+    "dataset_sha256": "a5aa901d6dfe65969142ed9a028024b93a777338ecab48124dd7f1b380034ba3+a762e2fc892256b23f45bdeca3019eec8a34d8889e9ecf196fe0e4f5ef163130"
+  },
+  "summary": {
+    "total_questions": 45,
+    "completed_questions": 45,
+    "error_count": 0,
+    "expected_article_present_count": 43,
+    "expected_article_present_rate": 0.9555555555555556,
+    "recall_at_1": 0.7777777777777778,
+    "recall_at_3": 0.8888888888888888,
+    "recall_at_5": 0.9555555555555556,
+    "yeterli_count": 40,
+    "yetersiz_count": 5,
+    "answers_with_citations": 45,
+    "expected_article_cited_count": 43,
+    "expected_article_cited_rate": 0.9555555555555556,
+    "requires_priority_review_count": 5,
+    "requires_priority_review_rate": 0.1111111111111111,
+    "human_review_completed_count": 0,
+    "human_review_pending_count": 45,
+    "average_retrieval_latency_ms": 374.0527711110998,
+    "average_generation_latency_ms": 2893.6809133332445,
+    "average_pipeline_latency_ms": 3280.789744444317,
+    "total_embedding_tokens": 1699,
+    "total_generation_input_tokens": 132848,
+    "total_generation_output_tokens": 4937,
+    "total_generation_tokens": 137785,
+    "all_match_at_1": 0.6666666666666666,
+    "all_match_at_3": 0.8444444444444444,
+    "all_match_at_5": 0.8888888888888888,
+    "all_expected_articles_retrieved_count": 40,
+    "all_expected_articles_retrieved_rate": 0.8888888888888888,
+    "all_expected_articles_cited_count": 40,
+    "all_expected_articles_cited_rate": 0.8888888888888888
+  },
+  "m9a_subset_summary": {
+    "total_questions": 15,
+    "completed_questions": 15,
+    "error_count": 0,
+    "expected_article_present_count": 14,
+    "expected_article_present_rate": 0.9333333333333333,
+    "recall_at_1": 0.8,
+    "recall_at_3": 0.8666666666666667,
+    "recall_at_5": 0.9333333333333333,
+    "yeterli_count": 14,
+    "yetersiz_count": 1,
+    "answers_with_citations": 15,
+    "expected_article_cited_count": 14,
+    "expected_article_cited_rate": 0.9333333333333333,
+    "requires_priority_review_count": 1,
+    "requires_priority_review_rate": 0.06666666666666667,
+    "human_review_completed_count": 0,
+    "human_review_pending_count": 15,
+    "average_retrieval_latency_ms": 318.2448599998679,
+    "average_generation_latency_ms": 3386.6775333332043,
+    "average_pipeline_latency_ms": 3714.880293333166,
+    "total_embedding_tokens": 427,
+    "total_generation_input_tokens": 45302,
+    "total_generation_output_tokens": 1816,
+    "total_generation_tokens": 47118,
+    "all_match_at_1": 0.8,
+    "all_match_at_3": 0.8666666666666667,
+    "all_match_at_5": 0.9333333333333333,
+    "all_expected_articles_retrieved_count": 14,
+    "all_expected_articles_retrieved_rate": 0.9333333333333333,
+    "all_expected_articles_cited_count": 14,
+    "all_expected_articles_cited_rate": 0.9333333333333333
+  },
+  "case_type_breakdown": {
+    "ambiguity_resistant": {
+      "total_questions": 4,
+      "completed_questions": 4,
+      "error_count": 0,
+      "expected_article_present_count": 3,
+      "expected_article_present_rate": 0.75,
+      "recall_at_1": 0.5,
+      "recall_at_3": 0.75,
+      "recall_at_5": 0.75,
+      "yeterli_count": 3,
+      "yetersiz_count": 1,
+      "answers_with_citations": 4,
+      "expected_article_cited_count": 3,
+      "expected_article_cited_rate": 0.75,
+      "requires_priority_review_count": 1,
+      "requires_priority_review_rate": 0.25,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 4,
+      "average_retrieval_latency_ms": 236.43470000001798,
+      "average_generation_latency_ms": 2371.471100000008,
+      "average_pipeline_latency_ms": 2624.245949999704,
+      "total_embedding_tokens": 191,
+      "total_generation_input_tokens": 10640,
+      "total_generation_output_tokens": 408,
+      "total_generation_tokens": 11048,
+      "all_match_at_1": 0.5,
+      "all_match_at_3": 0.75,
+      "all_match_at_5": 0.75,
+      "all_expected_articles_retrieved_count": 3,
+      "all_expected_articles_retrieved_rate": 0.75,
+      "all_expected_articles_cited_count": 3,
+      "all_expected_articles_cited_rate": 0.75
+    },
+    "exception_condition": {
+      "total_questions": 8,
+      "completed_questions": 8,
+      "error_count": 0,
+      "expected_article_present_count": 8,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 0.875,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "yeterli_count": 8,
+      "yetersiz_count": 0,
+      "answers_with_citations": 8,
+      "expected_article_cited_count": 8,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 0,
+      "requires_priority_review_rate": 0.0,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 8,
+      "average_retrieval_latency_ms": 217.13135000004513,
+      "average_generation_latency_ms": 2566.64383750001,
+      "average_pipeline_latency_ms": 2798.7227374999293,
+      "total_embedding_tokens": 312,
+      "total_generation_input_tokens": 24419,
+      "total_generation_output_tokens": 701,
+      "total_generation_tokens": 25120,
+      "all_match_at_1": 0.875,
+      "all_match_at_3": 1.0,
+      "all_match_at_5": 1.0,
+      "all_expected_articles_retrieved_count": 8,
+      "all_expected_articles_retrieved_rate": 1.0,
+      "all_expected_articles_cited_count": 8,
+      "all_expected_articles_cited_rate": 1.0
+    },
+    "long_tail": {
+      "total_questions": 4,
+      "completed_questions": 4,
+      "error_count": 0,
+      "expected_article_present_count": 4,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "yeterli_count": 4,
+      "yetersiz_count": 0,
+      "answers_with_citations": 4,
+      "expected_article_cited_count": 4,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 0,
+      "requires_priority_review_rate": 0.0,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 4,
+      "average_retrieval_latency_ms": 270.3309999999419,
+      "average_generation_latency_ms": 2431.3003499999013,
+      "average_pipeline_latency_ms": 2717.516999999816,
+      "total_embedding_tokens": 200,
+      "total_generation_input_tokens": 11235,
+      "total_generation_output_tokens": 407,
+      "total_generation_tokens": 11642,
+      "all_match_at_1": 1.0,
+      "all_match_at_3": 1.0,
+      "all_match_at_5": 1.0,
+      "all_expected_articles_retrieved_count": 4,
+      "all_expected_articles_retrieved_rate": 1.0,
+      "all_expected_articles_cited_count": 4,
+      "all_expected_articles_cited_rate": 1.0
+    },
+    "multi_part": {
+      "total_questions": 6,
+      "completed_questions": 6,
+      "error_count": 0,
+      "expected_article_present_count": 6,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 0.8333333333333334,
+      "recall_at_3": 0.8333333333333334,
+      "recall_at_5": 1.0,
+      "yeterli_count": 3,
+      "yetersiz_count": 3,
+      "answers_with_citations": 6,
+      "expected_article_cited_count": 6,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 3,
+      "requires_priority_review_rate": 0.5,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 6,
+      "average_retrieval_latency_ms": 1086.0643666666572,
+      "average_generation_latency_ms": 3383.2805166663697,
+      "average_pipeline_latency_ms": 4486.221066666833,
+      "total_embedding_tokens": 273,
+      "total_generation_input_tokens": 20304,
+      "total_generation_output_tokens": 970,
+      "total_generation_tokens": 21274,
+      "all_match_at_1": 0.0,
+      "all_match_at_3": 0.5,
+      "all_match_at_5": 0.5,
+      "all_expected_articles_retrieved_count": 3,
+      "all_expected_articles_retrieved_rate": 0.5,
+      "all_expected_articles_cited_count": 3,
+      "all_expected_articles_cited_rate": 0.5
+    },
+    "paraphrase": {
+      "total_questions": 8,
+      "completed_questions": 8,
+      "error_count": 0,
+      "expected_article_present_count": 8,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 0.625,
+      "recall_at_3": 0.875,
+      "recall_at_5": 1.0,
+      "yeterli_count": 8,
+      "yetersiz_count": 0,
+      "answers_with_citations": 8,
+      "expected_article_cited_count": 8,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 0,
+      "requires_priority_review_rate": 0.0,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 8,
+      "average_retrieval_latency_ms": 222.27525000016612,
+      "average_generation_latency_ms": 2421.444812499999,
+      "average_pipeline_latency_ms": 2654.7717499997816,
+      "total_embedding_tokens": 296,
+      "total_generation_input_tokens": 20948,
+      "total_generation_output_tokens": 635,
+      "total_generation_tokens": 21583,
+      "all_match_at_1": 0.625,
+      "all_match_at_3": 0.875,
+      "all_match_at_5": 1.0,
+      "all_expected_articles_retrieved_count": 8,
+      "all_expected_articles_retrieved_rate": 1.0,
+      "all_expected_articles_cited_count": 8,
+      "all_expected_articles_cited_rate": 1.0
+    }
+  },
+  "difficulty_breakdown": {
+    "easy": {
+      "total_questions": 5,
+      "completed_questions": 5,
+      "error_count": 0,
+      "expected_article_present_count": 5,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 0.6,
+      "recall_at_3": 1.0,
+      "recall_at_5": 1.0,
+      "yeterli_count": 5,
+      "yetersiz_count": 0,
+      "answers_with_citations": 5,
+      "expected_article_cited_count": 5,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 0,
+      "requires_priority_review_rate": 0.0,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 5,
+      "average_retrieval_latency_ms": 207.10331999980554,
+      "average_generation_latency_ms": 2319.794819999879,
+      "average_pipeline_latency_ms": 2538.103880000017,
+      "total_embedding_tokens": 178,
+      "total_generation_input_tokens": 13309,
+      "total_generation_output_tokens": 332,
+      "total_generation_tokens": 13641,
+      "all_match_at_1": 0.6,
+      "all_match_at_3": 1.0,
+      "all_match_at_5": 1.0,
+      "all_expected_articles_retrieved_count": 5,
+      "all_expected_articles_retrieved_rate": 1.0,
+      "all_expected_articles_cited_count": 5,
+      "all_expected_articles_cited_rate": 1.0
+    },
+    "hard": {
+      "total_questions": 13,
+      "completed_questions": 13,
+      "error_count": 0,
+      "expected_article_present_count": 12,
+      "expected_article_present_rate": 0.9230769230769231,
+      "recall_at_1": 0.7692307692307693,
+      "recall_at_3": 0.8461538461538461,
+      "recall_at_5": 0.9230769230769231,
+      "yeterli_count": 9,
+      "yetersiz_count": 4,
+      "answers_with_citations": 13,
+      "expected_article_cited_count": 12,
+      "expected_article_cited_rate": 0.9230769230769231,
+      "requires_priority_review_count": 4,
+      "requires_priority_review_rate": 0.3076923076923077,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 13,
+      "average_retrieval_latency_ms": 598.2007000000242,
+      "average_generation_latency_ms": 2692.3504538460224,
+      "average_pipeline_latency_ms": 3306.4461230768266,
+      "total_embedding_tokens": 618,
+      "total_generation_input_tokens": 38468,
+      "total_generation_output_tokens": 1510,
+      "total_generation_tokens": 39978,
+      "all_match_at_1": 0.46153846153846156,
+      "all_match_at_3": 0.6923076923076923,
+      "all_match_at_5": 0.6923076923076923,
+      "all_expected_articles_retrieved_count": 9,
+      "all_expected_articles_retrieved_rate": 0.6923076923076923,
+      "all_expected_articles_cited_count": 9,
+      "all_expected_articles_cited_rate": 0.6923076923076923
+    },
+    "medium": {
+      "total_questions": 12,
+      "completed_questions": 12,
+      "error_count": 0,
+      "expected_article_present_count": 12,
+      "expected_article_present_rate": 1.0,
+      "recall_at_1": 0.8333333333333334,
+      "recall_at_3": 0.9166666666666666,
+      "recall_at_5": 1.0,
+      "yeterli_count": 12,
+      "yetersiz_count": 0,
+      "answers_with_citations": 12,
+      "expected_article_cited_count": 12,
+      "expected_article_cited_rate": 1.0,
+      "requires_priority_review_count": 0,
+      "requires_priority_review_rate": 0.0,
+      "human_review_completed_count": 0,
+      "human_review_pending_count": 12,
+      "average_retrieval_latency_ms": 270.54800833351084,
+      "average_generation_latency_ms": 2734.6623416666866,
+      "average_pipeline_latency_ms": 3019.834591666495,
+      "total_embedding_tokens": 476,
+      "total_generation_input_tokens": 35769,
+      "total_generation_output_tokens": 1279,
+      "total_generation_tokens": 37048,
+      "all_match_at_1": 0.75,
+      "all_match_at_3": 0.9166666666666666,
+      "all_match_at_5": 1.0,
+      "all_expected_articles_retrieved_count": 12,
+      "all_expected_articles_retrieved_rate": 1.0,
+      "all_expected_articles_cited_count": 12,
+      "all_expected_articles_cited_rate": 1.0
+    }
+  },
+  "failure_cases": [
+    {
+      "id": "q002",
+      "question": "Kabahat karşılığı uygulanacak yaptırımın türü, süresi ve miktarı hangi esasla belirlenir?",
+      "expected_articles": [
+        "4"
+      ],
+      "retrieved_articles": [
+        "16",
+        "27",
+        "28",
+        "15",
+        "25"
+      ],
+      "status": "YETERSIZ",
+      "cited_articles": [
+        "16"
+      ]
+    },
+    {
+      "id": "q032",
+      "question": "İdari yaptırım kararını vermeye kim yetkilidir ve karar tutanağında kişi ile fiil hakkında hangi temel bilgiler bulunmalıdır?",
+      "expected_articles": [
+        "22",
+        "25"
+      ],
+      "retrieved_articles": [
+        "25",
+        "27",
+        "26",
+        "28",
+        "24"
+      ],
+      "status": "YETERSIZ",
+      "cited_articles": [
+        "24",
+        "25"
+      ]
+    },
+    {
+      "id": "q033",
+      "question": "Bir fiilin soruşturma sırasında veya kovuşturma sırasında kabahat olduğu anlaşılırsa idari yaptırım kararını sırasıyla kim verir?",
+      "expected_articles": [
+        "23",
+        "24"
+      ],
+      "retrieved_articles": [
+        "27",
+        "15",
+        "20",
+        "24",
+        "28"
+      ],
+      "status": "YETERSIZ",
+      "cited_articles": [
+        "24"
+      ]
+    },
+    {
+      "id": "q035",
+      "question": "İdari para cezasını süresinde ödeyen kişi indirimden yararlanıp yine de kanun yoluna başvurabilir mi ve bu başvuru harca tabi midir?",
+      "expected_articles": [
+        "17",
+        "31"
+      ],
+      "retrieved_articles": [
+        "17",
+        "28",
+        "27",
+        "21",
+        "43/A"
+      ],
+      "status": "YETERSIZ",
+      "cited_articles": [
+        "17",
+        "27"
+      ]
+    },
+    {
+      "id": "q042",
+      "question": "Türkiye'de gerçekleşmeyen bir davranışa Kabahatler Kanunu'nun uygulanıp uygulanmayacağı hangi yer kuralına göre belirlenir?",
+      "expected_articles": [
+        "6"
+      ],
+      "retrieved_articles": [
+        "7",
+        "5",
+        "1",
+        "10",
+        "2"
+      ],
+      "status": "YETERSIZ",
+      "cited_articles": [
+        "7",
+        "5"
+      ]
+    }
+  ],
+  "results": [
+    {
+      "id": "q001",
+      "question": "Kabahat nedir?",
+      "expected_articles": [
+        "2"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "7",
+        "1",
+        "14",
+        "2",
+        "9"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-7-chunk-001",
+        "5326-madde-1-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-2-chunk-001",
+        "5326-madde-9-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 4,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahat, kanunun karşılığında idarî yaptırım uygulanmasını öngördüğü haksızlıktır. [KAYNAK 4]",
+      "cited_articles": [
+        "2"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 7,
+      "generation_input_tokens": 1552,
+      "generation_output_tokens": 49,
+      "generation_total_tokens": 1601,
+      "retrieval_latency_ms": 1414.4766999997955,
+      "generation_latency_ms": 2483.4843999997247,
+      "pipeline_latency_ms": 3908.578800000214,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q002",
+      "question": "Kabahat karşılığı uygulanacak yaptırımın türü, süresi ve miktarı hangi esasla belirlenir?",
+      "expected_articles": [
+        "4"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "16",
+        "27",
+        "28",
+        "15",
+        "25"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-16-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-25-chunk-001"
+      ],
+      "expected_article_present": false,
+      "first_expected_rank": null,
+      "all_expected_articles_retrieved": false,
+      "status": "YETERSIZ",
+      "insufficient_context": true,
+      "answer": "Kaynaklar, kabahatler için idarî para cezası ve idarî tedbir uygulanabileceğini; idarî tedbirlerin mülkiyetin kamuya geçirilmesi ile ilgili kanunlardaki diğer tedbirlerden oluştuğunu belirtmektedir. [KAYNAK 1] Ancak yaptırımın türü, süresi ve miktarının hangi esaslara göre belirleneceğine ilişkin bir düzenleme sağlanan kaynaklarda yer almamaktadır.",
+      "cited_articles": [
+        "16"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": false,
+      "all_expected_articles_cited": false,
+      "embedding_tokens": 38,
+      "generation_input_tokens": 2899,
+      "generation_output_tokens": 113,
+      "generation_total_tokens": 3012,
+      "retrieval_latency_ms": 217.3915000003035,
+      "generation_latency_ms": 4332.683199999337,
+      "pipeline_latency_ms": 4560.660899999675,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": true,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q003",
+      "question": "Bir kabahatin kasten veya taksirle işlenmesi nasıl düzenlenmiştir?",
+      "expected_articles": [
+        "9"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "9",
+        "41",
+        "39",
+        "43/A",
+        "15"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-9-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-39-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-15-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahatler, kanunda açıkça aksi yönde bir hüküm bulunmadıkça hem kasten hem de taksirle işlenebilir. [KAYNAK 1]",
+      "cited_articles": [
+        "9"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 25,
+      "generation_input_tokens": 2870,
+      "generation_output_tokens": 54,
+      "generation_total_tokens": 2924,
+      "retrieval_latency_ms": 207.06179999979213,
+      "generation_latency_ms": 8915.768799999569,
+      "pipeline_latency_ms": 9133.377299999665,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q004",
+      "question": "Onbeş yaşını doldurmamış çocuk hakkında idarî para cezası uygulanabilir mi?",
+      "expected_articles": [
+        "11"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "11",
+        "21",
+        "20",
+        "43/A",
+        "3"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-11-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-20-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-gecici-madde-3-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Fiili işlediği sırada onbeş yaşını doldurmamış çocuk hakkında idarî para cezası uygulanamaz. [KAYNAK 1]",
+      "cited_articles": [
+        "11"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 29,
+      "generation_input_tokens": 2680,
+      "generation_output_tokens": 53,
+      "generation_total_tokens": 2733,
+      "retrieval_latency_ms": 176.12060000010388,
+      "generation_latency_ms": 2898.779899999681,
+      "pipeline_latency_ms": 3086.383599999863,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q005",
+      "question": "Hukuka uygunluk nedenleri ve kusurluluğu ortadan kaldıran nedenlerde hangi hükümler uygulanır?",
+      "expected_articles": [
+        "12"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "12",
+        "19",
+        "28",
+        "27",
+        "5"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-12-chunk-001",
+        "5326-madde-19-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-5-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahatler bakımından, Kanunda aksine bir hüküm bulunmayan hâllerde Türk Ceza Kanununun hukuka uygunluk nedenleri ile kusurluluğu ortadan kaldıran nedenlere ilişkin hükümleri uygulanır. [KAYNAK 1]",
+      "cited_articles": [
+        "12"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 39,
+      "generation_input_tokens": 2808,
+      "generation_output_tokens": 72,
+      "generation_total_tokens": 2880,
+      "retrieval_latency_ms": 176.709800000026,
+      "generation_latency_ms": 1880.4761000001236,
+      "pipeline_latency_ms": 2066.431199999897,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q006",
+      "question": "Kabahate teşebbüs cezalandırılır mı?",
+      "expected_articles": [
+        "13"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "13",
+        "14",
+        "37",
+        "43/A",
+        "36"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-13-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-37-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-36-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kural olarak kabahate teşebbüs cezalandırılmaz. Ancak ilgili kanunda teşebbüsün de cezalandırılacağına ilişkin hüküm varsa teşebbüs cezalandırılabilir; bu durumda Türk Ceza Kanununun suça teşebbüs ve gönüllü vazgeçmeye ilişkin hükümleri kabahatler bakımından da uygulanır. [KAYNAK 1]",
+      "cited_articles": [
+        "13"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 18,
+      "generation_input_tokens": 2203,
+      "generation_output_tokens": 99,
+      "generation_total_tokens": 2302,
+      "retrieval_latency_ms": 533.676000000014,
+      "generation_latency_ms": 2472.69150000011,
+      "pipeline_latency_ms": 3016.558000000259,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q007",
+      "question": "Bir kabahatin işlenmesine birden fazla kişi katılırsa sorumluluk nasıl belirlenir?",
+      "expected_articles": [
+        "14"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "14",
+        "8",
+        "41",
+        "43/A",
+        "7"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-14-chunk-001",
+        "5326-madde-8-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-7-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Bir kabahatin işlenişine birden fazla kişinin katılması hâlinde, katılanların her biri hakkında fail olarak idarî para cezası verilir. [KAYNAK 1]\n\nÖzel faillik niteliği aranan hâllerde, bu niteliği taşımayan iştirakçi hakkında da fail olarak idarî para cezası uygulanır. İştirak için kasten ve hukuka aykırı işlenmiş bir fiilin bulunması yeterlidir; iştirak eden kişinin cezası, diğer kişilerin sorumlu olup olmadığına bakılmaksızın verilir. [KAYNAK 1]\n\nAncak özel faillik niteliğini taşıyan kişi yönünden suç, diğer kişiler yönünden kabahat sayılan bir fiil bu kişilerce birlikte işlenirse, suça iştirake ilişkin hükümler uygulanır. [KAYNAK 1]",
+      "cited_articles": [
+        "14"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 29,
+      "generation_input_tokens": 2845,
+      "generation_output_tokens": 201,
+      "generation_total_tokens": 3046,
+      "retrieval_latency_ms": 185.03400000008696,
+      "generation_latency_ms": 3951.813399999992,
+      "pipeline_latency_ms": 4146.948399999928,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q008",
+      "question": "Aynı fiille birden fazla kabahat işlenirse idarî yaptırım nasıl belirlenir?",
+      "expected_articles": [
+        "15"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "15",
+        "27",
+        "28",
+        "25",
+        "16"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-15-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-25-chunk-001",
+        "5326-madde-16-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Bir fiille birden fazla kabahat işlenmiş ve ilgili kabahatler için yalnız idarî para cezası öngörülmüşse, en ağır idarî para cezası verilir. Para cezasına ek olarak başka idarî yaptırımlar da öngörülmüşse, bu yaptırımların her birinin uygulanmasına karar verilir. [KAYNAK 1]",
+      "cited_articles": [
+        "15"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 29,
+      "generation_input_tokens": 2897,
+      "generation_output_tokens": 100,
+      "generation_total_tokens": 2997,
+      "retrieval_latency_ms": 194.99209999958111,
+      "generation_latency_ms": 2504.539599999589,
+      "pipeline_latency_ms": 2709.3631999996433,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q009",
+      "question": "Kabahatler karşılığında uygulanabilecek idarî yaptırım türleri nelerdir?",
+      "expected_articles": [
+        "16"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "16",
+        "27",
+        "25",
+        "28",
+        "17"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-16-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-25-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-17-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahatler karşılığında uygulanabilecek idarî yaptırımlar, idarî para cezası ve idarî tedbirlerdir. İdarî tedbirler; mülkiyetin kamuya geçirilmesi ile ilgili kanunlarda yer alan diğer tedbirleri kapsar. [KAYNAK 1]",
+      "cited_articles": [
+        "16"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 29,
+      "generation_input_tokens": 3621,
+      "generation_output_tokens": 82,
+      "generation_total_tokens": 3703,
+      "retrieval_latency_ms": 251.5112000000954,
+      "generation_latency_ms": 2439.442699999745,
+      "pipeline_latency_ms": 2700.1510000000053,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q010",
+      "question": "İdarî para cezasının türleri ve ceza miktarının belirlenmesinde dikkate alınacak ölçütler nelerdir?",
+      "expected_articles": [
+        "17"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "17",
+        "28",
+        "27",
+        "43/A",
+        "20"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-17-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-20-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "İdarî para cezası maktu veya nispi olabilir. Ayrıca kanunda alt ve üst sınır gösterilerek de belirlenebilir. [KAYNAK 1]\n\nKanunda alt ve üst sınır öngörülmüşse ceza miktarı belirlenirken kabahatin haksızlık içeriği, failin kusuru ve ekonomik durumu birlikte dikkate alınır. [KAYNAK 1]",
+      "cited_articles": [
+        "17"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 36,
+      "generation_input_tokens": 4564,
+      "generation_output_tokens": 107,
+      "generation_total_tokens": 4671,
+      "retrieval_latency_ms": 201.8023999999059,
+      "generation_latency_ms": 3248.085400000491,
+      "pipeline_latency_ms": 3459.0330000000904,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q011",
+      "question": "Kabahatlerde soruşturma zamanaşımı süresi nasıl belirlenir?",
+      "expected_articles": [
+        "20"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "20",
+        "21",
+        "5",
+        "27",
+        "23"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-20-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-5-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-23-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Soruşturma zamanaşımı, kabahat için öngörülen idarî para cezasının tutarına göre belirlenir: 100.000 TL veya daha fazla ceza gerektiren kabahatlerde 5 yıl, 50.000 TL veya daha fazla ceza gerektirenlerde 4 yıl, 50.000 TL’den az ceza gerektirenlerde 3 yıldır. Nispî idarî para cezasını gerektiren kabahatlerde süre 8 yıldır. [KAYNAK 1]\n\nSüre, kabahat tanımındaki fiilin işlenmesiyle veya neticenin gerçekleşmesiyle işlemeye başlar. Fiil aynı zamanda suç oluşturuyorsa, suça ilişkin dava zamanaşımı hükümleri uygulanır. Soruşturma zamanaşımı dolduğunda idarî para cezasına karar verilemez. [KAYNAK 1]\n\nBelirtilen bazı özel kanunlardaki idarî para cezası gerektiren fiiller bakımından ise, fiilin işlendiği tarihi izleyen takvim yılının sonuna kadar idarî para cezası verilerek tebliğ edilmezse idarî yaptırım kararı verilemez; verilmiş kararlar düşer. [KAYNAK 1]",
+      "cited_articles": [
+        "20"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 25,
+      "generation_input_tokens": 2748,
+      "generation_output_tokens": 290,
+      "generation_total_tokens": 3038,
+      "retrieval_latency_ms": 201.00239999919722,
+      "generation_latency_ms": 4166.147099999762,
+      "pipeline_latency_ms": 4377.146899999389,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q012",
+      "question": "Kesinleşen idarî yaptırım kararlarının yerine getirilmesinde zamanaşımı nasıl düzenlenmiştir?",
+      "expected_articles": [
+        "21"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "21",
+        "26",
+        "27",
+        "25",
+        "28"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-21-chunk-001",
+        "5326-madde-26-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-25-chunk-001",
+        "5326-madde-28-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kesinleşen idarî para cezası veya mülkiyetin kamuya geçirilmesi kararları, yerine getirme zamanaşımı dolduğunda artık yerine getirilemez. [KAYNAK 1]\n\nİdarî para cezalarında süre; 50.000 TL ve üzeri için 7 yıl, 20.000 TL ve üzeri için 5 yıl, 10.000 TL ve üzeri için 4 yıl, 10.000 TL’den az cezalar için 3 yıldır. Mülkiyetin kamuya geçirilmesinde süre 10 yıldır. [KAYNAK 1]\n\nSüre, kararın kesinleştiği yılı izleyen takvim yılının başında işlemeye başlar. Kanun gereği yaptırımın yerine getirilmesine başlanamaması veya yerine getirilememesi hâlinde zamanaşımı işlemez. [KAYNAK 1]",
+      "cited_articles": [
+        "21"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 37,
+      "generation_input_tokens": 3253,
+      "generation_output_tokens": 211,
+      "generation_total_tokens": 3464,
+      "retrieval_latency_ms": 191.22989999959827,
+      "generation_latency_ms": 3713.3856999998898,
+      "pipeline_latency_ms": 3914.3999999996595,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q013",
+      "question": "İdarî yaptırım kararına ilişkin tutanakta hangi bilgilerin bulunması gerekir?",
+      "expected_articles": [
+        "25"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "25",
+        "27",
+        "26",
+        "28",
+        "16"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-25-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-26-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-16-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "İdarî yaptırım kararına ilişkin tutanakta açıkça şunlar yazılır:  \n- Hakkında idarî yaptırım kararı verilen kişinin kimlik ve adresi,  \n- Karar verilmesini gerektiren kabahat fiili,  \n- Fiilin işlendiğini ispata yarayacak bütün deliller,  \n- Karar tarihi ile kararı veren kamu görevlilerinin kimliği. [KAYNAK 1]\n\nAyrıca kabahati oluşturan fiil; işlendiği yer ve zaman gösterilerek açıklanır. [KAYNAK 1]",
+      "cited_articles": [
+        "25"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 30,
+      "generation_input_tokens": 3042,
+      "generation_output_tokens": 142,
+      "generation_total_tokens": 3184,
+      "retrieval_latency_ms": 186.04189999950904,
+      "generation_latency_ms": 2776.873499999965,
+      "pipeline_latency_ms": 2972.2397999994428,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q014",
+      "question": "İdarî para cezasına karşı hangi sürede ve nereye başvurulabilir?",
+      "expected_articles": [
+        "27"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "17",
+        "27",
+        "28",
+        "3",
+        "20"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-17-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-gecici-madde-3-chunk-001",
+        "5326-madde-20-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 2,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "İdarî para cezasına karşı, kararın tebliği veya tefhimi tarihinden itibaren en geç onbeş gün içinde sulh ceza mahkemesine başvurulabilir. Bu sürede başvuru yapılmazsa idarî yaptırım kararı kesinleşir. [KAYNAK 2]\n\nMücbir sebep nedeniyle süre kaçırılmışsa, mücbir sebebin ortadan kalktığı tarihten itibaren en geç yedi gün içinde başvuru yapılabilir. [KAYNAK 2]",
+      "cited_articles": [
+        "27"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 23,
+      "generation_input_tokens": 4004,
+      "generation_output_tokens": 131,
+      "generation_total_tokens": 4135,
+      "retrieval_latency_ms": 424.32629999984783,
+      "generation_latency_ms": 2532.5941999999486,
+      "pipeline_latency_ms": 2966.6465000000244,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q015",
+      "question": "Yetkili makamın hukuka uygun olarak verdiği emre aykırı davranmanın yaptırımı nedir?",
+      "expected_articles": [
+        "32"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "32",
+        "37",
+        "41",
+        "27",
+        "28"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-32-chunk-001",
+        "5326-madde-37-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Yetkili makamların adlî işlemler nedeniyle veya kamu güvenliği, kamu düzeni ya da genel sağlığın korunması amacıyla hukuka uygun olarak verdiği emre aykırı hareket eden kişiye 100 Türk Lirası idarî para cezası verilir. Bu cezaya emri veren makam karar verir. Ancak bu hüküm, ilgili kanunda açıkça hüküm bulunan hâllerde uygulanabilir. [KAYNAK 1]",
+      "cited_articles": [
+        "32"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 33,
+      "generation_input_tokens": 3316,
+      "generation_output_tokens": 112,
+      "generation_total_tokens": 3428,
+      "retrieval_latency_ms": 212.29630000016186,
+      "generation_latency_ms": 2483.3975000001374,
+      "pipeline_latency_ms": 2705.2857999997286,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q016",
+      "question": "Kabahatler Kanunu'nun genel kuralları başka kanunlardaki idari para cezalarına hangi durumda uygulanır?",
+      "expected_articles": [
+        "3"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "3",
+        "3",
+        "15",
+        "28",
+        "1"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-3-chunk-001",
+        "5326-gecici-madde-3-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-1-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahatler Kanunu’nun kanun yoluna ilişkin hükümleri, diğer kanunlarda aksine hüküm yoksa uygulanır. Diğer genel hükümleri ise idari para cezası veya mülkiyetin kamuya geçirilmesi yaptırımını gerektiren bütün fiiller hakkında uygulanır. [KAYNAK 1]",
+      "cited_articles": [
+        "3"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 38,
+      "generation_input_tokens": 2428,
+      "generation_output_tokens": 87,
+      "generation_total_tokens": 2515,
+      "retrieval_latency_ms": 328.7791000002471,
+      "generation_latency_ms": 2824.410000000171,
+      "pipeline_latency_ms": 3163.2204000006823,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q017",
+      "question": "Bir kabahat, davranışın yapıldığı anda mı yoksa sonucu ortaya çıktığında mı işlenmiş sayılır?",
+      "expected_articles": [
+        "5"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "5",
+        "7",
+        "2",
+        "14",
+        "20"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-5-chunk-001",
+        "5326-madde-7-chunk-001",
+        "5326-madde-2-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-20-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahat, failin icraî veya ihmali davranışı gerçekleştirdiği anda işlenmiş sayılır; neticenin ortaya çıktığı zaman bu açıdan dikkate alınmaz. [KAYNAK 1]",
+      "cited_articles": [
+        "5"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 38,
+      "generation_input_tokens": 2025,
+      "generation_output_tokens": 61,
+      "generation_total_tokens": 2086,
+      "retrieval_latency_ms": 200.1460000001316,
+      "generation_latency_ms": 2118.7196999999287,
+      "pipeline_latency_ms": 2328.90370000041,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q018",
+      "question": "Bir şeyi yapmamak hangi şartla kabahat sayılabilir?",
+      "expected_articles": [
+        "7"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "7",
+        "14",
+        "2",
+        "41",
+        "15"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-7-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-2-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-15-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Bir şeyi yapmamak, kişi açısından belli bir icraî davranışta bulunmaya yönelik hukukî bir yükümlülük varsa ihmali davranışla işlenmiş kabahat sayılabilir. Kabahat, kanunun karşılığında idarî yaptırım öngördüğü haksızlıktır. [KAYNAK 1] [KAYNAK 3]",
+      "cited_articles": [
+        "7",
+        "2"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 21,
+      "generation_input_tokens": 2209,
+      "generation_output_tokens": 95,
+      "generation_total_tokens": 2304,
+      "retrieval_latency_ms": 220.8972000007634,
+      "generation_latency_ms": 2817.3752000002423,
+      "pipeline_latency_ms": 3047.4750999992466,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q019",
+      "question": "Şirket çalışanının işi sırasında işlediği kabahat yüzünden şirket sahibine de yaptırım uygulanabilir mi?",
+      "expected_articles": [
+        "8"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "8",
+        "27",
+        "16",
+        "15",
+        "14"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-8-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-16-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-14-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Evet. Gerçek kişiye ait bir işte çalışan kişinin, iş faaliyeti çerçevesinde işlediği kabahat nedeniyle iş sahibi kişi hakkında da idarî yaptırım uygulanabilir. İdarî yaptırımlar idarî para cezası veya idarî tedbir olabilir. [KAYNAK 1] [KAYNAK 3]",
+      "cited_articles": [
+        "8",
+        "16"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 41,
+      "generation_input_tokens": 2415,
+      "generation_output_tokens": 92,
+      "generation_total_tokens": 2507,
+      "retrieval_latency_ms": 194.5560000003752,
+      "generation_latency_ms": 2771.5137999994113,
+      "pipeline_latency_ms": 2975.1024999995934,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q020",
+      "question": "Kişinin yanılmasıyla ilgili ceza hukuku kuralları her kabahatte uygulanır mı?",
+      "expected_articles": [
+        "10"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "5",
+        "12",
+        "28",
+        "10",
+        "20"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-5-chunk-001",
+        "5326-madde-12-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-10-chunk-001",
+        "5326-madde-20-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 4,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Türk Ceza Kanununun hata hallerine ilişkin hükümleri, kabahatler bakımından yalnızca kasten işlenen kabahatlerde uygulanır. [KAYNAK 4]",
+      "cited_articles": [
+        "10"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 29,
+      "generation_input_tokens": 2611,
+      "generation_output_tokens": 58,
+      "generation_total_tokens": 2669,
+      "retrieval_latency_ms": 215.22389999972802,
+      "generation_latency_ms": 1659.1733000004751,
+      "pipeline_latency_ms": 1887.3199999998178,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q021",
+      "question": "Bir eşyaya kabahat nedeniyle devletçe el konulup mülkiyetinin alınabilmesi için mutlaka faile ayrıca ceza verilmiş olması gerekir mi?",
+      "expected_articles": [
+        "18"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "18",
+        "14",
+        "27",
+        "41",
+        "15"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-18-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-15-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Eşyanın mülkiyetinin kamuya geçirilmesine karar verilebilmesi için fail hakkında idarî para cezası veya başka bir idarî yaptırım kararı verilmiş olması şart değildir. Ancak bu karara, kabahatin konusunu oluşturan ya da işlenmesiyle elde edilen eşya bakımından, kanunda açık hüküm bulunan hâllerde karar verilebilir. [KAYNAK 1]",
+      "cited_articles": [
+        "18"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 54,
+      "generation_input_tokens": 3086,
+      "generation_output_tokens": 109,
+      "generation_total_tokens": 3195,
+      "retrieval_latency_ms": 211.01960000032705,
+      "generation_latency_ms": 2754.8385000000053,
+      "pipeline_latency_ms": 2981.458599999314,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q022",
+      "question": "Kanun cezayı verecek görevliyi açıkça söylemiyorsa idari yaptırım kararını kim verir?",
+      "expected_articles": [
+        "22"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "25",
+        "26",
+        "22",
+        "27",
+        "43/A"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-25-chunk-001",
+        "5326-madde-26-chunk-001",
+        "5326-madde-22-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-43-a-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 3,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kanunda açık hüküm bulunmayan hâllerde, idarî yaptırım kararını ilgili kamu kurum ve kuruluşunun en üst amiri verir. [KAYNAK 3]",
+      "cited_articles": [
+        "22"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 35,
+      "generation_input_tokens": 2989,
+      "generation_output_tokens": 54,
+      "generation_total_tokens": 3043,
+      "retrieval_latency_ms": 214.8164000000179,
+      "generation_latency_ms": 2628.578599999855,
+      "pipeline_latency_ms": 2854.2540999997073,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q023",
+      "question": "İdari yaptırım kararı kişiye bildirilirken itiraz edebileceği yer ve süre de yazılmak zorunda mı?",
+      "expected_articles": [
+        "26"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "29",
+        "27",
+        "26",
+        "25",
+        "28"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-29-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-26-chunk-001",
+        "5326-madde-25-chunk-001",
+        "5326-madde-28-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 3,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Evet. İdarî yaptırım kararı kişiye tebliğ edilirken, tebligat metninde karara karşı başvurulabilecek kanun yolu, başvuru mercii ve başvuru süresi açıkça belirtilmek zorundadır. [KAYNAK 3]",
+      "cited_articles": [
+        "26"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 40,
+      "generation_input_tokens": 3185,
+      "generation_output_tokens": 79,
+      "generation_total_tokens": 3264,
+      "retrieval_latency_ms": 192.7637999997387,
+      "generation_latency_ms": 1796.949399999903,
+      "pipeline_latency_ms": 2000.4395999994813,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q024",
+      "question": "Kabahate teşebbüs hangi istisnai durumda cezalandırılabilir ve bu durumda hangi hükümler uygulanır?",
+      "expected_articles": [
+        "13"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "13",
+        "14",
+        "43/A",
+        "41",
+        "37"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-13-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-37-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Kabahate teşebbüs kural olarak cezalandırılmaz. Ancak, ilgili kanunda teşebbüsün de cezalandırılabileceğine ilişkin hüküm bulunması istisnasında cezalandırılabilir. Bu durumda Türk Ceza Kanununun suça teşebbüs ve gönüllü vazgeçmeye ilişkin hükümleri kabahatler bakımından da uygulanır. [KAYNAK 1]",
+      "cited_articles": [
+        "13"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 41,
+      "generation_input_tokens": 2694,
+      "generation_output_tokens": 102,
+      "generation_total_tokens": 2796,
+      "retrieval_latency_ms": 218.4251000007862,
+      "generation_latency_ms": 2876.5082999998413,
+      "pipeline_latency_ms": 3113.6200999999346,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q025",
+      "question": "Tek bir davranış hem suç hem kabahat olarak düzenlenmişse hangi yaptırım uygulanır; suçtan ceza verilemezse ne olur?",
+      "expected_articles": [
+        "15"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "43/A",
+        "15",
+        "27",
+        "28",
+        "14"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-14-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 2,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Tek bir fiil hem kabahat hem suç olarak tanımlanmışsa, yalnız suç nedeniyle yaptırım uygulanır. Suç nedeniyle yaptırım uygulanamayan hâllerde ise kabahat nedeniyle yaptırım uygulanır. [KAYNAK 2]",
+      "cited_articles": [
+        "15"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 43,
+      "generation_input_tokens": 3546,
+      "generation_output_tokens": 68,
+      "generation_total_tokens": 3614,
+      "retrieval_latency_ms": 192.9150000005393,
+      "generation_latency_ms": 2684.938900000816,
+      "pipeline_latency_ms": 2893.896499999755,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q026",
+      "question": "İdari para cezası ödeme süresinde ödenirse indirim uygulanır mı ve ödeme itiraz hakkını ortadan kaldırır mı?",
+      "expected_articles": [
+        "17"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "17",
+        "28",
+        "27",
+        "29",
+        "21"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-17-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-29-chunk-001",
+        "5326-madde-21-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "İdari para cezası, ödeme süresi içinde ödenirse cezada %25 indirim uygulanır. Kanunda ödeme süresi düzenlenmemiş cezalar ise tebliğden itibaren bir ay içinde ödenir. [KAYNAK 1]\n\nÖdeme yapılması, karara karşı kanun yoluna başvurma hakkını ortadan kaldırmaz. İdari para cezasına karşı kural olarak tebliğ veya tefhimden itibaren en geç 15 gün içinde sulh ceza mahkemesine başvurulabilir. [KAYNAK 1] [KAYNAK 3]",
+      "cited_articles": [
+        "17",
+        "27"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 43,
+      "generation_input_tokens": 3914,
+      "generation_output_tokens": 150,
+      "generation_total_tokens": 4064,
+      "retrieval_latency_ms": 244.528100000025,
+      "generation_latency_ms": 2752.086899999995,
+      "pipeline_latency_ms": 3012.7625000004628,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q027",
+      "question": "Nispi idari para cezasını gerektiren bir kabahatte soruşturma zamanaşımı kaç yıldır?",
+      "expected_articles": [
+        "20"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "20",
+        "3",
+        "21",
+        "28",
+        "27"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-20-chunk-001",
+        "5326-gecici-madde-3-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Nispi idarî para cezasını gerektiren kabahatlerde soruşturma zamanaşımı süresi sekiz yıldır. [KAYNAK 1]",
+      "cited_articles": [
+        "20"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 32,
+      "generation_input_tokens": 3350,
+      "generation_output_tokens": 53,
+      "generation_total_tokens": 3403,
+      "retrieval_latency_ms": 247.79519999992772,
+      "generation_latency_ms": 1879.7389999999723,
+      "pipeline_latency_ms": 2140.8810999992056,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q028",
+      "question": "Mücbir sebeple on beş günlük başvuru süresi kaçırılırsa ne kadar sürede başvurulabilir ve başvuru kesinleşmeyi durdurur mu?",
+      "expected_articles": [
+        "27"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "27",
+        "28",
+        "21",
+        "30",
+        "29"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-30-chunk-001",
+        "5326-madde-29-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Mücbir sebep nedeniyle on beş günlük süre geçirilmişse, mücbir sebebin ortadan kalktığı tarihten itibaren en geç yedi gün içinde başvuru yapılabilir. [KAYNAK 1]\n\nBu başvuru idarî yaptırım kararının kesinleşmesini engellemez; ancak mahkeme yerine getirmeyi durdurabilir. [KAYNAK 1]",
+      "cited_articles": [
+        "27"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 49,
+      "generation_input_tokens": 3074,
+      "generation_output_tokens": 104,
+      "generation_total_tokens": 3178,
+      "retrieval_latency_ms": 206.80439999978262,
+      "generation_latency_ms": 2994.471699999849,
+      "pipeline_latency_ms": 3216.448700000001,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q029",
+      "question": "Kanun yolu başvurusundan vazgeçen kişi aynı konuda yeniden başvurabilir mi?",
+      "expected_articles": [
+        "30"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "30",
+        "29",
+        "31",
+        "27",
+        "3"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-30-chunk-001",
+        "5326-madde-29-chunk-001",
+        "5326-madde-31-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-gecici-madde-3-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Kanun yolu başvurusundan vazgeçilmesi hâlinde, aynı konuda yeniden başvuruda bulunulamaz. Vazgeçme, bu konuda karar verilinceye kadar mümkündür. [KAYNAK 1]",
+      "cited_articles": [
+        "30"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 30,
+      "generation_input_tokens": 2147,
+      "generation_output_tokens": 67,
+      "generation_total_tokens": 2214,
+      "retrieval_latency_ms": 231.2337999992451,
+      "generation_latency_ms": 2408.5345000003144,
+      "pipeline_latency_ms": 2652.711400000044,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q030",
+      "question": "Kamu binasında sigara içme yasağı, sigara içmek için ayrılmış bölümde de uygulanır mı?",
+      "expected_articles": [
+        "39"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "39",
+        "43/C",
+        "42",
+        "41",
+        "43"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-39-chunk-001",
+        "5326-madde-43-c-chunk-001",
+        "5326-madde-42-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-43-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Kamu hizmet binalarının kapalı alanlarında tütün mamulü tüketimine ilişkin idarî para cezası hükmü, tütün mamulü tüketilmesine tahsis edilen alanlarda uygulanmaz. [KAYNAK 1]",
+      "cited_articles": [
+        "39"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 35,
+      "generation_input_tokens": 2963,
+      "generation_output_tokens": 71,
+      "generation_total_tokens": 3034,
+      "retrieval_latency_ms": 196.5565999998944,
+      "generation_latency_ms": 2646.191899999394,
+      "pipeline_latency_ms": 2854.2106000004424,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q031",
+      "question": "Çevreyi kirleten kişi kirliliği hemen temizlerse yine de idari para cezası verilmesi zorunlu mudur?",
+      "expected_articles": [
+        "41"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "41",
+        "36",
+        "43/A",
+        "32",
+        "33"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-41-chunk-001",
+        "5326-madde-36-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-32-chunk-001",
+        "5326-madde-33-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Bu kabahatler nedeniyle oluşan kirlilik kişinin derhal gidermesi hâlinde idari para cezasına karar verilmeyebilir. Bu nedenle, derhal temizlik yapılmış olması ceza verilmesini zorunlu kılmaz; ceza verilmemesi mümkündür. [KAYNAK 1]",
+      "cited_articles": [
+        "41"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 39,
+      "generation_input_tokens": 2731,
+      "generation_output_tokens": 86,
+      "generation_total_tokens": 2817,
+      "retrieval_latency_ms": 198.79260000016075,
+      "generation_latency_ms": 2290.6794999998965,
+      "pipeline_latency_ms": 2505.250999999589,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q032",
+      "question": "İdari yaptırım kararını vermeye kim yetkilidir ve karar tutanağında kişi ile fiil hakkında hangi temel bilgiler bulunmalıdır?",
+      "expected_articles": [
+        "22",
+        "25"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "25",
+        "27",
+        "26",
+        "28",
+        "24"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-25-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-26-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-24-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": false,
+      "status": "YETERSIZ",
+      "insufficient_context": true,
+      "answer": "Sağlanan kaynaklar, idarî yaptırım kararını verme yetkisinin genel olarak hangi kişi veya makamda olduğunu tam biçimde düzenlememektedir. Ancak kovuşturma konusu fiilin kabahat olduğunun anlaşılması hâlinde idarî yaptırım kararını mahkeme verir. [KAYNAK 5]\n\nKarar tutanağında; yaptırım uygulanan kişinin kimliği ve adresi, yaptırımı gerektiren kabahat fiili, fiilin işlendiğini ispata yarayan bütün deliller, karar tarihi ve kararı veren kamu görevlilerinin kimliği açıkça yer almalıdır. Ayrıca kabahati oluşturan fiil; işlendiği yer ve zaman gösterilerek açıklanmalıdır. [KAYNAK 1]",
+      "cited_articles": [
+        "24",
+        "25"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": false,
+      "embedding_tokens": 46,
+      "generation_input_tokens": 3023,
+      "generation_output_tokens": 218,
+      "generation_total_tokens": 3241,
+      "retrieval_latency_ms": 229.46050000064133,
+      "generation_latency_ms": 4057.626299999356,
+      "pipeline_latency_ms": 4298.991300000125,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": true,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q033",
+      "question": "Bir fiilin soruşturma sırasında veya kovuşturma sırasında kabahat olduğu anlaşılırsa idari yaptırım kararını sırasıyla kim verir?",
+      "expected_articles": [
+        "23",
+        "24"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "27",
+        "15",
+        "20",
+        "24",
+        "28"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-27-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-20-chunk-001",
+        "5326-madde-24-chunk-001",
+        "5326-madde-28-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 4,
+      "all_expected_articles_retrieved": false,
+      "status": "YETERSIZ",
+      "insufficient_context": true,
+      "answer": "Kovuşturma konusu fiilin kabahat oluşturduğunun anlaşılması hâlinde idarî yaptırım kararını mahkeme verir. [KAYNAK 4] Soruşturma sırasında fiilin kabahat olduğunun anlaşılması hâlinde kararı kimin vereceği, sağlanan kaynaklarda açıkça düzenlenmemiştir.",
+      "cited_articles": [
+        "24"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": false,
+      "embedding_tokens": 51,
+      "generation_input_tokens": 3241,
+      "generation_output_tokens": 89,
+      "generation_total_tokens": 3330,
+      "retrieval_latency_ms": 192.92380000024423,
+      "generation_latency_ms": 2325.119000000086,
+      "pipeline_latency_ms": 2538.166199999978,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": true,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q034",
+      "question": "İdari yaptırım kararı nasıl tebliğ edilir ve bu karara karşı olağan başvurunun mercii ile süresi nedir?",
+      "expected_articles": [
+        "26",
+        "27"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "26",
+        "27",
+        "28",
+        "29",
+        "25"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-26-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-29-chunk-001",
+        "5326-madde-25-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "İdarî yaptırım kararı, ilgili kişiye Tebligat Kanunu hükümlerine göre tebliğ edilir. Tebligat metninde başvurulabilecek kanun yolu, mercii ve sürenin açıkça belirtilmesi gerekir. Karar kişinin huzurunda verilmişse bu husus tutanağa yazılır; kişiye başvuru yolu, mercii ve süresi hakkında bilgi verilir ve tutanak örneği kendisine verilir. Tüzel kişiler hakkındaki kararlar her hâlde tüzel kişiye tebliğ edilir. Belirli protokoller ve teknik altyapı kapsamında elektronik tebligat da yapılabilir; bu tebligat, elektronik adrese ulaştığı tarihi izleyen beşinci günün sonunda yapılmış sayılır. [KAYNAK 1]\n\nİdarî para cezası veya mülkiyetin kamuya geçirilmesine ilişkin idarî yaptırım kararına karşı, tebliğ veya tefhimden itibaren en geç 15 gün içinde sulh ceza mahkemesine başvurulur. Süresinde başvuru yapılmazsa karar kesinleşir. [KAYNAK 2]",
+      "cited_articles": [
+        "26",
+        "27"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 42,
+      "generation_input_tokens": 3186,
+      "generation_output_tokens": 262,
+      "generation_total_tokens": 3448,
+      "retrieval_latency_ms": 742.5163999996585,
+      "generation_latency_ms": 4690.14259999949,
+      "pipeline_latency_ms": 5451.645500000268,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q035",
+      "question": "İdari para cezasını süresinde ödeyen kişi indirimden yararlanıp yine de kanun yoluna başvurabilir mi ve bu başvuru harca tabi midir?",
+      "expected_articles": [
+        "17",
+        "31"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "17",
+        "28",
+        "27",
+        "21",
+        "43/A"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-17-chunk-001",
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-43-a-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": false,
+      "status": "YETERSIZ",
+      "insufficient_context": true,
+      "answer": "Ödeme süresi içinde yapılan ödemede idarî para cezasından %25 indirim uygulanır; ödeme yapılması, karara karşı kanun yoluna başvurma hakkını etkilemez. İdarî para cezasına karşı tebliğ veya tefhimden itibaren en geç onbeş gün içinde sulh ceza mahkemesine başvurulabilir. [KAYNAK 1] [KAYNAK 3]\n\nSağlanan kaynaklarda bu başvurunun harca tabi olup olmadığına ilişkin bilgi bulunmamaktadır.",
+      "cited_articles": [
+        "17",
+        "27"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": false,
+      "embedding_tokens": 48,
+      "generation_input_tokens": 4357,
+      "generation_output_tokens": 131,
+      "generation_total_tokens": 4488,
+      "retrieval_latency_ms": 244.50059999981022,
+      "generation_latency_ms": 2702.217999999448,
+      "pipeline_latency_ms": 2964.1159000002517,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": true,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q036",
+      "question": "Eşyanın mülkiyetinin kamuya geçirilmesi kararı ne zaman yerine getirilir ve bu karar için yerine getirme zamanaşımı ne kadardır?",
+      "expected_articles": [
+        "18",
+        "21"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "18",
+        "21",
+        "27",
+        "41",
+        "20"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-18-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-20-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Eşyanın mülkiyetinin kamuya geçirilmesine ilişkin karar, kesinleşmesi hâlinde yerine getirilir. [KAYNAK 1]\n\nBu karar için yerine getirme zamanaşımı süresi on yıldır. Süre, kararın kesinleştiği takvim yılını izleyen takvim yılının başından itibaren işlemeye başlar. Kanun hükmü nedeniyle yaptırımın yerine getirilmesine başlanamaması veya yerine getirilememesi hâlinde zamanaşımı işlemez. [KAYNAK 2]",
+      "cited_articles": [
+        "18",
+        "21"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 46,
+      "generation_input_tokens": 3444,
+      "generation_output_tokens": 135,
+      "generation_total_tokens": 3579,
+      "retrieval_latency_ms": 4842.063500000222,
+      "generation_latency_ms": 3018.0555999995704,
+      "pipeline_latency_ms": 7875.817900000584,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q037",
+      "question": "Dilencilik ve kumar kabahatlerinde gelire ne olur ve mülkiyetin kamuya geçirilmesine hangi makamlar karar verir?",
+      "expected_articles": [
+        "33",
+        "34"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "34",
+        "33",
+        "18",
+        "27",
+        "28"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-34-chunk-001",
+        "5326-madde-33-chunk-001",
+        "5326-madde-18-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-28-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Dilencilikte, dilencilikten elde edilen gelire elkonulur ve bu gelirin mülkiyetinin kamuya geçirilmesine karar verilir. Mülkiyetin kamuya geçirilmesine mülkî amir veya belediye encümeni karar verir. [KAYNAK 2]\n\nKumarda, kumardan elde edilen gelire elkonulur ve bu gelirin mülkiyetinin kamuya geçirilmesine karar verilir. Mülkiyetin kamuya geçirilmesine mülkî amir karar verir. [KAYNAK 1]",
+      "cited_articles": [
+        "33",
+        "34"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 40,
+      "generation_input_tokens": 3053,
+      "generation_output_tokens": 135,
+      "generation_total_tokens": 3188,
+      "retrieval_latency_ms": 264.92139999936626,
+      "generation_latency_ms": 3506.5216000002692,
+      "pipeline_latency_ms": 3788.5895999997956,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q038",
+      "question": "112'yi kasıtlı biçimde meşgul eden veya asılsız ihbarda bulunan kişi bir yıl içinde aynı fiili tekrarlarsa ceza nasıl uygulanır?",
+      "expected_articles": [
+        "42/A"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "42/A",
+        "43/A",
+        "15",
+        "20",
+        "17"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-42-a-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-15-chunk-001",
+        "5326-madde-20-chunk-001",
+        "5326-madde-17-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "112 Acil Çağrı Merkezini kasıtlı olarak meşgul etme veya asılsız ihbar fiilinin bir yıl içinde tekrarlanması hâlinde, idari para cezası iki kat uygulanır. Buna göre meşgul etme için 3.000 TL, asılsız ihbar için 30.000 TL idari para cezası verilir; cezayı il valileri uygular. [KAYNAK 1]",
+      "cited_articles": [
+        "42/A"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 53,
+      "generation_input_tokens": 3599,
+      "generation_output_tokens": 117,
+      "generation_total_tokens": 3716,
+      "retrieval_latency_ms": 231.12789999959205,
+      "generation_latency_ms": 2814.542099999926,
+      "pipeline_latency_ms": 3065.3818000000683,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q039",
+      "question": "Bir şirket yararına rüşvet veya dolandırıcılık işlenirse şirkete ayrıca idari para cezasını hangi mahkeme verebilir?",
+      "expected_articles": [
+        "43/A"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "43/A",
+        "37",
+        "14",
+        "41",
+        "33"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-37-chunk-001",
+        "5326-madde-14-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-33-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Şirket yararına rüşvet veya dolandırıcılık işlenmesi hâlinde, şirkete verilecek idarî para cezasına bu suçlar nedeniyle yargılama yapmakla görevli mahkeme karar verir. [KAYNAK 1]",
+      "cited_articles": [
+        "43/A"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 45,
+      "generation_input_tokens": 2731,
+      "generation_output_tokens": 72,
+      "generation_total_tokens": 2803,
+      "retrieval_latency_ms": 366.9227000000319,
+      "generation_latency_ms": 1955.360699999801,
+      "pipeline_latency_ms": 2338.616699999875,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q040",
+      "question": "Bir banka kendisine verilen paranın sahte olduğunu fark ettiği halde bildirim yapmazsa tüzel kişiye kim idari para cezası verebilir?",
+      "expected_articles": [
+        "43/B"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "43/B",
+        "43/A",
+        "40",
+        "37",
+        "32"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-43-b-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-40-chunk-001",
+        "5326-madde-37-chunk-001",
+        "5326-madde-32-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Banka, kendisine ibraz edilen paranın sahte olduğunu anladığı hâlde bildirim yükümlülüğünü yerine getirmezse, tüzel kişiye idarî para cezasını Cumhuriyet savcısı verir. [KAYNAK 1]",
+      "cited_articles": [
+        "43/B"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 45,
+      "generation_input_tokens": 2360,
+      "generation_output_tokens": 72,
+      "generation_total_tokens": 2432,
+      "retrieval_latency_ms": 272.0430999997916,
+      "generation_latency_ms": 2090.558500000043,
+      "pipeline_latency_ms": 2372.584399999141,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q041",
+      "question": "On sekiz yaşından küçüklerin kapsam dışı bıçakları satın alması veya taşıması yasak mıdır; meslek ya da eğitim için kullanım bu kurala tabi midir?",
+      "expected_articles": [
+        "43/C"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "43/C",
+        "43",
+        "11",
+        "41",
+        "37"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-43-c-chunk-001",
+        "5326-madde-43-chunk-001",
+        "5326-madde-11-chunk-001",
+        "5326-madde-41-chunk-001",
+        "5326-madde-37-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Evet. 6136 sayılı Kanun kapsamı dışında kalan her tür bıçak ile diğer kesici, delici veya bereleyici aletlerin on sekiz yaşından küçük çocuklara satılması; çocuklar tarafından satın alınması veya taşınması yasaktır. [KAYNAK 1]\n\nAncak sanat veya mesleğin icrası ya da eğitim için gerekli bıçak, şiş ve benzerlerinin, icra yerinde ve işi/eğitimi yürüten kişilerce kullanılması, bulundurulması ve taşınması bu kurala tabi değildir. [KAYNAK 1]",
+      "cited_articles": [
+        "43/C"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 57,
+      "generation_input_tokens": 2545,
+      "generation_output_tokens": 146,
+      "generation_total_tokens": 2691,
+      "retrieval_latency_ms": 211.23030000035214,
+      "generation_latency_ms": 2864.7400999998354,
+      "pipeline_latency_ms": 3093.48510000018,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q042",
+      "question": "Türkiye'de gerçekleşmeyen bir davranışa Kabahatler Kanunu'nun uygulanıp uygulanmayacağı hangi yer kuralına göre belirlenir?",
+      "expected_articles": [
+        "6"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "7",
+        "5",
+        "1",
+        "10",
+        "2"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-7-chunk-001",
+        "5326-madde-5-chunk-001",
+        "5326-madde-1-chunk-001",
+        "5326-madde-10-chunk-001",
+        "5326-madde-2-chunk-001"
+      ],
+      "expected_article_present": false,
+      "first_expected_rank": null,
+      "all_expected_articles_retrieved": false,
+      "status": "YETERSIZ",
+      "insufficient_context": true,
+      "answer": "Sağlanan kaynaklarda Kabahatler Kanunu’nun Türkiye dışında gerçekleşen davranışlara uygulanmasında esas alınacak yer bakımından uygulama kuralı yer almamaktadır. Kaynaklar yalnızca kabahatin icraî veya ihmali davranışla işlenebileceğini ve işlenme zamanının failin davranışı gerçekleştirdiği zaman olduğunu belirtmektedir. [KAYNAK 1] [KAYNAK 2]",
+      "cited_articles": [
+        "7",
+        "5"
+      ],
+      "citation_count": 2,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": false,
+      "all_expected_articles_cited": false,
+      "embedding_tokens": 50,
+      "generation_input_tokens": 1499,
+      "generation_output_tokens": 129,
+      "generation_total_tokens": 1628,
+      "retrieval_latency_ms": 351.7234999999346,
+      "generation_latency_ms": 2558.8838000003307,
+      "pipeline_latency_ms": 2923.8225999997667,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": true,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q043",
+      "question": "İşyeri kapatma veya ruhsat geri alma gibi süreli yaptırımlar Kabahatler Kanunu yürürlüğe girince kendiliğinden ortadan kalkmış sayılır mı?",
+      "expected_articles": [
+        "19"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "19",
+        "2",
+        "13",
+        "21",
+        "30"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-19-chunk-001",
+        "5326-gecici-madde-2-chunk-001",
+        "5326-madde-13-chunk-001",
+        "5326-madde-21-chunk-001",
+        "5326-madde-30-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Hayır. Diğer kanunlarda kabahat karşılığında belirli süreyle öngörülen işyeri kapatma veya ruhsat/ehliyet geri alma yaptırımlarına ilişkin hükümler, ilgili kanunlarda Kabahatler Kanununa uygun değişiklik yapılıncaya kadar saklı tutulmuştur. Bu nedenle, Kabahatler Kanununun yürürlüğe girmesiyle kendiliğinden ortadan kalkmış sayılmazlar. [KAYNAK 1]",
+      "cited_articles": [
+        "19"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 55,
+      "generation_input_tokens": 1723,
+      "generation_output_tokens": 118,
+      "generation_total_tokens": 1841,
+      "retrieval_latency_ms": 173.21700000047713,
+      "generation_latency_ms": 3077.021099999911,
+      "pipeline_latency_ms": 3265.6297999992603,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q044",
+      "question": "Mahkeme, alt ve üst sınırı kanunda yazılı bir idari para cezasına yapılan başvuruda ceza miktarını değiştirerek karar verebilir mi?",
+      "expected_articles": [
+        "28"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "28",
+        "17",
+        "43/A",
+        "27",
+        "21"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-28-chunk-001",
+        "5326-madde-17-chunk-001",
+        "5326-madde-43-a-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-21-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 1,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Evet. Kanunda alt ve üst sınırı gösterilen idarî para cezasına karşı başvuru yapılması hâlinde mahkeme, idarî para cezasının miktarını değiştirerek başvurunun kabulüne karar verebilir. [KAYNAK 1]",
+      "cited_articles": [
+        "28"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 45,
+      "generation_input_tokens": 4353,
+      "generation_output_tokens": 76,
+      "generation_total_tokens": 4429,
+      "retrieval_latency_ms": 225.32109999974637,
+      "generation_latency_ms": 1866.464800000358,
+      "pipeline_latency_ms": 2112.8287999999884,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    },
+    {
+      "id": "q045",
+      "question": "Sulh ceza mahkemesinin idari yaptırım başvurusunda verdiği son karara karşı hangi yola, ne kadar sürede gidilebilir?",
+      "expected_articles": [
+        "29"
+      ],
+      "expert_validated": false,
+      "retrieved_articles": [
+        "28",
+        "27",
+        "29",
+        "3",
+        "21"
+      ],
+      "retrieved_chunk_ids": [
+        "5326-madde-28-chunk-001",
+        "5326-madde-27-chunk-001",
+        "5326-madde-29-chunk-001",
+        "5326-gecici-madde-3-chunk-001",
+        "5326-madde-21-chunk-001"
+      ],
+      "expected_article_present": true,
+      "first_expected_rank": 3,
+      "all_expected_articles_retrieved": true,
+      "status": "YETERLI",
+      "insufficient_context": false,
+      "answer": "Sulh ceza mahkemesinin idarî yaptırım başvurusu üzerine verdiği son karara karşı, Ceza Muhakemesi Kanununa göre itiraz yoluna gidilebilir. İtiraz, kararın tebliği tarihinden itibaren en geç iki hafta içinde yapılmalıdır. [KAYNAK 3]",
+      "cited_articles": [
+        "29"
+      ],
+      "citation_count": 1,
+      "citation_labels_structurally_valid": true,
+      "expected_article_cited": true,
+      "all_expected_articles_cited": true,
+      "embedding_tokens": 41,
+      "generation_input_tokens": 3065,
+      "generation_output_tokens": 85,
+      "generation_total_tokens": 3150,
+      "retrieval_latency_ms": 195.47719999991386,
+      "generation_latency_ms": 1983.5146999994322,
+      "pipeline_latency_ms": 2194.7025999998004,
+      "error_type": null,
+      "error_message_safe": null,
+      "requires_priority_review": false,
+      "human_review": {
+        "legal_correctness": null,
+        "completeness": null,
+        "groundedness": null,
+        "citation_relevance": null,
+        "sufficiency_decision": null,
+        "unsafe_overclaim": null,
+        "reviewer_notes": null
+      }
+    }
+  ]
+}

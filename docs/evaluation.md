@@ -29,6 +29,19 @@ bayrağıdır. `requires_priority_review=false`, sadece "otomatik bir yapısal
 anomali öncelikli incelemeyi tetiklemedi" anlamına gelir. İnsan/hukuk
 incelemesinin gereksiz olduğu anlamına gelmez.
 
+Tarihsel `Recall@1`, `Recall@3` ve `Recall@5`, soru düzeyinde ANY-match
+metrikleridir: ilk K sonuçta beklenen maddelerden en az birinin bulunması
+yeterlidir. Çok maddeli sorular için ayrıca `all_match_at_1/3/5` raporlanır;
+bu metrik, normalize edilmiş beklenen madde kümesinin ilk K retrieval madde
+kümesinin alt kümesi olmasını, yani bütün beklenen maddelerin bulunmasını
+gerektirir. ALL-match doğrudan ilk K kümesinden hesaplanır; ilk beklenen sıra
+alanından türetilmez.
+
+Benzer şekilde `expected_article_cited_rate` en az bir beklenen maddenin,
+`all_expected_articles_cited_rate` ise bütün beklenen maddelerin doğrulanmış
+atıflar arasında bulunma oranıdır. ANY ve ALL ölçümleri yapısal tanılamadır;
+hiçbiri hukuki accuracy değildir.
+
 M9A ikinci bir model çağırmaz ve LLM-as-judge kullanmaz. Hukuki doğruluk,
 yorumun eksiksizliği, her iddianın semantik olarak kanıtlanması, hukuken en
 iyi kaynağın seçilmesi, yeterlilik kararının hukuken doğruluğu ve profesyonel
@@ -82,3 +95,36 @@ olarak sınıflandırılmaz.
 
 Değerlendirme doğrudan `tests/questions.json` içindeki 15 soru/kaynak çifti
 üzerinden yürütülür; evaluator bu dosyayı değiştirmez veya çoğaltmaz.
+
+## M9B: provisional benchmark ve iki aşamalı insan incelemesi
+
+M9A'nın 15 soruluk tarihsel baseline'ı ve `e2e-baseline.*` artifact'ları
+dondurulmuştur. M9B, bunları değiştirmeden `evaluation/questions_m9b.json`
+içinde q016-q045 aralığında 30 yeni soru ekler. Açıkça seçilen
+`python -m src.evaluate_e2e --benchmark m9b` modu seed ve extension
+dosyalarını bu sırayla yükleyerek 45 soruluk provisional structural benchmark
+çalıştırır; argümansız komut hâlâ yalnız 15 soruluk M9A baseline'ıdır.
+
+Extension'daki izinli `case_type` değerleri `paraphrase`,
+`exception_condition`, `multi_part`, `long_tail` ve `ambiguity_resistant`;
+zorluk değerleri `easy`, `medium` ve `hard` ile sınırlıdır.
+
+`source_verified=true`, soru ile beklenen madde eşlemesinin yerel işlenmiş
+5326 Kabahatler Kanunu metninden doğrudan kontrol edildiğini belirtir. Bu,
+bir hukuk/gümrük uzmanı onayı değildir. `expert_validated=false`, gerçek bir
+uzman karar verene kadar otomatik olarak değiştirilemez.
+
+İnsan incelemesi iki bağımsız aşamadır:
+
+1. `m9b-question-review.csv`, benchmark sorusunun açıklığını, doğallığını,
+   beklenen maddesini, mevcut corpus'tan cevaplanabilirliğini ve belirsizliğini
+   inceler. Bütün satırlar `review_status=pending` başlar; otomatik onay yoktur.
+2. `m9b-answer-review.csv`, 45 sistem cevabının hukuki doğruluğu,
+   eksiksizliği, groundedness'ı, atıf ilgisi, yeterlilik kararı ve güvensiz
+   aşırı iddia bakımından daha sonra insanlarca puanlanması içindir. Puanlar
+   başlangıçta boştur.
+
+M9B Recall@K, beklenen madde presence/cited oranları ve priority-review
+işaretleri yalnız yapısal tanılamadır. Bunlar chatbot accuracy veya hukuki
+cevap doğruluğu değildir. M9B yeni mevzuat eklemez; yalnız mevcut 5326
+corpus'una ilişkin değerlendirme kapsamını genişletir.
