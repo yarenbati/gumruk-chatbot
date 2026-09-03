@@ -54,6 +54,11 @@ flowchart LR
 - **Grounded answer + citations**: yanıt, kullanılan chunk'ların kaynak (belge/madde/sayfa) bilgisiyle birlikte döner.
 - **Streamlit UI**: `app.py` — soru girişi ve yanıt + kaynak gösterimi.
 
+`src/rag.py`, kullanıcı sorusunu değiştirmeden tek bir retrieval ve tek bir
+generation çağrısıyla birleştiren orkestrasyon katmanıdır. Retrieval sırası ile
+generation bağlam sırasının ve doğrulanmış atıfların getirilen chunk'lara ait
+olduğunun yapısal tutarlılığını denetleyerek birleşik bir `RAGResult` döndürür.
+
 ## Kapsam Dışı
 
 Bu aşamada framework (LangChain, LlamaIndex vb.), ajan mimarisi veya SQL veritabanı planlanmamaktadır. Bkz. `AGENTS.md`.
