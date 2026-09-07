@@ -132,7 +132,17 @@ class EmbeddingRunResult:
 # Embedding text construction (docs/indexing.md §2)
 # ============================================================================
 
-_ARTICLE_LABEL_PREFIXES = {"normal": "Madde", "ek": "Ek Madde", "gecici": "Geçici Madde"}
+# "islenemeyen_hukum" (see docs/data-model.md) is a neutral structural
+# namespace for a special-section Geçici Madde whose own source heading is
+# literally "Geçici Madde N-" (src/chunk.py only relabels article_type, not
+# the heading text) - so it shares the "gecici" label rather than inventing
+# a new one.
+_ARTICLE_LABEL_PREFIXES = {
+    "normal": "Madde",
+    "ek": "Ek Madde",
+    "gecici": "Geçici Madde",
+    "islenemeyen_hukum": "Geçici Madde",
+}
 
 
 @lru_cache(maxsize=1)

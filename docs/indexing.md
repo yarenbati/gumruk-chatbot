@@ -56,9 +56,18 @@ gösterilmez — gösterilen/alıntılanan her zaman `Chunk.text`'tir.
   zaten sahip olduğu manifest lookup mantığını (`_load_source_metadata`
   benzeri) yeniden kullanmalı, legal metadata'yı kendi içinde
   hard-code etmemelidir.
-- `{article label}`: `article_type`'a duyarlı biçimde türetilir —
-  `normal` → `"Madde {article_no}"` (ör. `"Madde 2"`, `"Madde 42/A"`),
-  `ek` → `"Ek Madde {article_no}"`, `gecici` → `"Geçici Madde {article_no}"`.
+- `{article label}`: `article_type`'a duyarlı biçimde türetilir:
+  - `normal` → `"Madde {article_no}"` (ör. `"Madde 2"`, `"Madde 42/A"`)
+  - `ek` → `"Ek Madde {article_no}"`
+  - `gecici` → `"Geçici Madde {article_no}"`
+  - `islenemeyen_hukum` → `"Geçici Madde {article_no}"`
+
+  `islenemeyen_hukum` (bkz. `docs/data-model.md`), `"KANUNA İŞLENEMEYEN
+  HÜKÜMLER"` bölümündeki bir birimi ana kanunun aynı numaralı Geçici
+  Maddesiyle çakışmadan koruyan **nötr yapısal namespace**'tir, ayrı bir
+  hukuki nitelendirme değildir; bu nedenle embedding text, kaynağın gerçek
+  başlığı olan `"Geçici Madde N"` etiketini korur ve farklı bir etiket
+  uydurmaz.
 - `{article title (varsa)}`: `Chunk.article_title` doluysa eklenir.
   **`article_title` null ise bu satır tamamen atlanır** — `"None"` yazdırmak
   veya bir başlık uydurmak yasaktır.

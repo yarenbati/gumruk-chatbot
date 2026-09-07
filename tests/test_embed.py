@@ -200,6 +200,13 @@ def test_gecici_madde_label() -> None:
     assert embed.build_article_label("gecici", "1") == "Geçici Madde 1"
 
 
+def test_islenemeyen_hukum_label() -> None:
+    """4458's special-section article_type (see docs/data-model.md) shares
+    the gecici label since its own source heading is literally "Geçici
+    Madde N-"."""
+    assert embed.build_article_label("islenemeyen_hukum", "1") == "Geçici Madde 1"
+
+
 def test_unknown_article_type_raises() -> None:
     with pytest.raises(ValueError):
         embed.build_article_label("unknown", "1")
