@@ -22,9 +22,14 @@ hedef alacağı veri sözleşmesidir.
 - `article_id`
 - `document_id`
 - `article_no` (ör. `"2"`, `"42/A"`, `"1"` — Ek/Geçici madde için de kendi sayacındaki numara)
-- `article_type` — `normal` | `ek` | `gecici`
+- `article_type` — `normal` | `ek` | `gecici` | `islenemeyen_hukum`. Son
+  değer, ana kanuna işlenemeyen hükümler başlığı altındaki article-like
+  birimleri ana kanunun aynı numaralı Geçici Maddeleriyle çakıştırmadan
+  koruyan nötr yapısal namespace'tir; ayrı bir hukuki nitelendirme değildir.
 - `title` (madde başlığı paragrafı, ör. `"Sorumluluk"`; bazı Ek/Geçici maddelerde olmayabilir)
-- `section_context` (opsiyonel; maddenin içinde bulunduğu Kısım/Bölüm'ün **birleşik** bağlamı, ör. `"Birinci Kısım > İkinci Bölüm"` — tek bir başlık değil, hiyerarşik yol)
+- `section_context` (opsiyonel; maddenin içinde bulunduğu Kısım/Bölüm/Ayırım'ın
+  **birleşik** bağlamı, ör. `"Birinci Kısım > İkinci Bölüm >
+  Üçüncü Ayırım"` — tek bir başlık değil, hiyerarşik yol)
 - `text`
 - `page` (opsiyonel, genellikle `null` — DOCX reflowable format olduğu için güvenilir değil, bkz. `docs/source-analysis-5326.md` §2)
 - `source_paragraph_start` (bu maddenin başladığı `ExtractedParagraph.index`)
@@ -70,7 +75,7 @@ hedef alacağı veri sözleşmesidir.
 
 ## Not: Section ve Paragraph ayrı varlık değildir
 
-**Section** (Kısım/Bölüm) ve **Paragraph** (fıkra), `docs/source-analysis-5326.md`
+**Section** (Kısım/Bölüm/Ayırım) ve **Paragraph** (fıkra), `docs/source-analysis-5326.md`
 §11'de belirtildiği gibi, ayrı domain varlıkları değil; parsing/metadata
 kavramlarıdır. Section, `Article.section_context` alanına birleşik bir yol
 olarak; Paragraph, `Chunk.paragraph_numbers` alanına opsiyonel bir kimlik

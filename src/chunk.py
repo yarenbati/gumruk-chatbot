@@ -25,7 +25,7 @@ separate, unrelated "(Değişik: ...)"-style annotations).
 Chunking strategy (M3B, see docs/data-model.md Chunk and
 docs/source-analysis-5326.md §10): legal-structure-aware, not fixed-size.
 A short/normal Article is one Chunk. A long Article is split only at
-numbered fıkra ("(1)", "(2)"...) boundaries, grouping whole fıkra units
+numbered fıkra ("(1)", "(2)"... or contextual "1.", "2."...) boundaries, grouping whole fıkra units
 below a soft `max_chars` target (src.config.MAX_CHUNK_CHARS); a fıkra (with
 any lettered a)/b)/c) sub-items it contains) is never split, even if that
 leaves one oversized Chunk. Chunk-level `source_paragraph_start`/`_end` and
@@ -68,7 +68,7 @@ class Article:
     document_id: str | None
     legislation_number: str | None
     article_no: str
-    article_type: str  # "normal" | "ek" | "gecici"
+    article_type: str  # "normal" | "ek" | "gecici" | "islenemeyen_hukum"
     article_title: str | None
     section_context: str | None
     text: str
@@ -85,11 +85,12 @@ class Article:
 # Tolerant of hyphen variants: ASCII hyphen, en dash, em dash.
 _HYPHEN = "[-–—]"
 
-NORMAL_ARTICLE_RE = re.compile(rf"^Madde\s+(\d+(?:/[A-Z])?)\s*{_HYPHEN}\s*(.*)$")
+NORMAL_ARTICLE_RE = re.compile(rf"^Madde\s+(\d+)(?:\s*/\s*([A-Z]))?\s*{_HYPHEN}\s*(.*)$")
 EK_MADDE_RE = re.compile(rf"^Ek\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$")
 GECICI_MADDE_RE = re.compile(rf"^Geçici\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$")
 
 NUMBERED_PARAGRAPH_RE = re.compile(r"^\(\d+\)\s")
+NUMBERED_DOT_PARAGRAPH_RE = re.compile(r"^(\d+)\.\s*")
 LETTERED_SUBITEM_RE = re.compile(r"^[a-zçğıöşü]\)\s")
 
 _ORDINALS = (
@@ -103,8 +104,11 @@ _ORDINALS = (
     "SEKİZİNCİ",
     "DOKUZUNCU",
     "ONUNCU",
+    "ONBİRİNCİ",
+    "ONİKİNCİ",
+    "ONÜÇÜNCÜ",
 )
-SECTION_HEADING_RE = re.compile(rf"^({'|'.join(_ORDINALS)})\s+(KISIM|BÖLÜM)$")
+SECTION_HEADING_RE = re.compile(rf"^({'|'.join(_ORDINALS)})\s+(KISIM|BÖLÜM|AYIRIM)$")
 
 # Turkish title-casing for a small closed vocabulary of ordinal/unit words —
 # not a general-purpose casing routine, and not applied to legal text.
@@ -119,8 +123,15 @@ _ORDINAL_TITLE_CASE = {
     "SEKİZİNCİ": "Sekizinci",
     "DOKUZUNCU": "Dokuzuncu",
     "ONUNCU": "Onuncu",
+    "ONBİRİNCİ": "Onbirinci",
+    "ONİKİNCİ": "Onikinci",
+    "ONÜÇÜNCÜ": "Onüçüncü",
 }
-_UNIT_TITLE_CASE = {"KISIM": "Kısım", "BÖLÜM": "Bölüm"}
+_UNIT_TITLE_CASE = {"KISIM": "Kısım", "BÖLÜM": "Bölüm", "AYIRIM": "Ayırım"}
+
+ISLENEMEYEN_HUKUMLER_RE = re.compile(
+    r"^\d+\s+SAYILI\s+KANUNA\s+İŞLENEMEYEN\s+HÜKÜMLER$", re.IGNORECASE
+)
 
 # Marks the start of the end-of-document amendment-history section (a
 # preamble line followed by a real Word table that src/ingest.py never sees,
@@ -144,12 +155,14 @@ def _match_article_heading(text: str) -> tuple[str, str, str] | None:
         return "gecici", m.group(1), m.group(2)
     m = NORMAL_ARTICLE_RE.match(text)
     if m:
-        return "normal", m.group(1), m.group(2)
+        suffix = m.group(2)
+        article_no = m.group(1) + (f"/{suffix}" if suffix else "")
+        return "normal", article_no, m.group(3)
     return None
 
 
 def _match_section_heading(text: str) -> tuple[str, str] | None:
-    """Return (ordinal, unit) if `text` is exactly a Kısım/Bölüm heading."""
+    """Return (ordinal, unit) for an exact Kısım/Bölüm/Ayırım heading."""
     m = SECTION_HEADING_RE.fullmatch(text.strip())
     if m:
         return m.group(1), m.group(2)
@@ -173,11 +186,15 @@ def _looks_like_title(candidate: str) -> bool:
         return False
     if candidate.rstrip().endswith((".", ":", ";")):
         return False
+    if candidate.lstrip().startswith("("):
+        return False
     if _match_article_heading(candidate) is not None:
         return False
     if _match_section_heading(candidate) is not None:
         return False
     if NUMBERED_PARAGRAPH_RE.match(candidate):
+        return False
+    if NUMBERED_DOT_PARAGRAPH_RE.match(candidate):
         return False
     if LETTERED_SUBITEM_RE.match(candidate):
         return False
@@ -209,8 +226,10 @@ def _extract_amendment_note(rest_text: str) -> str | None:
     return " ".join(groups)
 
 
-def _combine_section_context(kisim: str | None, bolum: str | None) -> str | None:
-    parts = [p for p in (kisim, bolum) if p]
+def _combine_section_context(
+    kisim: str | None, bolum: str | None, ayirim: str | None
+) -> str | None:
+    parts = [p for p in (kisim, bolum, ayirim) if p]
     return " > ".join(parts) if parts else None
 
 
@@ -219,7 +238,9 @@ def _canonical_article_id(
 ) -> str:
     """Deterministic, collision-free ID: no "/" characters, distinct
     namespaces per article_type so e.g. Madde 1 / Ek Madde 1 / Geçici Madde 1
-    never collide. Examples: 5326-madde-1, 5326-madde-42-a, 5326-ek-madde-1,
+    never collide. The neutral ``islenemeyen_hukum`` namespace also keeps a
+    special-section Geçici Madde distinct from the main law. Examples:
+    5326-madde-1, 5326-madde-42-a, 5326-ek-madde-1,
     5326-gecici-madde-1."""
     prefix = legislation_number or "unknown"
     normalized_no = article_no.lower().replace("/", "-")
@@ -227,6 +248,8 @@ def _canonical_article_id(
         return f"{prefix}-ek-madde-{normalized_no}"
     if article_type == "gecici":
         return f"{prefix}-gecici-madde-{normalized_no}"
+    if article_type == "islenemeyen_hukum":
+        return f"{prefix}-islenemeyen-hukum-gecici-madde-{normalized_no}"
     return f"{prefix}-madde-{normalized_no}"
 
 
@@ -253,6 +276,9 @@ def parse_articles(
 
     current_kisim: str | None = None
     current_bolum: str | None = None
+    current_ayirim: str | None = None
+    in_islenemeyen_hukumler = False
+    special_preamble: ExtractedParagraph | None = None
     prev_paragraph: ExtractedParagraph | None = None
 
     open_article: dict[str, Any] | None = None
@@ -291,6 +317,16 @@ def parse_articles(
             close_open_article()
             break
 
+        if ISLENEMEYEN_HUKUMLER_RE.fullmatch(text.strip()):
+            close_open_article()
+            in_islenemeyen_hukumler = True
+            current_kisim = None
+            current_bolum = None
+            current_ayirim = text.strip()
+            special_preamble = None
+            prev_paragraph = para
+            continue
+
         section = _match_section_heading(text)
         if section is not None:
             close_open_article()
@@ -299,8 +335,12 @@ def parse_articles(
             if unit == "KISIM":
                 current_kisim = formatted
                 current_bolum = None
-            else:
+                current_ayirim = None
+            elif unit == "BÖLÜM":
                 current_bolum = formatted
+                current_ayirim = None
+            else:
+                current_ayirim = formatted
             prev_paragraph = para
             continue
 
@@ -309,9 +349,15 @@ def parse_articles(
             close_open_article()
             article_type, article_no, rest_text = heading
 
+            if in_islenemeyen_hukumler and article_type == "gecici":
+                article_type = "islenemeyen_hukum"
+
             title: str | None = None
             title_footnote_ids: list[int] = []
-            if prev_paragraph is not None and _looks_like_title(prev_paragraph.text):
+            if article_type == "islenemeyen_hukum" and special_preamble is not None:
+                title = special_preamble.text
+                title_footnote_ids = list(special_preamble.footnote_reference_ids or [])
+            elif prev_paragraph is not None and _looks_like_title(prev_paragraph.text):
                 title = prev_paragraph.text
                 title_footnote_ids = list(prev_paragraph.footnote_reference_ids or [])
 
@@ -320,7 +366,9 @@ def parse_articles(
                 "article_type": article_type,
                 "amendment_note": _extract_amendment_note(rest_text),
                 "title": title,
-                "section_context": _combine_section_context(current_kisim, current_bolum),
+                "section_context": _combine_section_context(
+                    current_kisim, current_bolum, current_ayirim
+                ),
                 "start": para.index,
                 "end": para.index,
                 "body_texts": [text],
@@ -339,6 +387,10 @@ def parse_articles(
         # article is currently open — titles precede their own "Madde N-"
         # line, they are never part of the previous article's body.
         next_para = paragraphs[i + 1] if i + 1 < paragraph_count else None
+        if in_islenemeyen_hukumler and open_article is None:
+            special_preamble = para
+            prev_paragraph = para
+            continue
         reserved_as_next_title = (
             next_para is not None
             and _match_article_heading(next_para.text) is not None
@@ -467,8 +519,14 @@ _FikraUnit = tuple[str | None, str]
 _LEADING_PAREN_GROUP_RE = re.compile(r"^\(([^)]*)\)\s*")
 
 
-def _detect_line0_embedded_fikra(line0: str) -> str | None:
-    """Return the fıkra number if `line0` (the article's own heading
+def _detect_line0_embedded_fikra(line0: str) -> tuple[str, str] | None:
+    """Return ``(number, notation)`` if the article heading embeds a fıkra.
+
+    ``notation`` is ``"paren"`` for 5326-style ``(1)`` or ``"dot"`` for
+    4458-style ``1.``. The latter is accepted only when it starts at 1;
+    later dotted boundaries must then continue that sequence.
+
+    Return the fıkra number if `line0` (the article's own heading
     paragraph) directly embeds its first numbered fıkra on the same line,
     e.g. "Madde 2- (1) Kabahat deyiminden..." -> "1". Leading amendment-note
     parenthetical groups are skipped first, e.g. "Madde 3- (Değişik: ...)
@@ -486,8 +544,42 @@ def _detect_line0_embedded_fikra(line0: str) -> str | None:
             return None
         content = m.group(1)
         if re.fullmatch(r"\d+", content):
-            return content
+            return content, "paren"
         remaining = remaining[m.end():]
+
+def _detect_line0_fikra(line0: str) -> tuple[str, str] | None:
+    """Detect parenthesized or sequential-dot fıkra notation on line 0."""
+    parenthesized = _detect_line0_embedded_fikra(line0)
+    if parenthesized is not None:
+        return parenthesized
+    heading = _match_article_heading(line0)
+    if heading is None:
+        return None
+    remaining = heading[2]
+    while True:
+        note = _LEADING_PAREN_GROUP_RE.match(remaining)
+        if note is None:
+            break
+        remaining = remaining[note.end():]
+    dotted = NUMBERED_DOT_PARAGRAPH_RE.match(remaining)
+    if dotted and dotted.group(1) == "1":
+        return "1", "dot"
+    return None
+
+
+def _can_start_dot_fikra_sequence(current_lines: list[str]) -> bool:
+    """Return whether a standalone ``1.`` can start a top-level fıkra run.
+
+    Before the first fıkra, only the Article heading and optional standalone
+    amendment-note paragraphs may occur. This prevents an arbitrary numbered
+    list appearing later in article prose from being promoted to fıkra level.
+    """
+    if not current_lines or _match_article_heading(current_lines[0]) is None:
+        return False
+    return all(
+        line.lstrip().startswith("(") and line.rstrip().endswith(")")
+        for line in current_lines[1:]
+    )
 
 
 def _split_article_text_into_fikra_units(text: str) -> list[_FikraUnit]:
@@ -508,7 +600,9 @@ def _split_article_text_into_fikra_units(text: str) -> list[_FikraUnit]:
     lines = text.split("\n")
 
     units: list[tuple[str | None, list[str]]] = []
-    current_number = _detect_line0_embedded_fikra(lines[0])
+    detected = _detect_line0_fikra(lines[0])
+    current_number = detected[0] if detected else None
+    notation = detected[1] if detected else None
     current_lines: list[str] = [lines[0]]
 
     for line in lines[1:]:
@@ -516,9 +610,31 @@ def _split_article_text_into_fikra_units(text: str) -> list[_FikraUnit]:
         if m:
             units.append((current_number, current_lines))
             current_number = re.match(r"^\((\d+)\)", line).group(1)
+            notation = "paren"
             current_lines = [line]
-        else:
-            current_lines.append(line)
+            continue
+
+        dotted = NUMBERED_DOT_PARAGRAPH_RE.match(line)
+        dotted_number = int(dotted.group(1)) if dotted else None
+        starts_dot_sequence = (
+            current_number is None
+            and dotted_number == 1
+            and _can_start_dot_fikra_sequence(current_lines)
+        )
+        continues_dot_sequence = (
+            notation == "dot"
+            and dotted_number is not None
+            and current_number is not None
+            and dotted_number == int(current_number) + 1
+        )
+        if starts_dot_sequence or continues_dot_sequence:
+            units.append((current_number, current_lines))
+            current_number = str(dotted_number)
+            notation = "dot"
+            current_lines = [line]
+            continue
+
+        current_lines.append(line)
     units.append((current_number, current_lines))
 
     if len(units) > 1 and units[0][0] is None:

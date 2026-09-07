@@ -9,5 +9,16 @@
     "retrieved_at": "2026-09-01",
     "local_file": "data/raw/5326-kabahatler-kanunu.docx",
     "notes": "Bu mevzuat resmi kaynak olan mevzuat.gov.tr üzerinden temin edilmiştir (official_source_url). Oradan ilk elde edilen dosya eski ikili Word biçiminde (.doc, OLE/Compound Document File V2) idi; python-docx bu dosyayı doğrudan açamadığı için, dosya Microsoft Word kullanılarak elle .docx biçimine dönüştürülmüş ve boşluksuz olarak yeniden adlandırılmıştır. local_file alanındaki .docx, ham .doc dosyasının normalize edilmiş çalışma kopyasıdır — mevzuat.gov.tr'den doğrudan .docx olarak indirilmemiştir. Bu .docx geçerli bir OOXML paketi olduğu için python-docx onu harici bir CLI aracına (antiword, LibreOffice vb.) ihtiyaç duymadan doğrudan okuyabiliyor; tek bağımlılık requirements.txt içindeki python-docx paketidir. Not: dosya ilk yeniden adlandırmada geçici olarak 'kabahatlar-kanunu.docx' (yazım hatası) olarak kaydedilmişti; daha sonra doğru yazımla '5326-kabahatler-kanunu.docx' olarak yeniden adlandırıldı. Karşılaştırmalı yapısal doğrulama için bkz. docs/source-analysis-5326.md."
+  },
+  {
+    "document_id": "4458_gumruk_kanunu",
+    "title": "Gümrük Kanunu",
+    "document_type": "Kanun",
+    "legislation_number": "4458",
+    "issuing_authority": "TBMM",
+    "official_source_url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=4458&MevzuatTur=1&MevzuatTertip=5",
+    "retrieved_at": "2026-09-03",
+    "local_file": "data/raw/4458-gumruk-kanunu.docx",
+    "notes": "Resmî mevzuat.gov.tr kaynağının indirilebilir Word uç noktasından (http://www.mevzuat.gov.tr/MevzuatMetin/1.5.4458.doc; HTTPS'e yönlendirilir) alınan özgün dosya legacy Word DOC (OLE/Compound Document File V2) biçimindedir ve data/raw/4458-gumruk-kanunu.doc yolunda provenance için değiştirilmeden korunmaktadır. Özgün DOC, Microsoft Word kullanılarak elle Farklı Kaydet işlemiyle data/raw/4458-gumruk-kanunu.docx yolunda normalize edilmiş bir OOXML çalışma türevine dönüştürülmüştür. local_file doğrudan indirilmiş bir DOCX'i değil, pipeline tarafından kullanılan bu doğrulanmış normalize türevi gösterir; ayrıntılar için bkz. docs/source-analysis-4458.md."
   }
 ]
