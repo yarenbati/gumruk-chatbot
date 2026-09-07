@@ -1,59 +1,10 @@
-# Değerlendirme Planı
 
-Bu belge retrieval ölçümünü ve M9A uçtan uca yapısal QA sınırını tanımlar.
-Mevcut 15 soru kaynak metinden türetilmiştir ve tümünde
-`expert_validated=false` değerindedir. Sonuçlar hukuki doğrulama veya
-profesyonel kullanıma uygunluk kanıtı değildir.
 
-## Retrieval Metrikleri
-
-| Metrik | Tanım | Sonuç |
-|---|---|---|
-| Recall@1 | Beklenen maddelerden herhangi biri ilk sırada mı | 12/15 = %80,0 |
-| Recall@3 | Beklenen maddelerden herhangi biri ilk 3 sonuç içinde mi | 13/15 = %86,7 |
-| Recall@5 | Beklenen maddelerden herhangi biri ilk 5 sonuç içinde mi | 14/15 = %93,3 |
-
-## M9A uçtan uca yapısal QA
-
-`src/evaluate_e2e.py`, her soruda üretim bileşimi `rag.run_rag(question)`
-fonksiyonunu bir kez çağırır. Otomatik ölçülen alanlar: beklenen maddenin
-retrieval içinde bulunması ve ilk sırası; YETERLI/YETERSIZ durumu; doğrulanmış
-atıfların varlığı, etiket yapısı ve madde numaraları; beklenen maddenin
-doğrulanmış atıflar arasında bulunması; latency, sağlayıcının bildirdiği token
-kullanımı ve operasyonel hatalardır.
-
-`expected_article_cited_rate`, yalnızca "beklenen bir madde doğrulanmış atıf
-metadata'sında bulundu" demektir; bir accuracy veya hukuki doğruluk metriği
-değildir. `requires_priority_review` yalnızca deterministik yapısal triyaj
-bayrağıdır. `requires_priority_review=false`, sadece "otomatik bir yapısal
-anomali öncelikli incelemeyi tetiklemedi" anlamına gelir. İnsan/hukuk
-incelemesinin gereksiz olduğu anlamına gelmez.
-
-Tarihsel `Recall@1`, `Recall@3` ve `Recall@5`, soru düzeyinde ANY-match
-metrikleridir: ilk K sonuçta beklenen maddelerden en az birinin bulunması
-yeterlidir. Çok maddeli sorular için ayrıca `all_match_at_1/3/5` raporlanır;
-bu metrik, normalize edilmiş beklenen madde kümesinin ilk K retrieval madde
-kümesinin alt kümesi olmasını, yani bütün beklenen maddelerin bulunmasını
-gerektirir. ALL-match doğrudan ilk K kümesinden hesaplanır; ilk beklenen sıra
-alanından türetilmez.
-
-Benzer şekilde `expected_article_cited_rate` en az bir beklenen maddenin,
-`all_expected_articles_cited_rate` ise bütün beklenen maddelerin doğrulanmış
-atıflar arasında bulunma oranıdır. ANY ve ALL ölçümleri yapısal tanılamadır;
-hiçbiri hukuki accuracy değildir.
-
-M9A ikinci bir model çağırmaz ve LLM-as-judge kullanmaz. Hukuki doğruluk,
-yorumun eksiksizliği, her iddianın semantik olarak kanıtlanması, hukuken en
-iyi kaynağın seçilmesi, yeterlilik kararının hukuken doğruluğu ve profesyonel
-kullanım güvenliği insan/uzman incelemesi gerektirir.
-
-## İnsan inceleme rubriği
 
 CSV raporundaki bu alanlar evaluator tarafından boş bırakılır:
 
 - Hukuki doğruluk: 0 yanlış, 1 kısmen doğru, 2 doğru.
-- Eksiksizlik: 0 maddi ölçüde eksik, 1 kısmen eksik, 2 yeterince eksiksiz.
-- Kaynağa dayanma: 0 maddi ölçüde desteksiz, 1 karışık/belirsiz, 2 sunulan kanıtlarla destekli.
+- Eksiksizlik: 0 maddi ölçüde eksik, 1 kısmen eky
 - Atıf ilgisi: 0 desteklemiyor, 1 kısmen ilgili, 2 ilgili.
 - Yeterlilik kararı: `correct`, `incorrect` veya `uncertain`.
 - Güvensiz aşırı iddia: `yes` veya `no`.
