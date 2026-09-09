@@ -34,3 +34,11 @@ CHROMA_PATH = os.getenv("CHROMA_PATH", "chroma")
 # legal-semantic chunking, not tuned to any specific embedding model's token
 # limit; revisit once an embedding model is chosen (M4).
 MAX_CHUNK_CHARS = int(os.getenv("MAX_CHUNK_CHARS", "4000"))
+
+# M10E-A experimental constants only; fixed before measuring development scores.
+# No production consumer uses these and no benchmark-driven overrides are allowed.
+M10E_DENSE_CANDIDATE_K = 20
+M10E_LEXICAL_CANDIDATE_K = 20
+M10E_BM25_K1 = 1.5
+M10E_BM25_B = 0.75
+M10E_RRF_K = 60
