@@ -79,3 +79,81 @@ M9B Recall@K, beklenen madde presence/cited oranları ve priority-review
 işaretleri yalnız yapısal tanılamadır. Bunlar chatbot accuracy veya hukuki
 cevap doğruluğu değildir. M9B yeni mevzuat eklemez; yalnız mevcut 5326
 corpus'una ilişkin değerlendirme kapsamını genişletir.
+
+## M10D: çok kanunlu retrieval değerlendirme sözleşmesi
+
+M10D retrieval-only değerlendirmedir; cevap üretimi veya hukuki cevap
+puanlaması içermez. M9A/M9B'nin tarihsel semantiği ve donmuş sonuçları değişmez.
+
+`QualifiedSourceKey = (legislation_number, article_type, normalized_article_no)`.
+Madde numarası mevcut `normalize_article_no` kuralıyla normalize edilir.
+`article_no` tek başına yeterli değildir: farklı kanunların aynı numaralı
+maddeleri ve aynı kanundaki normal, ek ve geçici maddeler farklı kaynaklardır.
+
+K = 1, 3, 5 için metrikler:
+
+- **ANY Qualified Recall@K:** Top-K içinde beklenen QualifiedSourceKey
+  kümesinden en az biri bulunan soruların oranı.
+- **ALL Qualified Match@K:** Beklenen benzersiz QualifiedSourceKey'lerin
+  tamamı Top-K içinde bulunan soruların oranı. Aynı kaynaktan birden fazla
+  chunk gelmesi ek bir beklenen kaynak karşılamaz.
+- **Legislation Hit@K:** Top-K içinde beklenen kanunlardan en az birinin
+  bulunduğu soruların oranı; doğru maddeyi bulma koşulu aranmaz.
+- **Top-1 legislation retrieval confusion matrix:** Satır beklenen kanun,
+  sütun ilk getirilen chunk'ın kanunudur. Eksik Top-1 metadata ve retrieval
+  hataları ayrıca raporlanır; birden fazla kanun bekleyen sorular dışlanır.
+- **non-expected-legislation share@5 / cross-law intrusion diagnostic:**
+  İlk beş sonuçtaki kullanılabilir kanun metadata'sına sahip chunk'lar
+  arasında beklenen kanun kümesi dışındakilerin payıdır. Payda kullanılabilir
+  sonuç sayısıdır; hiç yoksa değer `null` olur. Özet, tanımlı soru paylarının
+  ortalamasıdır. Diğer kanundan sonuç hukuken ilgili olabileceğinden bu,
+  hukuki hata oranı değildir.
+
+### Donmuş 5326 PRE / POST regresyon yöntemi
+
+Aynı 45 soru ve beklenen kaynaklar korunur. PRE soru bazlı sıralı sonuçları
+yalnız donmuş [m9b-provisional.json](../reports/evaluation/m9b-provisional.json)
+dosyasından gelir; retrieval yeniden çalıştırılmaz. Tarihsel
+`retrieved_chunk_ids`, saklanan 5326 chunk kimlik metadata'sıyla eşleştirilerek
+normal/ek/geçici ayrımı çözülür; yalnız madde numarasından tür çıkarılmaz.
+Bu adaptasyon tarihsel M9B raporunu veya evaluator semantiğini değiştirmez.
+POST, 4458 eklendikten sonraki kabul edilmiş ortak corpus çalıştırmasının
+5326 alt kümesidir. Soru ID kümeleri tam eşleşmelidir; ANY ve ALL @1/3/5
+oranları, farkları ve iyileşen/kötüleşen soru ID'leri karşılaştırılır.
+PRE sonuçları anlatıdan veya toplu skorlardan türetilmez.
+
+### İnceleme durumu ve kapsam
+
+`source_verified`, soru/beklenen kaynak eşlemesinin kaynak metinden kontrol
+edildiğini belirtir. `gold_human_approved`, benchmark sorusu ve beklenen
+kaynakların insan tarafından gold olarak onaylanmasını ifade eder;
+`source_verified` bunu kendiliğinden sağlamaz. `expert_validated`, ayrı bir
+uzman doğrulamasıdır ve gerçek uzman incelemesi olmadan true yapılamaz.
+Bu durumlar birbirinin yerine geçmez ve retrieval başarısı hukuki cevap
+onayı sağlamaz. Her iki kanundan birlikte kanıt gerektiren gerçek cross-law
+sorular ertelenmiştir.
+
+### Donmuş M10D baseline
+
+Yetkili sonuçlar: [JSON](../reports/evaluation/m10d-two-law-retrieval.json)
+ve [CSV](../reports/evaluation/m10d-two-law-retrieval.csv).
+Aşağıdaki değerler yüzdedir:
+
+| Alt küme | Soru | ANY@1 / @3 / @5 | ALL@1 / @3 / @5 |
+|---|---:|---|---|
+| 5326 POST | 45 | 75.6 / 86.7 / 95.6 | 64.4 / 82.2 / 88.9 |
+| 4458 | 30 | 56.7 / 73.3 / 80.0 | 46.7 / 66.7 / 76.7 |
+| Combined | 75 | 68.0 / 81.3 / 89.3 | 57.3 / 76.0 / 84.0 |
+
+Top-1 legislation hit: **72/75 = 96.0%**.
+**These are retrieval metrics, not legal-answer accuracy.**
+
+JSON'un soru bazlı `expected_sources` kümesi ile ilk beş `ranks` kaydının
+`qualified_source_key` kümesi kesişimi boş olan **8 soru** vardır:
+q002, q042, gk004, gk012, gk014, gk019, gk020, gk028.
+Bu sayı ANY@5 başarısızlığıdır; kısmi çok-kaynak eşleşmeleri dahil tüm
+ALL@5 başarısızlıklarının sayısı değildir.
+
+Donmuş raporun önce/sonra üretim Chroma envanteri aynıdır:
+5326 = 53, 4458 = 276, toplam = 329. Bu kayıt canlı Chroma erişimi
+gerektirmeden rapor metadata'sından kontrol edilebilir.

@@ -1,0 +1,323 @@
+{
+  "provenance": "Identity fields copied from persisted 5326 chunk metadata; no legislation text or retrieval results.",
+  "chunks": [
+    {
+      "chunk_id": "5326-madde-1-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "1"
+    },
+    {
+      "chunk_id": "5326-madde-2-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "2"
+    },
+    {
+      "chunk_id": "5326-madde-3-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "3"
+    },
+    {
+      "chunk_id": "5326-madde-4-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "4"
+    },
+    {
+      "chunk_id": "5326-madde-5-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "5"
+    },
+    {
+      "chunk_id": "5326-madde-6-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "6"
+    },
+    {
+      "chunk_id": "5326-madde-7-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "7"
+    },
+    {
+      "chunk_id": "5326-madde-8-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "8"
+    },
+    {
+      "chunk_id": "5326-madde-9-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "9"
+    },
+    {
+      "chunk_id": "5326-madde-10-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "10"
+    },
+    {
+      "chunk_id": "5326-madde-11-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "11"
+    },
+    {
+      "chunk_id": "5326-madde-12-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "12"
+    },
+    {
+      "chunk_id": "5326-madde-13-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "13"
+    },
+    {
+      "chunk_id": "5326-madde-14-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "14"
+    },
+    {
+      "chunk_id": "5326-madde-15-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "15"
+    },
+    {
+      "chunk_id": "5326-madde-16-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "16"
+    },
+    {
+      "chunk_id": "5326-madde-17-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "17"
+    },
+    {
+      "chunk_id": "5326-madde-18-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "18"
+    },
+    {
+      "chunk_id": "5326-madde-19-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "19"
+    },
+    {
+      "chunk_id": "5326-madde-20-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "20"
+    },
+    {
+      "chunk_id": "5326-madde-21-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "21"
+    },
+    {
+      "chunk_id": "5326-madde-22-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "22"
+    },
+    {
+      "chunk_id": "5326-madde-23-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "23"
+    },
+    {
+      "chunk_id": "5326-madde-24-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "24"
+    },
+    {
+      "chunk_id": "5326-madde-25-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "25"
+    },
+    {
+      "chunk_id": "5326-madde-26-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "26"
+    },
+    {
+      "chunk_id": "5326-madde-27-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "27"
+    },
+    {
+      "chunk_id": "5326-madde-28-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "28"
+    },
+    {
+      "chunk_id": "5326-madde-29-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "29"
+    },
+    {
+      "chunk_id": "5326-madde-30-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "30"
+    },
+    {
+      "chunk_id": "5326-madde-31-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "31"
+    },
+    {
+      "chunk_id": "5326-madde-32-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "32"
+    },
+    {
+      "chunk_id": "5326-madde-33-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "33"
+    },
+    {
+      "chunk_id": "5326-madde-34-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "34"
+    },
+    {
+      "chunk_id": "5326-madde-35-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "35"
+    },
+    {
+      "chunk_id": "5326-madde-36-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "36"
+    },
+    {
+      "chunk_id": "5326-madde-37-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "37"
+    },
+    {
+      "chunk_id": "5326-madde-38-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "38"
+    },
+    {
+      "chunk_id": "5326-madde-39-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "39"
+    },
+    {
+      "chunk_id": "5326-madde-40-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "40"
+    },
+    {
+      "chunk_id": "5326-madde-41-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "41"
+    },
+    {
+      "chunk_id": "5326-madde-42-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "42"
+    },
+    {
+      "chunk_id": "5326-madde-42-a-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "42/A"
+    },
+    {
+      "chunk_id": "5326-madde-43-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "43"
+    },
+    {
+      "chunk_id": "5326-madde-43-a-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "43/A"
+    },
+    {
+      "chunk_id": "5326-madde-43-b-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "43/B"
+    },
+    {
+      "chunk_id": "5326-madde-43-c-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "43/C"
+    },
+    {
+      "chunk_id": "5326-ek-madde-1-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "ek",
+      "article_no": "1"
+    },
+    {
+      "chunk_id": "5326-gecici-madde-1-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "gecici",
+      "article_no": "1"
+    },
+    {
+      "chunk_id": "5326-gecici-madde-2-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "gecici",
+      "article_no": "2"
+    },
+    {
+      "chunk_id": "5326-gecici-madde-3-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "gecici",
+      "article_no": "3"
+    },
+    {
+      "chunk_id": "5326-madde-44-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "44"
+    },
+    {
+      "chunk_id": "5326-madde-45-chunk-001",
+      "legislation_number": "5326",
+      "article_type": "normal",
+      "article_no": "45"
+    }
+  ]
+}

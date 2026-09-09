@@ -1,0 +1,512 @@
+[
+  {
+    "id": "gk001",
+    "question": "Gümrük uygulamasında \"geri verme\" ile \"kaldırma\" terimleri arasında ne fark vardır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "210"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 210, ödenmiş verginin iadesini \"geri verme\", henuz odenmemis verginin tahsilinden vazgecilmesini \"kaldirma\" olarak tanimliyor; doğrudan kontrol edildi (data/processed/4458-gumruk-kanunu.paragraphs.json src_para=1514-1518)."
+  },
+  {
+    "id": "gk002",
+    "question": "İhracat rejimi olarak adlandırılan gümrük rejimi hangi işlemleri kapsar?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "150"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 150/1-2, serbest dolasimdaki esyanin ihrac amaciyla cikisina iliskin hukumlerin uygulandigini ve ihracat beyannamesi ile yetkili idareye beyan edildigini duzenliyor; dogrudan kontrol edildi (src_para=1058-1062)."
+  },
+  {
+    "id": "gk003",
+    "question": "Türk Gümrük Tarifesi denildiğinde nelerden oluşan bir bütün kastedilir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "15"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 15/3, Gumruk Tarifesini Turk Gumruk Tarife Cetveli, tercihli/tercihli olmayan tarife uygulamalari ve muafiyet/indirim uygulamalarini kapsayan bentlerle tanimliyor; dogrudan kontrol edildi (src_para=199-221)."
+  },
+  {
+    "id": "gk004",
+    "question": "Serbest dolaşımda bulunmayan bir eşyanın Türkiye Gümrük Bölgesinden tekrar yurt dışına gönderilmesi mümkün müdür?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "163"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 163/1, serbest dolasimda olmayan esyanin Turkiye Gumruk Bolgesinden yeniden ihracinin mumkun oldugunu duzenliyor; dogrudan kontrol edildi (src_para=1140-1142)."
+  },
+  {
+    "id": "gk005",
+    "question": "Transit rejimi hangi nitelikteki eşyanın taşınmasında uygulanır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "84"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 84/1, transit rejiminin ithalat vergileri ve ticaret politikasi onlemlerine tabi tutulmamis, serbest dolasima girmemis esyanin Gumruk Bolgesi icinde bir noktadan digerine tasinmasina uygulandigini belirtiyor; dogrudan kontrol edildi (src_para=698-719)."
+  },
+  {
+    "id": "gk006",
+    "question": "Sınır ticareti yapılacak merkezlerin kurulmasına ve buralardaki usul ve esasların belirlenmesine kim yetkilidir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "172"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 172/1, bu yetkinin Cumhurbaskanina ait oldugunu duzenliyor; dogrudan kontrol edildi (src_para=1265-1268)."
+  },
+  {
+    "id": "gk007",
+    "question": "Gümrüğe yazılı beyanda kullanılan beyanname hangi bilgileri içermeli ve imza bakımından hangi şartı taşımalıdır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "60"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 60/1, yazili beyanin ilgili rejim hukumlerinin uygulanmasi icin gerekli butun bilgileri icermesi ve imzalanmasi gerektigini duzenliyor; dogrudan kontrol edildi (src_para=551-558)."
+  },
+  {
+    "id": "gk008",
+    "question": "Türkiye Gümrük Bölgesine getirilecek eşya için özet beyan ne zaman verilir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "35/A"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 35/A fikra 1 ve 3, kara sulari/hava sahasindan durmaksizin gecen tasitlar haric getirilen esya icin ozet beyanin esya bolgeye getirilmeden once verildigini duzenliyor; dogrudan kontrol edildi (src_para=406-410)."
+  },
+  {
+    "id": "gk009",
+    "question": "Bir işletmeye yetkilendirilmiş yükümlü statüsü tanınabilmesi için hangi şartları taşıması gerekir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "5/A"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 5/A fikra 2 (a-d bentleri), ciddi ihlalde bulunmama, duzenli ticari kayit tutma, mali yeterlilik ve uygun emniyet/guvenlik standartlari sartlarini sayiyor; dogrudan kontrol edildi (src_para=95-108)."
+  },
+  {
+    "id": "gk010",
+    "question": "İthal edilen bir eşyanın alıcı ile satıcı arasında kararlaştırılan satış bedelinin gümrük kıymeti olarak kabul edilebilmesi için hangi koşulların birlikte gerçekleşmesi gerekir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "24"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 24/1 (a-d bentleri), esyanin elden cikarilmasina kisitlama getirilmemis olmasi, satisin kiymeti belirlenemez bir kosula baglanmamasi, hasilatin saticiya geri donmemesi ve taraflar arasi iliskinin fiyati etkilememesi sartlarini sayiyor; dogrudan kontrol edildi (src_para=271-289)."
+  },
+  {
+    "id": "gk011",
+    "question": "Bir gümrük idaresinden önceden alınmış bağlayıcı bir tarife bilgisi hangi durumlarda geçerliliğini kaybeder?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "9"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 9 fikra 5 (a-c bentleri), Tarife Cetvelinde degisiklik yapilmasi, uluslararasi nomanklatur kararlarina uymamasi veya bilginin iptal/degistirildiginin teblig edilmesi hallerinde gecerliligin sona erdigini duzenliyor; dogrudan kontrol edildi (src_para=135-157)."
+  },
+  {
+    "id": "gk012",
+    "question": "Yolcuların kendi kullanımına ayrılmış, ticari nitelik taşımayan kişisel eşyası, taklit ürünlere karşı uygulanan gümrükte alıkoyma tedbirine tabi tutulur mu?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "57"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 57 fikra 5, yolcularin sahsi kullanimina mahsus ve gumruk vergisi muafiyeti sinirlari icinde kalan hediyelik esya icin bu madde hukumlerinin uygulanmadigini duzenliyor; dogrudan kontrol edildi (src_para=523-531)."
+  },
+  {
+    "id": "gk013",
+    "question": "Denizyoluyla gelen ve özet beyan kapsamında bulunan eşyaya bir kullanım belirlenmesi işlemi kaç gün içinde tamamlanmalıdır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "46"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 46 fikra 2(a), denizyolu ile gelen esya icin bu surenin ozet beyan tarihinden itibaren kirkbes gun oldugunu duzenliyor; dogrudan kontrol edildi (src_para=478-482)."
+  },
+  {
+    "id": "gk014",
+    "question": "Değeri belirli bir tutarın altında kalan eşya, serbest dolaşıma sokulurken gümrük vergisinden muaf tutulur mu?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "167"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 167 fikra 4, degeri 150 Euro'yu gecmeyen esyanin gumruk vergilerinden muaf oldugunu sayiyor; dogrudan kontrol edildi (src_para=1188-1239)."
+  },
+  {
+    "id": "gk015",
+    "question": "Daha önce ihraç edilmiş bir eşya belirli bir süre içinde tekrar serbest dolaşıma girerse ithalat vergisinden muaf tutulabilir mi?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "168"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 168 fikra 1, serbest dolasimdaki esyanin ihracindan sonra uc yil icinde yeniden serbest dolasima girmesi halinde, beyan sahibinin talebiyle ithalat vergilerinden muaf tutulacagini duzenliyor; dogrudan kontrol edildi (src_para=1243-1249)."
+  },
+  {
+    "id": "gk016",
+    "question": "Sonradan gümrük yükümlülüğü doğan hallerde, eşyaya daha önce uygulanmayan bir tercihli tarife veya vergi muafiyeti yine de tanınabilir mi?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "191/A"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 191/A, ilgili kisinin hileli davranis veya ihmalinin bulunmamasi ve diger sartlarin yerine getirildiginin ispati kaydiyla, belirli maddelere gore sonradan dogan yukumluluklerde de tercihli tarife/muafiyetin uygulanabilecegini duzenliyor; dogrudan kontrol edildi (src_para=1424-1428)."
+  },
+  {
+    "id": "gk017",
+    "question": "İthal edilen bir eşyanın gümrük kıymeti belirlenirken esas alınan satış bedeline hangi unsurlar ilave edilir ve bu satış bedelinin kıymet tespitinde esas alınabilmesi için ayrıca hangi şartlar aranır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "24"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "27"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 24/1, satis bedelinin gumruk kiymeti olarak kabulunun sartlarini (kisitlama olmamasi, kiymetin tespit edilebilir olmasi, hasilat paylasimi, taraflar arasi iliski) sayarken; Madde 27/1, komisyon/tellaliye, ambalaj bedeli, bedelsiz saglanan malzeme, royalti/lisans ucreti ve nakliye/sigorta giderleri gibi ilave edilecek unsurlari duzenliyor; her iki madde dogrudan kontrol edildi (src_para=271-289 ve 314-333)."
+  },
+  {
+    "id": "gk018",
+    "question": "Türkiye'ye gelecek eşya için özet beyan ne zaman verilir ve bu beyanı vermekle kim yükümlü tutulur?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "35/A"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "35/B"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 35/A fikra 3, ozet beyanin esya bolgeye getirilmeden once verildigini; Madde 35/B fikra 4, ozet beyani esyayi bolgeye getiren veya tasima sorumlulugunu ustlenen kisinin verdigini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=406-410 ve 412-426)."
+  },
+  {
+    "id": "gk019",
+    "question": "İthalat vergilerine tabi eşyanın serbest dolaşıma girişi veya kısmi muafiyet suretiyle geçici ithali halinde gümrük yükümlülüğü ne zaman başlar ve gümrük yükümlülüğü hangi hallerde sona erer?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "181"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "208"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 181/1, yukumlulugun ilgili gumruk beyannamesinin tescil tarihinde basladigini; Madde 208, yukumlulugun verginin odenmesi, kaldirilmasi, beyannamenin iptali veya esyanin musadere/imha edilmesi gibi hallerde sona erdigini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=1352-1358 ve 1502-1508)."
+  },
+  {
+    "id": "gk020",
+    "question": "Beyan edilen kıymetin gerçek kıymetten düşük çıkması ile Kanunda ayrıca ceza öngörülmemiş bir düzenlemeye aykırı davranılması, para cezası bakımından nasıl farklı sonuçlar doğurur?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "234"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "241"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 234/1(b), kiymet noksanliginda vergi farkinin uc kati ceza ongururken; Madde 241/1, ayri bir ceza tayin edilmemis hallerde sabit tutarli bir usulsuzluk cezasi onguruyor; her iki madde dogrudan kontrol edildi (src_para=1651-1660 ve 1719-1754)."
+  },
+  {
+    "id": "gk021",
+    "question": "Türkiye Gümrük Bölgesini terk edecek eşya için hangi hallerde gümrük beyannamesi, hangi hallerde özet beyan verilir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "165/B"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "165/C"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 165/B fikra 1, gumrukce onaylanmis islem gumruk beyannamesi gerektiriyorsa bu beyannamenin verilecegini; Madde 165/C fikra 1, beyanname gerektirmeyen hallerde ozet beyan verilecegini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=1155-1159 ve 1161-1164)."
+  },
+  {
+    "id": "gk022",
+    "question": "Yetkilendirilmiş yükümlü statüsü kazanmak için hangi şartlar aranır ve Müsteşarlık bu yükümlüleri basitleştirilmiş uygulamalardan ne kadar süreyle yararlandırmaya yetkilidir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "5/A"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "islenemeyen_hukum",
+        "article_no": "1"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Ana kanunun Madde 5/A fikra 2, yetkilendirilmis yukumlu statusunun sartlarini sayiyor; \"4458 SAYILI KANUNA ISLENEMEYEN HUKUMLER\" bolumundeki ozel Gecici Madde 1 (5911 sayili Kanunun gecici maddesi), yetkilendirilmis yukumlulerin basitlestirilmis uygulamalardan 5 yil sureyle yararlandirilmasina Gumruk Mustesarliginin yetkili kilindigini duzenliyor; her iki kaynak dogrudan kontrol edildi (src_para=95-108 ve 1870-1870). Bu soru, ana kanunun Gecici Madde 1'i ile karistirilmamasi gereken ayri, notr-namespace bir kaynagi bilincli olarak kapsama alir (bkz. gk029)."
+  },
+  {
+    "id": "gk023",
+    "question": "Bir kara taşıtına, gümrük mevzuatına aykırılık nedeniyle mülkiyetin kamuya geçirilmesi kararı verilmişse, bu taşıt belirli bir tutar ödenerek sahibine iade edilebilir mi?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "gecici",
+        "article_no": "9"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Gecici Madde 9, belirtilen basvuru suresi icinde ilk iktisapta odenen ozel tuketim vergisinin %25'ine tekabul eden tutarin odenmesi halinde el konulan aracin sahibine iade edildigini duzenliyor; dogrudan kontrol edildi (src_para=1847-1850)."
+  },
+  {
+    "id": "gk024",
+    "question": "Türkiye'deki yabancı devlet misyon şeflerinin verdiği garanti mektupları, gümrükte teminat olarak kabul edilebilir mi?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "202"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 202 fikra 3, Turkiye'deki yabanci misyon seflerinin verecekleri garanti mektuplarinin teminat olarak kabulune Mustesarligin yetkili oldugunu duzenliyor; dogrudan kontrol edildi (src_para=1476-1479)."
+  },
+  {
+    "id": "gk025",
+    "question": "Kanunun yürürlüğe girmesinden önce gümrük komisyoncu yardımcısı karnesine sahip olan kişiler, yeni düzenlemeye göre hangi belgeyi almaya hak kazanabilir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "gecici",
+        "article_no": "5"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Gecici Madde 5 fikra 1, ogrenim sarti haric 227 nci maddedeki kosullari tasimaya devam ettigi anlasilan eski karne sahiplerine, suresi icinde basvurmalari halinde Gumruk Musavir Yardimcisi Izin Belgesi verildigini duzenliyor; dogrudan kontrol edildi (src_para=1811-1814)."
+  },
+  {
+    "id": "gk026",
+    "question": "Mesleki kurallara aykırı davranan bir gümrük müşavirine hangi tür disiplin cezaları verilebilir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "gecici",
+        "article_no": "6"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "easy",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Gecici Madde 6 fikra 2 (a-d bentleri), uyarma, kinama, gecici olarak mesleki faaliyetten alikoyma ve meslekten cikarma cezalarini saymaktadir; dogrudan kontrol edildi (src_para=1816-1838)."
+  },
+  {
+    "id": "gk027",
+    "question": "Dahilde işleme rejiminde, eşyanın önceden vergi ödenmeden geçici olarak ithal edilip teminata bağlandığı sistem ile, verginin önce ödenip eşyanın işlem görmüş ürün olarak ihracından sonra geri verildiği sistem birbirinden nasıl ayrılır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "108"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 108 fikra 1, vergi alinmaksizin teminata baglanan yolu \"sartli muafiyet sistemi\" olarak; fikra 2, once tahsil edilip sonradan geri verilen yolu \"geri odeme sistemi\" olarak tanimliyor; dogrudan kontrol edildi (src_para=848-860). Bu soru iki yakin kavramin karistirilmadan ayirt edilip edilemedigini olcer."
+  },
+  {
+    "id": "gk028",
+    "question": "Kanunda ayrıca özel bir ceza öngörülmemiş olmakla birlikte, açıkça belirtilmiş bir düzenlemeye aykırı davranılması hâlinde ne tür bir para cezası uygulanır?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "241"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 241 fikra 1, bu genel duruma sabit tutarli bir \"usulsuzluk cezasi\" uygulanacagini duzenliyor; bu soru, konu bakimindan yakin olan Madde 234'teki vergi kaybina ozgu orantili cezalarla karistirilmamasi icin bilincli olarak dar kapsamli tutulmustur; dogrudan kontrol edildi (src_para=1719-1754)."
+  },
+  {
+    "id": "gk029",
+    "question": "Kanunun yürürlüğe girdiği tarihte gümrük sundurmalarında veya eşya konulmasına izin verilen yerlerde bulunan eşyanın bekleme süreleri hangi hükümlere tabidir?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "gecici",
+        "article_no": "1"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "medium",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Ana kanunun Gecici Madde 1 fikra 1, bu bekleme sureleri ile sure uzatim taleplerinde yururlukten kaldirilan eski Gumruk Kanunu hukumlerinin uygulanacagini duzenliyor; dogrudan kontrol edildi (src_para=1800-1801). Bu soru, ayni \"1\" numarasini tasiyan ancak yapisal olarak ayri olan \"KANUNA ISLENEMEYEN HUKUMLER\" bolumundeki ozel Gecici Madde 1 ile karistirilmamasi gereken ana kanun hukmunu hedefler (bkz. gk022)."
+  },
+  {
+    "id": "gk030",
+    "question": "Bir gümrük idaresinden alınan bağlayıcı tarife bilgisi, o idareyi hangi kapsamda ve ne kadar süreyle bağlar?",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "9"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "expert_validated": false,
+    "notes": "Madde 9 fikra 2, baglayici tarife bilgisinin yalnizca esyanin tarife pozisyonu konusunda ve bilginin verildigi tarihten sonraki islemler icin baglayici oldugunu; fikra 4, bu bilginin verilis tarihinden itibaren alti yil gecerli oldugunu duzenliyor; dogrudan kontrol edildi (src_para=135-157). Bu soru, genel \"Gumruk Tarifesi\" kavramini duzenleyen Madde 15 ile karistirilmamasi gereken, baglayici bilgiye ozgu kapsam/sure kuralini hedefler."
+  }
+]
