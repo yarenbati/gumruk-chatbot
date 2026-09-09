@@ -1,0 +1,69 @@
+{
+  "timestamp_utc": "2026-09-09T18:50:58.062416+00:00",
+  "storage_path": "C:\\gumruk-chatbot\\chroma",
+  "collection": "gumruk_mevzuati",
+  "chroma_version": "1.5.9",
+  "authoritative_artifacts_before": {
+    "reports\\evaluation\\m10e-retrieval-experiments.json": "a2d5850c08e6b2f579e0cf268f7202497df9fc02c8b88bd0b8a7ff4d255510d3",
+    "reports\\evaluation\\m10e-retrieval-experiments.csv": "ba72ff54a6b3bf1b8a3c4cc64d1a0d20d9342a346ca95873190ec2f0e1933919",
+    "reports\\evaluation\\m10e-retrieval-experiments.md": "f68fddb7c12f9473f9056bb864818ed36eab400f7cd8912bb37745d131729080"
+  },
+  "serialization": {
+    "json": "UTF-8, ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False",
+    "order": "All records sorted by ID ascending, without Unicode normalization",
+    "ids": "SHA256(canonical JSON array of sorted IDs)",
+    "documents_metadata": "SHA256(canonical JSON array of [ID, document, metadata]); compatible with M10E snapshot",
+    "embedding_only": "SHA256(concatenated vectors in sorted-ID order; little-endian float32 C-order)",
+    "full": "SHA256(concatenation per sorted record: uint64 little-endian JSON byte length, canonical [ID, document, metadata] bytes, uint64 little-endian vector byte length, vector bytes)"
+  },
+  "collection_get_calls": 1,
+  "query_calls": 0,
+  "openai_calls": 0,
+  "explicit_mutation_api_calls": 0,
+  "physical_before": {
+    "448e5756-391d-4ede-87e8-7792e286ce3b/data_level0.bin": "20ccb38136aab1045c1dbd31ee292752355a95bc1e9e716d1b7e97358cebeda4",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/header.bin": "b081be2c2276a57e995075c7de2f3cb25e903798aac36d98042045533ab28f7d",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/length.bin": "1c18f71367d6809957499528a354b3bff1f592b4144f1791d6a8a14fa3ac5849",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "chroma.sqlite3": "c27782299f2cb01ed54c76a84cf7e61d5d3864406e9c8223c93c92c1c2dc8d4c"
+  },
+  "backend": "chromadb.api.rust.RustBindingsAPI",
+  "physical_after": {
+    "448e5756-391d-4ede-87e8-7792e286ce3b/data_level0.bin": "d4c2b22fe82c96e0e95d8e04e6a001e4ab6389d2e9b3fd1203ed948a1b9c3276",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/header.bin": "b081be2c2276a57e995075c7de2f3cb25e903798aac36d98042045533ab28f7d",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/length.bin": "dce69fe0b66190d79c7847d28c6e2b9795abe6f8d5758e2715e9f409349f7809",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "chroma.sqlite3": "e758c270221cb128f3df0fb08d2301733148450d7d73c98595281f02f3f7988c"
+  },
+  "changed_files": [
+    "448e5756-391d-4ede-87e8-7792e286ce3b/data_level0.bin",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/length.bin",
+    "chroma.sqlite3"
+  ],
+  "embedding_vector_count": 329,
+  "vector_dimensions": {
+    "1536": 329
+  },
+  "all_embeddings_finite": true,
+  "per_law_counts": {
+    "4458": 276,
+    "5326": 53
+  },
+  "id_set_sha256": "3cc1f0c2cb4233d421c9651f5315f0bc2e5a7b769b5467e145dd9a0c80b1d429",
+  "document_metadata_sha256": "e85575a671dd0ab8a55ed15fd543e964d9e15f14389d88228510bfe0a5c96ee8",
+  "embedding_only_post_sha256": "7f6b9ea564919277cdc75f15305122c2dd6ae79ad055b235c3119360aa2693d3",
+  "full_logical_post_sha256": "8b164d939d25dd0c4a1739056e463c36e00878e855488e54ef5208e3f7a95c74",
+  "matches_original_nonvector_pre_and_post": true,
+  "status": "completed_single_post_inspection",
+  "integrity_classification": {
+    "logical_record_integrity": "PASS",
+    "logical_embedding_integrity_post_snapshot": "VERIFIED",
+    "pre_post_embedding_equality": "UNPROVEN",
+    "explicit_mutation_api_calls": 0,
+    "physical_storage_byte_stability": "FAIL",
+    "physical_storage_change_cause": "physical storage byte changes are reproducible/observed but exact internal cause remains unresolved."
+  },
+  "compatible_pre_embedding_fingerprint_found": false,
+  "pytest": "398 passed, 2 skipped in 21.17s; RUN_OPENAI_INTEGRATION_TESTS=0",
+  "authoritative_json_csv_byte_unchanged": true
+}
