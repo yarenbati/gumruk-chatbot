@@ -50,7 +50,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 
-from src import config, ingest
+from src import config, ingest, source_registry
 from src.ingest import ExtractedParagraph
 
 if __name__ == "__main__":  # pragma: no cover - exercised via CLI, not tests
@@ -425,28 +425,22 @@ def paragraphs_from_json(data: dict[str, Any]) -> list[ExtractedParagraph]:
     ]
 
 
-def _load_and_parse_articles(paragraphs_json_path: Path) -> tuple[str | None, list[Article]]:
+def _load_and_parse_articles(paragraphs_json_path: Path) -> tuple[str, list[Article]]:
     """Shared load+parse step for both parse_document() and
-    build_chunks_document(): read a *.paragraphs.json, look up
-    legislation_number from data/source_manifest.json (via the paragraphs
-    JSON's `source_file` — reuses src.ingest's existing manifest lookup
-    rather than duplicating it or hard-coding legal metadata here), and
-    return (document_id, articles).
+    build_chunks_document(): admit a *.paragraphs.json against one validated
+    manifest record. The persisted root ID must match its source_file record;
+    document identity and law metadata must never come from different records.
+    Direct parse_articles() remains a pure lower-level parser for supplied fields.
     """
     data = load_paragraphs_json(paragraphs_json_path)
+    registry = source_registry.load_manifest(ingest.SOURCE_MANIFEST_PATH, project_root=PROJECT_ROOT)
+    document = registry.admit_paragraph_root(data)
     paragraphs = paragraphs_from_json(data)
-    document_id = data.get("document_id")
-    source_file = data.get("source_file")
-
-    legislation_number = None
-    if source_file:
-        metadata = ingest._load_source_metadata(PROJECT_ROOT / source_file)
-        legislation_number = metadata.get("legislation_number")
 
     articles = parse_articles(
-        paragraphs, document_id=document_id, legislation_number=legislation_number
+        paragraphs, document_id=document.document_id, legislation_number=document.legislation_number
     )
-    return document_id, articles
+    return document.document_id, articles
 
 
 def parse_document(paragraphs_json_path: Path) -> dict[str, Any]:

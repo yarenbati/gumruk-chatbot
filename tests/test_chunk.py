@@ -300,7 +300,20 @@ def test_footnote_id_on_title_paragraph_is_attributed_to_its_article() -> None:
 # --- JSON output -------------------------------------------------------------
 
 
-def test_parse_document_and_write_articles_json(tmp_path: Path) -> None:
+@pytest.fixture
+def synthetic_source_manifest(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """Register the synthetic source explicitly for file-level parse admission."""
+    import json
+
+    path = tmp_path / "source_manifest.json"
+    path.write_text(json.dumps([{
+        "document_id": "doc_test", "title": "Synthetic document", "document_type": "Synthetic",
+        "local_file": "data/raw/does-not-exist.docx",
+    }]), encoding="utf-8")
+    monkeypatch.setattr(ingest, "SOURCE_MANIFEST_PATH", path)
+
+
+def test_parse_document_and_write_articles_json(tmp_path: Path, synthetic_source_manifest: None) -> None:
     paragraphs_payload = {
         "document_id": "doc_test",
         "source_file": "data/raw/does-not-exist.docx",
@@ -588,7 +601,7 @@ def test_chunk_order_follows_article_and_fikra_source_order() -> None:
 # --- End-to-end from real JSON I/O helpers --------------------------------------
 
 
-def test_build_chunks_document_and_write_chunks_json(tmp_path: Path) -> None:
+def test_build_chunks_document_and_write_chunks_json(tmp_path: Path, synthetic_source_manifest: None) -> None:
     paragraphs_payload = {
         "document_id": "doc_test",
         "source_file": "data/raw/does-not-exist.docx",
