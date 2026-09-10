@@ -9,7 +9,8 @@ import time
 from dataclasses import dataclass
 from typing import Any, Callable
 
-from src import config, generate, index, retrieve
+from src import config, generate, index, retrieve, source_identity, source_registry
+from src.ingest import PROJECT_ROOT, SOURCE_MANIFEST_PATH
 
 if __name__ == "__main__":  # pragma: no cover - manual CLI only
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
@@ -66,6 +67,33 @@ def _validate_cross_layer_invariants(
             raise RAGPipelineError(
                 f"Validated citation chunk_id {citation.chunk_id!r} is absent from retrieval context"
             )
+        number = citation.source_number
+        if type(number) is not int or not 1 <= number <= len(retrieved_ids):
+            raise RAGPipelineError("Citation source_number is outside context")
+        chunk = retrieval_result.results[number - 1]
+        if citation.chunk_id != chunk.chunk_id or citation.source_label != f"KAYNAK {number}":
+            raise RAGPipelineError("Citation source number does not match context position")
+        # Historical/manual results may intentionally have no document fields.
+        # The active generation builder is strict; partial provenance is checked.
+        if all(value is None for value in (
+            citation.document_id, citation.document_source_key,
+            citation.document_title, citation.document_type,
+        )):
+            continue
+        try:
+            key = source_registry.retrieved_source_key(chunk)
+        except source_identity.SourceIdentityError as exc:
+            raise RAGPipelineError("Retrieved citation lacks canonical provenance") from exc
+        if citation.document_id != key.document_id or citation.document_source_key != key:
+            raise RAGPipelineError("Citation document provenance does not match retrieved context")
+        try:
+            citation_key = source_identity.DocumentSourceKey(
+                citation.document_id, citation.article_type, citation.article_no,
+            )
+        except source_identity.SourceIdentityError as exc:
+            raise RAGPipelineError("Citation provision fields lack canonical provenance") from exc
+        if citation_key != key:
+            raise RAGPipelineError("Citation provision fields do not match retrieved context")
 
 
 def run_rag(
@@ -76,6 +104,7 @@ def run_rag(
     generation_client: Any = None,
     retrieval_fn: RetrievalCallable | None = None,
     generation_fn: GenerationCallable | None = None,
+    registry: source_registry.SourceRegistry | None = None,
 ) -> RAGResult:
     """Run exactly one retrieval followed by exactly one generation.
 
@@ -83,7 +112,9 @@ def run_rag(
     their original order. When ``collection`` is omitted, the existing
     ``src.index`` helpers open the configured production collection. Tests
     can inject a collection, both API clients, or component callables.
-    Component exceptions propagate unchanged.
+    A supplied registry is passed unchanged to generation; otherwise the current
+    manifest is loaded once here for nonempty context. Component exceptions
+    propagate unchanged.
     """
     _validate_question(question)
     start = time.perf_counter()
@@ -101,10 +132,15 @@ def run_rag(
         collection=active_collection,
         client=embedding_client,
     )
+    # One explicit application-boundary load, never per citation or at import.
+    active_registry = registry
+    if active_registry is None and retrieval_result.results:
+        active_registry = source_registry.load_manifest(SOURCE_MANIFEST_PATH, project_root=PROJECT_ROOT)
     generation_result = generate_once(
         question,
         retrieval_result.results,
         client=generation_client,
+        registry=active_registry,
     )
 
     _validate_cross_layer_invariants(question, retrieval_result, generation_result)

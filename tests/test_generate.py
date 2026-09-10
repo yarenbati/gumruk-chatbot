@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import ast
 import inspect
+from functools import partial
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -20,7 +21,11 @@ from typing import Any
 import openai
 import pytest
 
-from src import config, generate
+from src import config, generate, source_identity, source_registry
+
+# Explicit compatibility for the pre-M11 metadata-only unit cases below.
+_legacy_generate_answer = partial(generate.generate_answer, legacy_citations=True)
+_legacy_build_citations = partial(generate.build_validated_citations, legacy_citations=True)
 
 # ============================================================================
 # Fixture helpers
@@ -128,17 +133,17 @@ def _forbidden_client() -> _FakeClient:
 
 def test_non_string_question_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer(123, [_rc()], client=_FakeClient())  # type: ignore[arg-type]
+        _legacy_generate_answer(123, [_rc()], client=_FakeClient())  # type: ignore[arg-type]
 
 
 def test_empty_question_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("", [_rc()], client=_FakeClient())
+        _legacy_generate_answer("", [_rc()], client=_FakeClient())
 
 
 def test_whitespace_only_question_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("   \n\t  ", [_rc()], client=_FakeClient())
+        _legacy_generate_answer("   \n\t  ", [_rc()], client=_FakeClient())
 
 
 # ============================================================================
@@ -147,7 +152,7 @@ def test_whitespace_only_question_rejected() -> None:
 
 
 def test_empty_retrieved_chunks_returns_deterministic_insufficient_context() -> None:
-    result = generate.generate_answer("Kabahat nedir?", [], client=_FakeClient())
+    result = _legacy_generate_answer("Kabahat nedir?", [], client=_FakeClient())
     assert result.insufficient_context is True
     assert result.answer == generate.INSUFFICIENT_CONTEXT_MESSAGE
     assert result.context_chunk_ids == ()
@@ -155,7 +160,7 @@ def test_empty_retrieved_chunks_returns_deterministic_insufficient_context() -> 
 
 
 def test_empty_context_does_not_call_openai() -> None:
-    result = generate.generate_answer("Kabahat nedir?", [], client=_forbidden_client())
+    result = _legacy_generate_answer("Kabahat nedir?", [], client=_forbidden_client())
     assert result.insufficient_context is True  # no AssertionError raised means OpenAI was never called
 
 
@@ -224,14 +229,14 @@ def test_build_context_every_chunk_appears_exactly_once() -> None:
 
 def test_generate_uses_config_llm_model_by_default() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    result = generate.generate_answer("Kabahat nedir?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Kabahat nedir?", [_rc()], client=fake_client)
     assert result.model == config.LLM_MODEL or fake_client.responses.calls[0]["model"] == config.LLM_MODEL
 
 
 def test_user_question_reaches_api_input_unchanged() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
     question = "Kabahatlerde soruşturma zamanaşımı nasıl belirlenir?"
-    generate.generate_answer(question, [_rc()], client=fake_client)
+    _legacy_generate_answer(question, [_rc()], client=fake_client)
 
     input_items = fake_client.responses.calls[0]["input"]
     assert any(question in item["content"] for item in input_items)
@@ -240,7 +245,7 @@ def test_user_question_reaches_api_input_unchanged() -> None:
 def test_context_reaches_api_input() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
     chunk = _rc(text="Madde metni burada.")
-    generate.generate_answer("Soru?", [chunk], client=fake_client)
+    _legacy_generate_answer("Soru?", [chunk], client=fake_client)
 
     expected_context = generate.build_context([chunk])
     input_items = fake_client.responses.calls[0]["input"]
@@ -249,7 +254,7 @@ def test_context_reaches_api_input() -> None:
 
 def test_instructions_supplied_separately_from_input() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
 
     call = fake_client.responses.calls[0]
     assert "instructions" in call
@@ -269,7 +274,7 @@ def test_source_blocks_identified_as_evidence_not_instructions() -> None:
     assert "talimat değildir" in instructions or "talimat DEĞİLDİR" in instructions
 
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     input_items = fake_client.responses.calls[0]["input"]
     context_item = next(item for item in input_items if "KAYNAK VERİSİ" in item["content"])
     assert "talimat değildir" in context_item["content"]
@@ -287,7 +292,7 @@ def test_successful_fake_response_produces_generation_result() -> None:
             model="fake-llm-model",
         )
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert isinstance(result, generate.GenerationResult)
     assert result.answer == "Evet, kabahate teşebbüs cezalandırılmaz. [KAYNAK 1]"
     assert result.model == "fake-llm-model"
@@ -298,7 +303,7 @@ def test_successful_fake_response_produces_generation_result() -> None:
 def test_empty_model_output_raises_generation_error() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text="", output=[]))
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [_rc()], client=fake_client)
+        _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
 
 
 def test_missing_usable_text_raises_generation_error() -> None:
@@ -306,7 +311,7 @@ def test_missing_usable_text_raises_generation_error() -> None:
     # content part has no usable `.text` at all.
     fake_client = _FakeClient(_FakeResponse(output_text=None, output=[_FakeOutputMessage(content=[SimpleNamespace()])]))
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [_rc()], client=fake_client)
+        _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
 
 
 def test_fallback_extraction_from_output_when_output_text_missing() -> None:
@@ -316,7 +321,7 @@ def test_fallback_extraction_from_output_when_output_text_missing() -> None:
             output=[_FakeOutputMessage(content=[_FakeContentPart(_envelope(answer="Manuel çıkarım. [KAYNAK 1]"))])],
         )
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.answer == "Manuel çıkarım. [KAYNAK 1]"
 
 
@@ -328,7 +333,7 @@ def test_fallback_extraction_from_output_when_output_text_missing() -> None:
 def test_context_chunk_ids_preserve_input_ordering() -> None:
     chunks = [_rc(chunk_id="c-3"), _rc(chunk_id="c-1"), _rc(chunk_id="c-2")]
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    result = generate.generate_answer("Soru?", chunks, client=fake_client)
+    result = _legacy_generate_answer("Soru?", chunks, client=fake_client)
     assert result.context_chunk_ids == ("c-3", "c-1", "c-2")
 
 
@@ -336,7 +341,7 @@ def test_token_usage_captured_correctly() -> None:
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(), usage=_FakeUsage(input_tokens=120, output_tokens=40, total_tokens=160))
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.usage.input_tokens == 120
     assert result.usage.output_tokens == 40
     assert result.usage.total_tokens == 160
@@ -344,7 +349,7 @@ def test_token_usage_captured_correctly() -> None:
 
 def test_absent_usage_fields_become_none_not_zero() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(), usage=None))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.usage.input_tokens is None
     assert result.usage.output_tokens is None
     assert result.usage.total_tokens is None
@@ -352,7 +357,7 @@ def test_absent_usage_fields_become_none_not_zero() -> None:
 
 def test_partial_usage_fields_stay_none_individually() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(), usage=_FakeUsage(input_tokens=10)))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.usage.input_tokens == 10
     assert result.usage.output_tokens is None
     assert result.usage.total_tokens is None
@@ -360,13 +365,13 @@ def test_partial_usage_fields_stay_none_individually() -> None:
 
 def test_latency_ms_non_negative_when_captured() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.latency_ms is not None
     assert result.latency_ms >= 0
 
 
 def test_latency_ms_is_none_for_zero_context_path() -> None:
-    result = generate.generate_answer("Soru?", [], client=_FakeClient())
+    result = _legacy_generate_answer("Soru?", [], client=_FakeClient())
     assert result.latency_ms is None
 
 
@@ -378,7 +383,7 @@ def test_latency_ms_is_none_for_zero_context_path() -> None:
 def test_fake_client_path_requires_no_api_key(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(config, "OPENAI_API_KEY", None)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 1]")))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.answer == "Cevap. [KAYNAK 1]"
 
 
@@ -442,7 +447,7 @@ def test_normal_path_omits_temperature_on_first_call_when_flag_false(monkeypatch
     never send-then-fail-then-retry."""
     monkeypatch.setattr(config, "LLM_SEND_TEMPERATURE", False)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 1]")))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)  # default model + temperature
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)  # default model + temperature
 
     assert len(fake_client.responses.calls) == 1  # exactly one Responses API call - no preliminary 400
     assert "temperature" not in fake_client.responses.calls[0]
@@ -452,7 +457,7 @@ def test_normal_path_omits_temperature_on_first_call_when_flag_false(monkeypatch
 def test_requested_temperature_is_sent_on_first_call_when_flag_true(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(config, "LLM_SEND_TEMPERATURE", True)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client, temperature=0.3)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client, temperature=0.3)
 
     assert len(fake_client.responses.calls) == 1
     assert fake_client.responses.calls[0]["temperature"] == 0.3
@@ -487,7 +492,7 @@ def test_model_independence_flag_false_never_sends_regardless_of_model(
     `if model == ...` regression."""
     monkeypatch.setattr(config, "LLM_SEND_TEMPERATURE", False)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client, model=model, temperature=0.3)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client, model=model, temperature=0.3)
     assert "temperature" not in fake_client.responses.calls[0]
 
 
@@ -497,14 +502,14 @@ def test_model_independence_flag_true_always_sends_regardless_of_model(
 ) -> None:
     monkeypatch.setattr(config, "LLM_SEND_TEMPERATURE", True)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client, model=model, temperature=0.3)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client, model=model, temperature=0.3)
     assert fake_client.responses.calls[0]["temperature"] == 0.3
 
 
 def test_temperature_omitted_when_none_requested_even_if_flag_true(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(config, "LLM_SEND_TEMPERATURE", True)
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope()))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client, temperature=None)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client, temperature=None)
     assert "temperature" not in fake_client.responses.calls[0]
 
 
@@ -520,7 +525,7 @@ def test_call_responses_api_retries_without_temperature_as_defensive_fallback(
         _FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 1]")),
         raise_sequence=[_bad_request_error("temperature")],
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client, temperature=0.5)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client, temperature=0.5)
     assert result.answer == "Cevap. [KAYNAK 1]"
     assert len(fake_client.responses.calls) == 2
     assert "temperature" in fake_client.responses.calls[0]
@@ -530,7 +535,7 @@ def test_call_responses_api_retries_without_temperature_as_defensive_fallback(
 def test_unrelated_bad_request_error_is_not_swallowed() -> None:
     fake_client = _FakeClient(raise_sequence=[_bad_request_error("model")])
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [_rc()], client=fake_client)
+        _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert len(fake_client.responses.calls) == 1  # no retry for an unrelated param error
 
 
@@ -560,28 +565,28 @@ def test_no_model_name_hard_coded_for_temperature_capability() -> None:
 
 def test_non_sequence_retrieved_chunks_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", object(), client=_FakeClient())  # type: ignore[arg-type]
+        _legacy_generate_answer("Soru?", object(), client=_FakeClient())  # type: ignore[arg-type]
 
 
 def test_string_retrieved_chunks_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", "not-a-list-of-chunks", client=_FakeClient())  # type: ignore[arg-type]
+        _legacy_generate_answer("Soru?", "not-a-list-of-chunks", client=_FakeClient())  # type: ignore[arg-type]
 
 
 def test_chunk_missing_required_field_rejected() -> None:
     bad_chunk = SimpleNamespace(chunk_id="c-1")  # missing .text/.metadata
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [bad_chunk], client=_FakeClient())
+        _legacy_generate_answer("Soru?", [bad_chunk], client=_FakeClient())
 
 
 def test_chunk_with_empty_text_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [_rc(text="   ")], client=_FakeClient())
+        _legacy_generate_answer("Soru?", [_rc(text="   ")], client=_FakeClient())
 
 
 def test_chunk_with_empty_chunk_id_rejected() -> None:
     with pytest.raises(generate.GenerationError):
-        generate.generate_answer("Soru?", [_rc(chunk_id="")], client=_FakeClient())
+        _legacy_generate_answer("Soru?", [_rc(chunk_id="")], client=_FakeClient())
 
 
 # ============================================================================
@@ -679,38 +684,38 @@ def test_citation_validation_error_is_a_generation_error() -> None:
 
 def test_citation_source_number_maps_to_correct_supplied_chunk() -> None:
     chunks = [_rc(chunk_id="c-1"), _rc(chunk_id="c-2"), _rc(chunk_id="c-3")]
-    citations = generate.build_validated_citations([2], chunks)
+    citations = _legacy_build_citations([2], chunks)
     assert citations[0].source_number == 2
     assert citations[0].chunk_id == "c-2"
 
 
 def test_citation_chunk_id_comes_from_chunk_object() -> None:
     chunks = [_rc(chunk_id="5326-madde-13-chunk-001")]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].chunk_id == "5326-madde-13-chunk-001"
 
 
 def test_citation_legislation_number_from_metadata() -> None:
     chunks = [_rc(metadata={"legislation_number": "5326"})]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].legislation_number == "5326"
 
 
 def test_citation_article_no_from_metadata() -> None:
     chunks = [_rc(metadata={"article_no": "13"})]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].article_no == "13"
 
 
 def test_citation_article_title_preserved_when_present() -> None:
     chunks = [_rc(metadata={"article_title": "Teşebbüs"})]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].article_title == "Teşebbüs"
 
 
 def test_citation_missing_optional_metadata_stays_none_never_invented() -> None:
     chunks = [_rc(metadata={})]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].legislation_number is None
     assert citations[0].article_no is None
     assert citations[0].article_type is None
@@ -720,13 +725,13 @@ def test_citation_missing_optional_metadata_stays_none_never_invented() -> None:
 
 def test_citation_paragraph_numbers_preserved_when_present() -> None:
     chunks = [_rc(metadata={"paragraph_numbers": ["1", "2"]})]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].paragraph_numbers == ("1", "2")
 
 
 def test_citation_source_label_format() -> None:
     chunks = [_rc()]
-    citations = generate.build_validated_citations([1], chunks)
+    citations = _legacy_build_citations([1], chunks)
     assert citations[0].source_label == "KAYNAK 1"
 
 
@@ -786,14 +791,14 @@ def test_render_citation_never_invents_missing_fields() -> None:
 def test_yeterli_answer_with_zero_citations_fails_closed() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(status="YETERLI", answer="Cevap ama kaynak yok.")))
     with pytest.raises(generate.CitationValidationError):
-        generate.generate_answer("Soru?", [_rc()], client=fake_client)
+        _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
 
 
 def test_yeterli_answer_with_valid_citation_succeeds() -> None:
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(status="YETERLI", answer="Cevap metni. [KAYNAK 1]"))
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.insufficient_context is False
     assert len(result.citations) == 1
 
@@ -802,7 +807,7 @@ def test_yetersiz_answer_with_zero_citations_is_allowed() -> None:
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(status="YETERSIZ", answer="Kaynaklar bu soruyu yanıtlamaya yetmiyor."))
     )
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.insufficient_context is True
     assert result.citations == ()
 
@@ -813,24 +818,24 @@ def test_yetersiz_answer_with_zero_citations_is_allowed() -> None:
 
 
 def test_zero_retrieved_chunks_causes_zero_api_calls() -> None:
-    result = generate.generate_answer("Soru?", [], client=_forbidden_client())
+    result = _legacy_generate_answer("Soru?", [], client=_forbidden_client())
     assert result.insufficient_context is True
 
 
 def test_zero_retrieved_chunks_returns_insufficient_context_true() -> None:
-    result = generate.generate_answer("Soru?", [], client=_FakeClient())
+    result = _legacy_generate_answer("Soru?", [], client=_FakeClient())
     assert result.insufficient_context is True
 
 
 def test_model_yetersiz_produces_insufficient_context_true() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(status="YETERSIZ", answer="Yetersiz.")))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.insufficient_context is True
 
 
 def test_model_yeterli_produces_insufficient_context_false() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(status="YETERLI", answer="Yeterli. [KAYNAK 1]")))
-    result = generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    result = _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert result.insufficient_context is False
 
 
@@ -844,7 +849,7 @@ def test_context_chunk_ids_still_preserve_retrieval_order_with_citations() -> No
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 2] [KAYNAK 1]"))
     )
-    result = generate.generate_answer("Soru?", chunks, client=fake_client)
+    result = _legacy_generate_answer("Soru?", chunks, client=fake_client)
     assert result.context_chunk_ids == ("c-3", "c-1", "c-2")  # retrieval order, unaffected by citation order
 
 
@@ -853,7 +858,7 @@ def test_citations_preserve_first_appearance_order_not_retrieval_order() -> None
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 2] önce, [KAYNAK 1] sonra."))
     )
-    result = generate.generate_answer("Soru?", chunks, client=fake_client)
+    result = _legacy_generate_answer("Soru?", chunks, client=fake_client)
     # [KAYNAK 2] cited first in the text -> source_number 2 (-> chunk "c-1") comes first in citations,
     # even though chunk "c-1" is not first in context_chunk_ids' retrieval order.
     assert [c.source_number for c in result.citations] == [2, 1]
@@ -872,7 +877,7 @@ def test_adversarial_hallucinated_citation_rejected_before_successful_result() -
         _FakeResponse(output_text=_envelope(status="YETERLI", answer="Cevap. [KAYNAK 999]"))
     )
     with pytest.raises(generate.CitationValidationError):
-        generate.generate_answer("Soru?", chunks, client=fake_client)
+        _legacy_generate_answer("Soru?", chunks, client=fake_client)
 
 
 def test_citation_to_exact_last_available_chunk_succeeds() -> None:
@@ -880,7 +885,7 @@ def test_citation_to_exact_last_available_chunk_succeeds() -> None:
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(status="YETERLI", answer="Cevap. [KAYNAK 5]"))
     )
-    result = generate.generate_answer("Soru?", chunks, client=fake_client)
+    result = _legacy_generate_answer("Soru?", chunks, client=fake_client)
     assert result.citations[0].source_number == 5
     assert result.citations[0].chunk_id == "c-4"
 
@@ -898,7 +903,7 @@ def test_citation_validator_ignores_article_numbers_written_in_prose() -> None:
     fake_client = _FakeClient(
         _FakeResponse(output_text=_envelope(status="YETERLI", answer="Madde 99'a göre ... [KAYNAK 1]"))
     )
-    result = generate.generate_answer("Soru?", chunks, client=fake_client)
+    result = _legacy_generate_answer("Soru?", chunks, client=fake_client)
     assert result.citations[0].article_no == "13"  # never "99"
 
 
@@ -920,5 +925,109 @@ def test_instructions_still_mark_source_as_evidence_not_instructions() -> None:
 
 def test_successful_generation_uses_exactly_one_api_call() -> None:
     fake_client = _FakeClient(_FakeResponse(output_text=_envelope(answer="Cevap. [KAYNAK 1]")))
-    generate.generate_answer("Soru?", [_rc()], client=fake_client)
+    _legacy_generate_answer("Soru?", [_rc()], client=fake_client)
     assert len(fake_client.responses.calls) == 1
+
+
+@pytest.fixture
+def citation_registry() -> source_registry.SourceRegistry:
+    root = Path(__file__).parents[1]
+    return source_registry.load_manifest(root / "data/source_manifest.json", project_root=root)
+
+
+def _canonical_chunk(**overrides: Any) -> SimpleNamespace:
+    metadata = dict(document_id="4458_gumruk_kanunu", legislation_number="4458",
+                    article_type="normal", article_no="165/A")
+    metadata.update(overrides)
+    return _rc(metadata=metadata)
+
+
+@pytest.mark.parametrize("document_id,number,title,article", [
+    ("5326_kabahatler_kanunu", "5326", "Kabahatler Kanunu", "4"),
+    ("4458_gumruk_kanunu", "4458", "Gümrük Kanunu", "165/A"),
+])
+def test_canonical_citation_uses_manifest(citation_registry, document_id, number, title, article) -> None:
+    chunk = _canonical_chunk(document_id=document_id, legislation_number=number, article_no=article,
+                             document_title="untrusted duplicate title", document_type="wrong")
+    citation, = generate.build_validated_citations([1], [chunk], registry=citation_registry)
+    assert citation.document_id == document_id
+    assert citation.document_title == title
+    assert citation.document_type == "Kanun"
+    assert citation.document_source_key == source_identity.DocumentSourceKey(document_id, "normal", article)
+    assert citation.article_no == article
+    assert generate.render_citation(citation) == f"{title} — Madde {article}"
+
+
+@pytest.mark.parametrize("overrides", [
+    {"document_id": None}, {"document_id": "unknown_document"},
+    {"document_id": "4458/Gumruk"}, {"article_type": "annex"},
+    {"article_no": "165//"}, {"legislation_number": "5326"},
+    {"document_id": "5326_kabahatler_kanunu"},
+    {"source_file": "data/raw/5326-kabahatler-kanunu.docx"},
+])
+def test_strict_provenance_fails_before_model_call(citation_registry, overrides) -> None:
+    with pytest.raises(generate.CitationValidationError):
+        generate.generate_answer("Soru?", [_canonical_chunk(**overrides)],
+                                 registry=citation_registry, client=_forbidden_client())
+
+
+def test_strict_missing_registry_has_no_hidden_io(monkeypatch) -> None:
+    monkeypatch.setattr(source_registry, "load_manifest", lambda *a, **k: pytest.fail("hidden I/O"))
+    with pytest.raises(generate.CitationValidationError, match="explicit registry"):
+        generate.generate_answer("Soru?", [_canonical_chunk()], client=_forbidden_client())
+
+
+def test_numberless_canonical_citation(tmp_path) -> None:
+    record = source_registry.DocumentRecord("synthetic_regulation", "Synthetic Regulation",
+                                            "Yönetmelik", "synthetic.docx")
+    registry = source_registry.SourceRegistry((record,), tmp_path)
+    chunk = _canonical_chunk(document_id=record.document_id, legislation_number=None, article_no="27")
+    citation, = generate.build_validated_citations([1], [chunk], registry=registry)
+    assert citation.legislation_number is None
+    assert citation.document_type == "Yönetmelik"
+    assert str(citation.document_source_key) == "synthetic_regulation/normal/27"
+    assert generate.render_citation(citation) == "Synthetic Regulation — Madde 27"
+    assert "sayılı Kanun" not in generate.render_citation(citation)
+
+
+@pytest.mark.parametrize("article_type,label", [
+    ("normal", "Madde"), ("ek", "Ek Madde"),
+    ("gecici", "Geçici Madde"), ("islenemeyen_hukum", "Geçici Madde"),
+])
+def test_canonical_type_sensitive_display(citation_registry, article_type, label) -> None:
+    citation, = generate.build_validated_citations(
+        [1], [_canonical_chunk(article_type=article_type, article_no="1")], registry=citation_registry)
+    assert generate.render_citation(citation) == f"Gümrük Kanunu — {label} 1"
+    assert citation.document_source_key.article_type == article_type
+
+
+def test_model_prose_cannot_override_provenance_or_context(citation_registry) -> None:
+    from copy import deepcopy
+    chunks = [_canonical_chunk(), _canonical_chunk(article_no="27")]
+    chunks[0].chunk_id, chunks[1].chunk_id = "c-2", "c-1"
+    before = deepcopy(chunks)
+    answer = "document_id=evil document_title=Fake document_type=Fake Madde 99 [KAYNAK 2] [KAYNAK 1]"
+    client = _FakeClient(_FakeResponse(output_text=_envelope(answer=answer)))
+    result = generate.generate_answer("Soru?", chunks, client=client, registry=citation_registry)
+    assert chunks == before
+    assert result.answer == answer
+    assert result.context_chunk_ids == ("c-2", "c-1")
+    assert [c.chunk_id for c in result.citations] == ["c-1", "c-2"]
+    assert [str(c.document_source_key) for c in result.citations] == [
+        "4458_gumruk_kanunu/normal/27", "4458_gumruk_kanunu/normal/165/a"]
+    assert all(c.document_title == "Gümrük Kanunu" for c in result.citations)
+    legacy_client = _FakeClient(_FakeResponse(output_text=_envelope(answer=answer)))
+    _legacy_generate_answer("Soru?", chunks, client=legacy_client)
+    assert client.responses.calls == legacy_client.responses.calls
+
+
+def test_historical_direct_constructor_remains_provenance_free() -> None:
+    citation = generate.ValidatedCitation(1, "KAYNAK 1", "old-chunk", article_no="13")
+    assert citation.document_id is citation.document_source_key is None
+    assert citation.document_title is citation.document_type is None
+
+
+def test_legacy_mode_cannot_mix_with_registry(citation_registry) -> None:
+    with pytest.raises(generate.CitationValidationError, match="legacy"):
+        generate.build_validated_citations([1], [_canonical_chunk()],
+                                           registry=citation_registry, legacy_citations=True)

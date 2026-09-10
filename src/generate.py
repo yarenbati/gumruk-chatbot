@@ -98,7 +98,7 @@ from typing import Any
 
 from openai import BadRequestError, OpenAI, OpenAIError
 
-from src import config
+from src import config, source_identity, source_registry
 from src.embed import build_article_label
 
 INSUFFICIENT_CONTEXT_MESSAGE = "Sağlanan mevzuat parçaları bu soruyu yanıtlamak için yeterli değil."
@@ -159,6 +159,9 @@ class ValidatedCitation:
     own prose (e.g. a stray "Madde 99'a göre..." in the answer text is
     never used to populate `article_no` here). A metadata field that is
     absent on the source chunk stays `None` here - never invented.
+    Canonical document title/type come from the explicitly resolved registry.
+    Canonical fields are populated by the strict builder; defaults retain
+    construction compatibility with historical evaluation records.
 
     This proves only citation INTEGRITY: `[KAYNAK N]` really does refer to
     one of the chunks actually supplied to the model. It does NOT prove
@@ -174,6 +177,11 @@ class ValidatedCitation:
     article_type: str | None = None
     article_title: str | None = None
     paragraph_numbers: tuple[str, ...] | None = None
+    # None is retained only for explicitly legacy callers/historical records.
+    document_id: str | None = None
+    document_source_key: source_identity.DocumentSourceKey | None = None
+    document_title: str | None = None
+    document_type: str | None = None
 
 
 @dataclass(frozen=True)
@@ -581,31 +589,52 @@ def validate_source_labels(labels: Sequence[int], *, num_chunks: int) -> list[in
     return validated
 
 
-def build_validated_citations(validated_labels: Sequence[int], chunks: Sequence[Any]) -> tuple[ValidatedCitation, ...]:
-    """Build `ValidatedCitation`s for already-range-validated labels
-    (docs §10) - `source_number` N maps to `chunks[N - 1]` (1-based, per
-    `build_context`'s numbering), and every field is copied verbatim from
-    THAT chunk's `chunk_id`/metadata. This is the ONLY place citation
-    metadata is produced, and it NEVER reads the model's answer text -
-    trusted, application-controlled data only, never the model's prose.
+def build_validated_citations(
+    validated_labels: Sequence[int], chunks: Sequence[Any], *,
+    registry: source_registry.SourceRegistry | None = None,
+    legacy_citations: bool = False,
+) -> tuple[ValidatedCitation, ...]:
+    """Build citations from context positions and trusted provenance only.
+
+    Strict by default: an explicit registry is required for nonempty labels.
+    ``legacy_citations=True`` preserves historical metadata-only construction;
+    it never infers canonical identity. It cannot be combined with a registry.
     """
+    if legacy_citations and registry is not None:
+        raise CitationValidationError("legacy citations cannot use a canonical registry")
+    labels = validate_source_labels(validated_labels, num_chunks=len(chunks))
+    if labels and not legacy_citations and registry is None:
+        raise CitationValidationError("canonical citations require an explicit registry")
     citations: list[ValidatedCitation] = []
-    for label in validated_labels:
+    for label in labels:
         chunk = chunks[label - 1]
         metadata = chunk.metadata or {}
+        provenance: dict[str, Any] = {}
+        if not legacy_citations:
+            try:
+                key = source_registry.retrieved_source_key(chunk)
+                record = registry.by_document_id(key.document_id)
+                number = metadata.get("legislation_number")
+                if number is not None and record.legislation_number is not None:
+                    if number != record.legislation_number:
+                        raise CitationValidationError("chunk legislation_number contradicts manifest")
+                # If file provenance is supplied, it must identify the same record.
+                if metadata.get("source_file") is not None:
+                    if registry.by_local_file(metadata["source_file"]).document_id != key.document_id:
+                        raise CitationValidationError("chunk document_id contradicts manifest source_file")
+            except (source_identity.SourceIdentityError, source_registry.SourceRegistryError) as exc:
+                raise CitationValidationError(f"invalid canonical citation provenance: {exc}") from exc
+            provenance = dict(document_id=key.document_id, document_source_key=key,
+                              document_title=record.title, document_type=record.document_type)
         paragraph_numbers = metadata.get("paragraph_numbers")
-        citations.append(
-            ValidatedCitation(
-                source_number=label,
-                source_label=f"KAYNAK {label}",
-                chunk_id=chunk.chunk_id,
-                legislation_number=metadata.get("legislation_number"),
-                article_no=metadata.get("article_no"),
-                article_type=metadata.get("article_type"),
-                article_title=metadata.get("article_title"),
-                paragraph_numbers=tuple(paragraph_numbers) if paragraph_numbers else None,
-            )
-        )
+        citations.append(ValidatedCitation(
+            source_number=label, source_label=f"KAYNAK {label}", chunk_id=chunk.chunk_id,
+            legislation_number=metadata.get("legislation_number"),
+            article_no=metadata.get("article_no"), article_type=metadata.get("article_type"),
+            article_title=metadata.get("article_title"),
+            paragraph_numbers=tuple(paragraph_numbers) if paragraph_numbers else None,
+            **provenance,
+        ))
     return tuple(citations)
 
 
@@ -619,7 +648,9 @@ def render_citation(citation: ValidatedCitation) -> str:
     a piece is simply omitted from the rendering if unavailable.
     """
     parts: list[str] = []
-    if citation.legislation_number:
+    if citation.document_title:
+        parts.append(citation.document_title)
+    elif citation.legislation_number:
         parts.append(f"{citation.legislation_number} sayılı Kanun")
 
     if citation.article_no:
@@ -631,7 +662,8 @@ def render_citation(citation: ValidatedCitation) -> str:
         else:
             parts.append(f"Madde {citation.article_no}")
 
-    return ", ".join(parts) if parts else f"[{citation.source_label}]"
+    separator = " — " if citation.document_title else ", "
+    return separator.join(parts) if parts else f"[{citation.source_label}]"
 
 
 # ============================================================================
@@ -646,6 +678,8 @@ def generate_answer(
     client: Any = None,
     model: str = config.LLM_MODEL,
     temperature: float | None = config.TEMPERATURE,
+    registry: source_registry.SourceRegistry | None = None,
+    legacy_citations: bool = False,
 ) -> GenerationResult:
     """Question + already-retrieved chunks -> grounded answer with
     machine-validated `[KAYNAK N]` citations and an evidence-sufficiency
@@ -678,6 +712,10 @@ def generate_answer(
     default `LLM_SEND_TEMPERATURE=False`, it is omitted on this very first
     request rather than sent and retried after a guaranteed HTTP 400.
 
+    Canonical provenance is admitted before generation using the supplied
+    ``registry`` supplied by the application boundary. ``legacy_citations``
+    is an opt-in historical compatibility path, never a missing-ID fallback.
+
     `client` defaults to a real `OpenAI` client built lazily (only
     constructed if actually needed, so tests that pass a fake `client`
     never require an API key).
@@ -698,6 +736,11 @@ def generate_answer(
             insufficient_context=True,
         )
 
+    # Admission happens before any model call. Snapshot trusted citations so
+    # model output can only select source numbers, never change provenance.
+    context_citations = build_validated_citations(
+        range(1, len(chunks) + 1), chunks, registry=registry, legacy_citations=legacy_citations,
+    )
     context = build_context(chunks)
     instructions = build_instructions()
     input_items = _build_input_items(question, context)
@@ -723,7 +766,7 @@ def generate_answer(
         raise CitationValidationError(
             "DURUM: YETERLI answer contained zero valid [KAYNAK N] citations"
         )
-    citations = build_validated_citations(validated_labels, chunks)
+    citations = tuple(context_citations[label - 1] for label in validated_labels)
 
     return GenerationResult(
         question=question,

@@ -28,6 +28,10 @@ EXAMPLE_QUESTIONS = (
 class SerializedCitation(TypedDict):
     """Safe presentation subset of a validated backend citation."""
 
+    document_id: str | None
+    document_source_key: str | None
+    document_title: str | None
+    document_type: str | None
     source_label: str
     display: str
     legislation_number: str | None
@@ -57,6 +61,10 @@ def format_citation(citation: generate.ValidatedCitation) -> str:
 def serialize_citation(citation: generate.ValidatedCitation) -> SerializedCitation:
     """Serialize only safe fields from one validated citation."""
     return {
+        "document_id": citation.document_id,
+        "document_source_key": str(citation.document_source_key) if citation.document_source_key is not None else None,
+        "document_title": citation.document_title,
+        "document_type": citation.document_type,
         "source_label": citation.source_label,
         "display": format_citation(citation),
         "legislation_number": citation.legislation_number,

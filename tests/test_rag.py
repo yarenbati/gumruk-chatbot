@@ -4,12 +4,14 @@ from __future__ import annotations
 
 import ast
 from pathlib import Path
+from dataclasses import replace
+from copy import deepcopy
 from types import SimpleNamespace
 from typing import Any
 
 import pytest
 
-from src import embed, generate, index, rag, retrieve
+from src import embed, generate, index, rag, retrieve, source_identity, source_registry
 from src.chunk import Chunk
 
 
@@ -18,7 +20,7 @@ def _chunk(chunk_id: str = "c-1", article_no: str = "13", distance: float = 0.1)
         rank=1,
         chunk_id=chunk_id,
         text="Madde 13- Kabahate teşebbüs cezalandırılmaz.",
-        metadata={"legislation_number": "5326", "article_no": article_no, "article_type": "normal"},
+        metadata={"document_id": "5326_kabahatler_kanunu", "legislation_number": "5326", "article_no": article_no, "article_type": "normal"},
         distance=distance,
     )
 
@@ -47,7 +49,10 @@ def _generation(
     citation_tuple = citations
     if citation_tuple is None:
         citation_tuple = () if insufficient else (
-            generate.ValidatedCitation(1, "KAYNAK 1", ids[0], "5326", "13", "normal"),
+            generate.ValidatedCitation(1, "KAYNAK 1", ids[0], "5326", "13", "normal",
+                document_id="5326_kabahatler_kanunu",
+                document_source_key=source_identity.DocumentSourceKey("5326_kabahatler_kanunu", "normal", "13"),
+                document_title="Kabahatler Kanunu", document_type="Kanun"),
         )
     return generate.GenerationResult(
         question=question,
@@ -234,9 +239,9 @@ class _GenerationClient:
 def test_real_component_contracts_compose_with_tmp_chroma(tmp_path: Path) -> None:
     collection = index.get_collection(index.get_client(tmp_path), "m7-contract")
     chunks = [
-        Chunk("madde-13", "a13", "doc", "5326", "13", "normal", "Teşebbüs", None,
+        Chunk("madde-13", "a13", "5326_kabahatler_kanunu", "5326", "13", "normal", "Teşebbüs", None,
               "Madde 13- Kabahate teşebbüs cezalandırılmaz.", ["1"], 1, 1, None),
-        Chunk("distractor", "a20", "doc", "5326", "20", "normal", "Zamanaşımı", None,
+        Chunk("distractor", "a20", "5326_kabahatler_kanunu", "5326", "20", "normal", "Zamanaşımı", None,
               "Madde 20- Soruşturma zamanaşımı.", ["1"], 2, 2, None),
     ]
     embeddings = [
@@ -277,3 +282,60 @@ def test_module_has_no_forbidden_architecture_dependencies() -> None:
     assert "index_chunks" not in called_attributes
     assert "upsert" not in called_attributes
     assert "add" not in called_attributes
+
+
+@pytest.mark.parametrize("changes", [
+    {"source_number": 2}, {"source_number": 0}, {"source_label": "KAYNAK 2"},
+    {"document_id": "4458_gumruk_kanunu"}, {"document_source_key": None},
+    {"article_no": "99"},
+])
+def test_citation_position_and_document_mismatch_rejected(changes) -> None:
+    good = _generation().citations[0]
+    bad = replace(good, **changes)
+    with pytest.raises(rag.RAGPipelineError):
+        _run(gr=_generation(citations=(bad,)))
+
+
+def test_wrong_canonical_article_key_rejected() -> None:
+    bad = replace(_generation().citations[0], document_source_key=source_identity.DocumentSourceKey(
+        "5326_kabahatler_kanunu", "normal", "99"))
+    with pytest.raises(rag.RAGPipelineError, match="provenance"):
+        _run(gr=_generation(citations=(bad,)))
+
+
+def test_historical_manual_result_without_provenance_stays_compatible() -> None:
+    citation = generate.ValidatedCitation(1, "KAYNAK 1", "c-1", article_no="13")
+    result, _ = _run(gr=_generation(citations=(citation,)))
+    assert result.citations == (citation,)
+
+
+def test_injected_numberless_registry_and_provenance_do_not_mutate_retrieval(tmp_path, monkeypatch) -> None:
+    record = source_registry.DocumentRecord("synthetic_regulation", "Synthetic Regulation",
+                                            "Yönetmelik", "synthetic.docx")
+    registry = source_registry.SourceRegistry((record,), tmp_path)
+    chunks = [replace(_chunk("second", distance=.2), metadata={
+        "document_id": record.document_id, "article_type": "normal", "article_no": "27"}),
+        replace(_chunk("first", distance=.1), metadata={
+        "document_id": record.document_id, "article_type": "ek", "article_no": "1"})]
+    rr = _retrieval(chunks=chunks)
+    before = deepcopy(chunks)
+    monkeypatch.setattr(source_registry, "load_manifest", lambda *a, **k: pytest.fail("unexpected load"))
+    result = rag.run_rag("Soru?", collection=object(), registry=registry,
+                         retrieval_fn=lambda *a, **k: rr, generation_client=_GenerationClient())
+    assert result.retrieval is rr
+    assert rr.results == before
+    assert result.citations[0].document_id == record.document_id
+    assert result.citations[0].legislation_number is None
+
+
+def test_application_registry_loaded_once_and_injected(monkeypatch) -> None:
+    root = Path(__file__).parents[1]
+    registry = source_registry.load_manifest(root / "data/source_manifest.json", project_root=root)
+    loads = []
+    def load(*args, **kwargs):
+        loads.append((args, kwargs))
+        return registry
+    monkeypatch.setattr(source_registry, "load_manifest", load)
+    _, calls = _run()
+    assert len(loads) == 1
+    assert calls.generation[0][2]["registry"] is registry

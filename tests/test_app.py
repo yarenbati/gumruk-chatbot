@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ast
+import json
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
@@ -10,9 +11,58 @@ from typing import Any
 import pytest
 from streamlit.testing.v1 import AppTest
 
-from src import config, generate, rag, ui
+from src import config, generate, rag, ui, source_identity, source_registry
 
 APP_PATH = Path(__file__).parents[1] / "app.py"
+
+
+def _document_citation() -> generate.ValidatedCitation:
+    root = APP_PATH.parent
+    registry = source_registry.load_manifest(root / "data/source_manifest.json", project_root=root)
+    chunk = SimpleNamespace(chunk_id="canonical-test", text="Synthetic fixture text", metadata={
+        "document_id": "4458_gumruk_kanunu", "legislation_number": "4458",
+        "article_no": "165/A", "article_type": "normal",
+    })
+    return generate.build_validated_citations([1], [chunk], registry=registry)[0]
+
+
+def test_document_serialization_is_canonical_and_json_safe() -> None:
+    citation = _document_citation()
+    serialized = ui.serialize_citation(citation)
+    assert serialized == ui.serialize_citation(citation)
+    assert json.loads(json.dumps(serialized, ensure_ascii=False)) == serialized
+    assert serialized["document_id"] == "4458_gumruk_kanunu"
+    assert serialized["document_source_key"] == "4458_gumruk_kanunu/normal/165/a"
+    assert source_identity.DocumentSourceKey.parse(serialized["document_source_key"]) == citation.document_source_key
+    assert serialized["document_title"] == "Gümrük Kanunu"
+    assert serialized["document_type"] == "Kanun"
+    assert serialized["display"] == "Gümrük Kanunu — Madde 165/A"
+
+
+def test_app_displays_trusted_document_title(monkeypatch) -> None:
+    monkeypatch.setattr(config, "OPENAI_API_KEY", "fake-test-key")
+    result = _result(citations=(_document_citation(),))
+    result.generation.answer = "Fake title from model prose [KAYNAK 1]"
+    monkeypatch.setattr(rag, "run_rag", lambda question: result)
+    app = AppTest.from_file(str(APP_PATH)).run()
+    app.chat_input[0].set_value("Soru?").run()
+    assert not app.exception
+    assert any(item.value == "- Gümrük Kanunu — Madde 165/A" for item in app.markdown)
+    citation = app.session_state["messages"][-1]["citations"][0]
+    assert citation["document_title"] == "Gümrük Kanunu"
+    assert "Fake title" not in citation["display"]
+
+
+def test_numberless_serialization_uses_title(tmp_path) -> None:
+    registry = source_registry.SourceRegistry((source_registry.DocumentRecord(
+        "synthetic_regulation", "Synthetic Regulation", "Yönetmelik", "synthetic.docx"),), tmp_path)
+    chunk = SimpleNamespace(chunk_id="synthetic", metadata={
+        "document_id": "synthetic_regulation", "article_no": "27", "article_type": "normal"})
+    citation, = generate.build_validated_citations([1], [chunk], registry=registry)
+    serialized = ui.serialize_citation(citation)
+    assert serialized["legislation_number"] is None
+    assert serialized["display"] == "Synthetic Regulation — Madde 27"
+    assert "None sayılı Kanun" not in serialized["display"]
 
 
 def _citation(**overrides: Any) -> generate.ValidatedCitation:
