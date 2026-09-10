@@ -153,3 +153,76 @@ M12B parser davranışını düzelterek tam Article envanterini, section context
 chunk rekonstrüksiyonunu ve 5607 ID collision kontrolünü kabul testleriyle
 doğrulamalıdır. M12A'da `src/*.py` değiştirilmedi; embedding, Chroma,
 indexing ve retrieval çalıştırılmadı.
+
+## M12B uyumluluk sonucu
+
+M12A'nın ilk sonucu olan `1 / 43` Article sonucu korunmuştur. M12B'de yalnızca
+article-family başlık regex'leri case-insensitive yapıldı; kaynak metni
+lowercase edilmedi. Suffixed article numarası canonical olarak `16/A` tutuldu.
+
+Gerçek 5607 DOCX üzerinde mevcut ingestion çıktısı ile parser artık tam
+envanteri üretiyor:
+
+- Article: `43`
+- `normal`: `28`
+- `gecici`: `15`
+- `ek`: `0`
+- suffixed normal: `16/A`
+- Geçici Madde numaraları: `1`–`15`
+- duplicate Article ID: `0`
+- malformed article number: `0`
+- omission: `0`
+
+Beş bölümün tamamı doğru sınırlarda taşındı:
+
+| Section context | Article aralığı |
+|---|---|
+| Birinci Bölüm | 1–2 |
+| İkinci Bölüm | 3–8 |
+| Üçüncü Bölüm | 9–16/A |
+| Dördüncü Bölüm | 17–24 |
+| Beşinci Bölüm | 25–27 ve Geçici Madde 1–15 |
+
+Kısım ve Ayırım eklenmedi. 5607'de bulunan 100 `(N)` fıkra ve 29 harfli bent
+paragrafı doğru article metinlerine bağlı kaldı; kaynakta `N.` biçimli fıkra
+bulunmadı. Amendment/Mülga metni Article.text içinde kaldı ve bentler
+bağlandıkları fıkradan ayrılmadı.
+
+Mevcut chunker 46 chunk üretti. 43 Article ID ve 46 chunk ID benzersizdir.
+İki multi-chunk provision vardır: `5607-madde-3` (3 chunk) ve
+`5607-madde-23` (2 chunk). `5607-madde-3-chunk-001`, Article başlığı ve
+amendment preamble'ı ile bütün fıkra grupları 1–11'i, fıkra 11'in a–c bentleri
+dahil, aynı chunk'ta taşır. Bu chunk'ın uzunluğu Python karakter sayımıyla
+`3,742` karakter, UTF-8 serileştirmesiyle `4,119` byte'tır. Article title
+(`Kaçakçılık suçları`) Article.text dışında tutulur ve chunk'a girmez. En uzun
+Unicode chunk `3,766` karakterdir; dolayısıyla `MAX_CHUNK_CHARS=4000` aşılmaz.
+Birden fazla bütün fıkranın soft-target altında gruplanması, izin verilen fıkra
+sınırlarında yapılır; tek bir indivisible fıkra da 4,000'i aşmaz. Tüm 43
+Article.text değeri ordered chunk metinlerinden birebir yeniden kuruldu;
+metin kaybı, tekrar veya fıkra/bent içi bölünme yoktur.
+
+5607 Article ve Chunk storage ID kümeleri içinde ve mevcut 5326/4458 kümeleriyle
+cross-document collision sayısı `0`'dır. `16/A` için ID
+`5607-madde-16-a`, canonical key ise
+`5607_kacakcilikla_mucadele_kanunu/normal/16/a` olarak korunmuştur.
+Her 5607 Article/Chunk için `DocumentSourceKey` document_id, article_type ve
+article_no alanlarından başarıyla türetilmiştir; legislation number veya
+storage-ID prefix'i kullanılmamıştır.
+
+Regresyon sonuçları: 5326 `53 Article / 53 chunk`; mevcut persisted Article ve
+Chunk JSON çıktılarıyla parity `pass`. 4458 `271 Article / 276 chunk` ve türler
+`normal=259`, `gecici=11`, `islenemeyen_hukum=1`; özel
+`4458 SAYILI KANUNA İŞLENEMEYEN HÜKÜMLER` davranışı korunmuştur.
+
+24 inline footnote reference ve 24 footnote body ile 22×3 değişiklik tablosu
+M12A'daki gibi korunmuş/deferred durumdadır. Footnote gövdeleri Article.text'e
+eklenmedi; tablo ana madde chunk'larına dönüştürülmedi.
+
+M12B değişiklikleri:
+
+- `src/chunk.py`: article-family recognition regex'lerinde `re.IGNORECASE`;
+  suffixed article number canonicalization.
+- `tests/test_chunk.py`: capitalization, section geçişi, fıkra/bent,
+  amendment/Mülga ve ID testleri.
+
+M12C kapsamı olan embedding veya indexing yapılmadı.

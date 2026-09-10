@@ -100,6 +100,85 @@ def test_normal_madde_detection() -> None:
     assert "Basit bir hüküm." in articles[0].text
 
 
+@pytest.mark.parametrize("heading", ["MADDE 1-", "Madde 1-", "madde 1-"])
+def test_article_heading_capitalization_variants_preserve_source_text(heading: str) -> None:
+    articles = parse_articles(
+        [_p(0, f"{heading} (1) Kaynak metni.")],
+        document_id="d",
+        legislation_number="5607",
+    )
+    assert len(articles) == 1
+    assert articles[0].article_no == "1"
+    assert articles[0].text.startswith(heading)
+
+
+@pytest.mark.parametrize("heading,article_type", [
+    ("GEÇİCİ MADDE 1-", "gecici"),
+    ("Geçici Madde 1-", "gecici"),
+    ("EK MADDE 1-", "ek"),
+    ("Ek Madde 1-", "ek"),
+])
+def test_article_family_capitalization_variants(heading: str, article_type: str) -> None:
+    articles = parse_articles(
+        [_p(0, f"{heading} (1) Kaynak metni.")],
+        document_id="d",
+        legislation_number="5607",
+    )
+    assert len(articles) == 1
+    assert articles[0].article_type == article_type
+    assert articles[0].article_no == "1"
+    assert articles[0].text.startswith(heading)
+
+
+def test_uppercase_suffixed_article_preserves_canonical_number_and_id() -> None:
+    articles = parse_articles(
+        [_p(0, "MADDE 16/A- (1) Kaynak metni.")],
+        document_id="5607_kacakcilikla_mucadele_kanunu",
+        legislation_number="5607",
+    )
+    assert len(articles) == 1
+    assert articles[0].article_no == "16/A"
+    assert articles[0].article_id == "5607-madde-16-a"
+
+
+def test_5607_uppercase_section_transition_is_preserved() -> None:
+    articles = parse_articles(
+        [
+            _p(0, "BİRİNCİ BÖLÜM"),
+            _p(1, "MADDE 1- (1) Birinci bölüm hükmü."),
+            _p(2, "İKİNCİ BÖLÜM"),
+            _p(3, "MADDE 2- (1) İkinci bölüm hükmü."),
+        ],
+        document_id="5607_kacakcilikla_mucadele_kanunu",
+        legislation_number="5607",
+    )
+    assert [a.section_context for a in articles] == ["Birinci Bölüm", "İkinci Bölüm"]
+
+
+def test_5607_fikra_bent_and_mulga_text_reconstruct_without_new_article() -> None:
+    articles = parse_articles(
+        [
+            _p(0, "MADDE 3- (Değişik: 28/3/2013-6455/54 md.)"),
+            _p(1, "(1) Birinci fıkra."),
+            _p(2, "a) Birinci bent."),
+            _p(3, "b) İkinci bent."),
+            _p(4, "(2) İkinci fıkra."),
+            _p(5, "MADDE 4- (Mülga: 28/3/2013-6455/66 md.)"),
+        ],
+        document_id="5607_kacakcilikla_mucadele_kanunu",
+        legislation_number="5607",
+    )
+    assert [(a.article_type, a.article_no) for a in articles] == [("normal", "3"), ("normal", "4")]
+    assert "(Değişik: 28/3/2013-6455/54 md.)" in articles[0].text
+    assert "a) Birinci bent." in articles[0].text
+    assert "b) İkinci bent." in articles[0].text
+    assert "Mülga" in articles[1].text
+    chunks = chunk.build_chunks(articles, max_chars=45)
+    for article in articles:
+        rebuilt = "\n".join(c.text for c in chunks if c.article_id == article.article_id)
+        assert rebuilt == article.text
+
+
 def test_multiple_articles_detected() -> None:
     articles = _parse_main()
     assert len(articles) == 8

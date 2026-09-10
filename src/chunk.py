@@ -85,9 +85,15 @@ class Article:
 # Tolerant of hyphen variants: ASCII hyphen, en dash, em dash.
 _HYPHEN = "[-–—]"
 
-NORMAL_ARTICLE_RE = re.compile(rf"^Madde\s+(\d+)(?:\s*/\s*([A-Z]))?\s*{_HYPHEN}\s*(.*)$")
-EK_MADDE_RE = re.compile(rf"^Ek\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$")
-GECICI_MADDE_RE = re.compile(rf"^Geçici\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$")
+NORMAL_ARTICLE_RE = re.compile(
+    rf"^Madde\s+(\d+)(?:\s*/\s*([A-Z]))?\s*{_HYPHEN}\s*(.*)$",
+    re.IGNORECASE,
+)
+EK_MADDE_RE = re.compile(rf"^Ek\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$", re.IGNORECASE)
+GECICI_MADDE_RE = re.compile(
+    rf"^Geçici\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$",
+    re.IGNORECASE,
+)
 
 NUMBERED_PARAGRAPH_RE = re.compile(r"^\(\d+\)\s")
 NUMBERED_DOT_PARAGRAPH_RE = re.compile(r"^(\d+)\.\s*")
@@ -156,7 +162,7 @@ def _match_article_heading(text: str) -> tuple[str, str, str] | None:
     m = NORMAL_ARTICLE_RE.match(text)
     if m:
         suffix = m.group(2)
-        article_no = m.group(1) + (f"/{suffix}" if suffix else "")
+        article_no = m.group(1) + (f"/{suffix.upper()}" if suffix else "")
         return "normal", article_no, m.group(3)
     return None
 
