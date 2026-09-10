@@ -20,5 +20,16 @@
     "retrieved_at": "2026-09-03",
     "local_file": "data/raw/4458-gumruk-kanunu.docx",
     "notes": "Resmî mevzuat.gov.tr kaynağının indirilebilir Word uç noktasından (http://www.mevzuat.gov.tr/MevzuatMetin/1.5.4458.doc; HTTPS'e yönlendirilir) alınan özgün dosya legacy Word DOC (OLE/Compound Document File V2) biçimindedir ve data/raw/4458-gumruk-kanunu.doc yolunda provenance için değiştirilmeden korunmaktadır. Özgün DOC, Microsoft Word kullanılarak elle Farklı Kaydet işlemiyle data/raw/4458-gumruk-kanunu.docx yolunda normalize edilmiş bir OOXML çalışma türevine dönüştürülmüştür. local_file doğrudan indirilmiş bir DOCX'i değil, pipeline tarafından kullanılan bu doğrulanmış normalize türevi gösterir; ayrıntılar için bkz. docs/source-analysis-4458.md."
+  },
+  {
+    "document_id": "5607_kacakcilikla_mucadele_kanunu",
+    "title": "Kaçakçılıkla Mücadele Kanunu",
+    "document_type": "Kanun",
+    "legislation_number": "5607",
+    "issuing_authority": "TBMM",
+    "official_source_url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=5607&MevzuatTur=1&MevzuatTertip=5",
+    "retrieved_at": "2026-09-10",
+    "local_file": "data/raw/5607-kacakcilikla-mucadele-kanunu.docx",
+    "notes": "Resmî mevzuat.gov.tr kaynağı manuel Microsoft Word Save As ile DOCX biçimine normalize edilmiştir; özgün DOC dosyası bu çalışma alanında mevcut değildir. Resmî kaynak -> manuel Microsoft Word Save As -> DOCX."
   }
 ]

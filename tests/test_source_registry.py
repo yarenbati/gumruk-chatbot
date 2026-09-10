@@ -45,7 +45,11 @@ def test_current_manifest_records_and_all_explicit_lookups() -> None:
     path = ROOT / "data/source_manifest.json"
     before = path.read_bytes()
     actual = registry.load_manifest(path, project_root=ROOT)
-    assert {d.document_id for d in actual.documents} == {"5326_kabahatler_kanunu", "4458_gumruk_kanunu"}
+    assert {d.document_id for d in actual.documents} == {
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+    }
     raw = json.loads(before)
     for expected in raw:
         record = actual.by_document_id(expected["document_id"])
