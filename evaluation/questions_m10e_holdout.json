@@ -1,0 +1,567 @@
+[
+  {
+    "id": "h5326-01",
+    "question": "Kabahatler Kanunu, hangi değerleri korumak amacıyla kabahatlere ilişkin genel çerçeveyi düzenler?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "1"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 1, toplum duzeni, genel ahlak, genel saglik, cevre ve ekonomik duzeni korumak amaciyla kabahatlere iliskin genel ilkeleri, yaptirim turlerini, karar alma surecini, kanun yolunu ve yerine getirmeye iliskin esaslari duzenledigini belirtiyor; dogrudan kontrol edildi (data/processed/5326-kabahatler-kanunu.paragraphs.json src_para=13-19)."
+  },
+  {
+    "id": "h5326-02",
+    "question": "Sokakta sarhoşluk nedeniyle çevresindekilerin huzurunu bozan bir kişiye idari para cezasının yanında başka bir işlem uygulanır mı?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "35"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 35, sarhos olarak baskalarinin huzur ve sukununu bozan kisiye elli TL idari para cezasi verilmesinin yaninda, kisinin sarhosluğun etkisi gecinceye kadar kontrol altinda tutulacagini da duzenliyor; dogrudan kontrol edildi (src_para=230)."
+  },
+  {
+    "id": "h5326-03",
+    "question": "Bir gürültü fiili ticari işletmenin faaliyeti çerçevesinde işlenirse idari para cezası kime uygulanır?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "36"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 36/1, gurultuye neden olana elli TL ceza ongururken; fikra 2, fiilin bir ticari isletme faaliyeti cercevesinde islenmesi halinde isletme sahibi gercek veya tuzel kisiye bin-besbin TL arasi ceza verilecegini duzenliyor; dogrudan kontrol edildi (src_para=233-235)."
+  },
+  {
+    "id": "h5326-04",
+    "question": "Cadde üzerinde yoldan geçenlere ürün satmaya çalışarak onları rahatsız eden bir satıcıya ne tür bir yaptırım uygulanabilir?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "37"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 37/1, mal veya hizmet satmak icin baskalarini rahatsiz eden kisiye elli TL idari para cezasi ongoruyor; dogrudan kontrol edildi (src_para=238-239)."
+  },
+  {
+    "id": "h5326-05",
+    "question": "Bir kişi, yetkili makamlardan izin almadan kaldırım üzerine inşaat malzemesi yığarsa uygulanacak ceza, aynı yerde sadece mal satışa arz eden kişiye uygulanan cezayla aynı mıdır?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "38"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 38/1, izinsiz kaldirim isgali veya mal satisa arzina elli TL ceza ongururken; fikra 2, ayni yerlere izinsiz insaat malzemesi yigilmasina yuz-besyuz TL arasi ayri ve daha agir bir ceza bandi ongoruyor; bu soru iki farkli fiilin cezalarinin karistirilmamasi icin bilincli olarak tasarlandi; dogrudan kontrol edildi (src_para=242-244)."
+  },
+  {
+    "id": "h5326-06",
+    "question": "Kimliğini bildirmediği için gözaltına alınan bir kişinin kimliği daha sonra ortaya çıkarsa gözaltı durumu nasıl sona erer?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "40"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 40/3, kisinin kimliginin belirlenmesi durumunda gozaltina alinma veya tutuklanma halinin derhal sona erdirilecegini duzenliyor; fikra 1-2 kimlik bildirmeme cezasi ve gozaltı surecini tanimliyor; dogrudan kontrol edildi (src_para=252-254)."
+  },
+  {
+    "id": "h5326-07",
+    "question": "Yetkili makamdan izin alınarak asılan bir afiş, izinde belirtilen sürenin bitiminden sonra kaldırılmazsa idari para cezasından muaf mı kalır?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "42"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 42/2, izinli afislerin birinci fikra cezasindan muaf oldugunu, ancak surenin dolmasindan sonra toplatma yukumlulugune uyulmamasi halinde birinci fikra cezasinin yine uygulanacagini duzenliyor; dogrudan kontrol edildi (src_para=269-273)."
+  },
+  {
+    "id": "h5326-08",
+    "question": "Kanuna göre yasaklanmamış bir silahı ruhsatsız olarak sokakta görünür şekilde taşımanın idari sonucu nedir?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "normal",
+        "article_no": "43"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 43, yetkili makamlardan ruhsat alinmaksizin, kanuna gore yasak olmayan silahlarin acikta tasinmasina elli TL idari para cezasi ongoruyor; kanunen yasak silahlar bu maddenin kapsami disinda kaldigindan soru bu istisnai kapsam ayrimini olcuyor; dogrudan kontrol edildi (src_para=282)."
+  },
+  {
+    "id": "h5326-09",
+    "question": "Kabahatler Kanunu'nda geçen 'Türk Lirası' ifadesinin, kanunun yürürlüğe girdiği dönemdeki para birimi adlandırmasıyla ilişkisi nasıl açıklanmıştır?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "gecici",
+        "article_no": "1"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Gecici Madde 1, Kanunda ve belirtilen tarihten sonra yururluge giren diger kanunlardaki 'Turk Lirasi' ibaresinin, 5083 sayili Kanun geregince tedavuldeki paranin 'Yeni Turk Lirasi' olarak adlandirildigi surece bu adla kullanilacagini duzenliyor; dogrudan kontrol edildi (src_para=322)."
+  },
+  {
+    "id": "h5326-10",
+    "question": "Kabahatler Kanunu yürürlüğe girdiğinde, idari yaptırım kararına karşı zaten dava açılmış olan durumlar ile henüz dava açma süresi geçmemiş olan durumlar için farklı bir geçiş kuralı var mıdır?",
+    "dataset": "5326",
+    "expected_sources": [
+      {
+        "legislation_number": "5326",
+        "article_type": "gecici",
+        "article_no": "2"
+      },
+      {
+        "legislation_number": "5326",
+        "article_type": "gecici",
+        "article_no": "3"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Gecici Madde 2, Kanunun yururluge girdigi tarihte idare mahkemelerinde iptali icin dava acilmis kararlar hakkinda Kanun hukumlerinin uygulanmayacagini; Gecici Madde 3, henuz dava acilmamis ama dava acma suresi gecmemis kararlar icin Kanunun yururluge girmesinden itibaren onbes gun icinde 27 nci madde hukumlerine gore sulh ceza mahkemesine basvurulabilecegini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=324 ve 326)."
+  },
+  {
+    "id": "h4458-01",
+    "question": "Türkiye Cumhuriyeti Gümrük Bölgesi kavramı, kara suları ve hava sahasını da kapsayacak şekilde nasıl tanımlanmıştır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "2"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 2, Turkiye Cumhuriyeti Gumruk Bolgesinin Turkiye topraklarini kapsadigini, kara sulari, ic sular ve hava sahasinin da bu bolgeye dahil oldugunu duzenliyor; dogrudan kontrol edildi (data/processed/4458-gumruk-kanunu.paragraphs.json src_para=16-17)."
+  },
+  {
+    "id": "h4458-02",
+    "question": "Türkiye Gümrük Bölgesine giriş ve çıkış hangi noktalardan yapılabilir?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "33"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 33, giris ve cikisin gumruk kapilarindan yapilacagini, bu kapilar ile ic kesimdeki gumruk kapilari arasinda belirli yollarin takip edilmesinin zorunlu oldugunu duzenliyor; dogrudan kontrol edildi (src_para=381-383)."
+  },
+  {
+    "id": "h4458-03",
+    "question": "Geçici ithalat rejimi, eşyanın hangi koşullarla Türkiye'de kullanılmasına ve sonra yurt dışına çıkarılmasına izin verir?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "128"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 128, gecici ithalat rejiminin, serbest dolasima girmemis esyanin ithalat vergilerinden tamamen veya kismen muaf olarak, ticaret politikasi onlemlerine tabi olmaksizin kullanilmasi ve olagan yiprama disinda degisiklige ugramaksizin yeniden ihracina imkan verdigini tanimliyor; dogrudan kontrol edildi (src_para=961)."
+  },
+  {
+    "id": "h4458-04",
+    "question": "Serbest bölgeler, gümrük mevzuatı bakımından Türkiye Gümrük Bölgesinin bir parçası mı sayılır, yoksa bölge dışında mı kabul edilir?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "152"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 152, serbest bolgelerin Turkiye Gumruk Bolgesinin parcalari olmakla birlikte, serbest dolasimda olmayan esyanin ithalat vergileri ve ticaret politikasi onlemleri bakimindan Gumruk Bolgesi disinda sayildigi yerler oldugunu duzenliyor; dogrudan kontrol edildi (src_para=1072-1075)."
+  },
+  {
+    "id": "h4458-05",
+    "question": "Gümrük kıymeti kavramı hangi amaçla belirlenen bir değeri ifade eder?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "23"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "easy",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 23, esyanin gumruk kiymetinin, Gumruk Tarifesi ve tarife disi duzenlemelerin uygulanmasi amaciyla belirlenen kiymet oldugunu tanimliyor; dogrudan kontrol edildi (src_para=269)."
+  },
+  {
+    "id": "h4458-06",
+    "question": "Liman işleten kuruluşlar, gümrük gözetim ve kontrol işlemlerinin yürütülmesi için hangi altyapı yükümlülüklerini karşılamak zorundadır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "218"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 218/1, liman ve istasyon isleten kuruluslarin gumruk gozetim ve kontrolunu saglamak uzere yolcu salonlari, gecici depolama yerleri, antrepolar, buro ve gozetleme kuleleri tesis etmek, aydinlatma/isitma/temizlik ihtiyaclarini karsilamak ve telefon/buro esyasini bedelsiz saglamak zorunda olduklarini duzenliyor; dogrudan kontrol edildi (src_para=1552-1554)."
+  },
+  {
+    "id": "h4458-07",
+    "question": "Ağırlık esasına göre vergilendirilen bir eşyanın brüt ve net ağırlığı vergi matrahı bakımından nasıl ayrılır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "32"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 32/1, brut agirliga atifta bulunulan hallerde esyanin kendi agirligi ile ambalaj/kap agirliklari toplaminin, net agirliga atifta bulunulan hallerde ise yalnizca esyanin kendi agirliginin esas alinacagini duzenliyor; dogrudan kontrol edildi (src_para=355-373)."
+  },
+  {
+    "id": "h4458-08",
+    "question": "Antrepo rejimine tabi tutulmuş ve ihracata ilişkin önlemlerden yararlanabilen serbest dolaşımdaki eşyaya sonradan hangi işlem yapılması zorunludur?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "107"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 107, tarim politikasi kapsami esya dahil, antrepo rejimine tabi tutulup ihracata iliskin onlemlerden yararlanabilen serbest dolasimdaki esyanin ihrac edilmesinin veya baska bir gumrukce onaylanmis islem ya da kullanima tabi tutulmasinin zorunlu oldugunu duzenliyor; dogrudan kontrol edildi (src_para=844-846)."
+  },
+  {
+    "id": "h4458-09",
+    "question": "Bir gümrük müşavir yardımcısı, gümrük idarelerinde iş takibini gümrük müşavirinden bağımsız olarak mı yapar?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "226"
+      }
+    ],
+    "case_type": "paraphrase",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 226/2, gumruk musavir yardimcilarinin bir gumruk musavirinin yaninda calisip onun adina is takip edebildigini ve bu takibe sinirlama getirme yetkisinin Mustesarlikta oldugunu duzenliyor; fikra 4 mali sorumlulugun yaninda calisilan musavire ait oldugunu belirtiyor; dogrudan kontrol edildi (src_para=1600-1603)."
+  },
+  {
+    "id": "h4458-10",
+    "question": "Mücbir sebep nedeniyle normal giriş-çıkış yükümlülüklerine uyulamayan bir taşıtı getiren kişinin bu durumda ayrıca yapması gereken bir bildirim var mıdır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "38"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 38/1, beklenmeyen haller veya mucbir sebep nedeniyle 33 ve 34 uncu maddelerdeki yukumluluklere uyulamamasi halinde, ilgili kisilerin en yakin gumruk idaresini durumdan ve esyanin bulundugu hal/yerden gecikmeksizin haberdar etmesi gerektigini duzenliyor; dogrudan kontrol edildi (src_para=444-447)."
+  },
+  {
+    "id": "h4458-11",
+    "question": "Basitleştirilmiş usulde tescil edilen bir beyannamedeki eksik bilgiler verilen süre içinde tamamlanmazsa, o eşya için ödenmesi gereken vergiler ertelenir mi?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "199"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 199, basitlestirilmis usulde tescil edilen beyannamede eksik bilgi/belgenin verilen surede tamamlanmamasi halinde, bu beyanname kapsami esyanin odenmesi gereken vergilerinin ertelenmeyecegini duzenliyor; dogrudan kontrol edildi (src_para=1467)."
+  },
+  {
+    "id": "h4458-12",
+    "question": "Yurt dışına gönderilen bir eşya, ihraç sırasındaki hâliyle tamamen aynı kalmadan geri gelirse, geri gelen eşyaya tanınan vergi muafiyeti yine de uygulanır mı?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "169"
+      }
+    ],
+    "case_type": "exception_condition",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 169, 168 inci maddede belirtilen ithalat vergilerinden muafiyetin, geri gelen esyanin ihraci sirasindaki ayniyeti degismeden yeniden ithali halinde taninacagini duzenliyor; bu soru, sure sartina degil ayniyetin degismemesi sartina odaklanarak dev-gold Madde 168'den (sure sarti) bilincli olarak ayristirilmistir; dogrudan kontrol edildi (src_para=1251)."
+  },
+  {
+    "id": "h4458-13",
+    "question": "Eşyanın antrepoda bekletilmesi ile serbest bölgede bekletilmesi arasında, kalış süresi bakımından benzer bir kural var mıdır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "101"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "156"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 101/1, antrepo rejimi altinda kalis suresinin sinirsiz oldugunu (gumruk idaresince gerektiginde yeni bir islem icin sure belirlenebilecegini); Madde 156, esyanin serbest bolgelerde kalabilecegi surenin de sinirsiz oldugunu duzenliyor; her iki madde dogrudan kontrol edildi (src_para=815-816 ve 1096)."
+  },
+  {
+    "id": "h4458-14",
+    "question": "İhracat vergisine tabi bir eşya, gümrük beyanı yapılarak mı yoksa beyan yapılmadan mı çıkarıldığına göre, gümrük yükümlülüğünün başladığı an değişir mi?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "188"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "189"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 188/1-2, ihracat vergilerine tabi esyanin beyanname kapsaminda ihrac edilmesi halinde yukumlulugun beyannamenin tescili tarihinde basladigini; Madde 189/1-2, beyanda bulunulmaksizin cikarilmasi halinde yukumlulugun esyanin fiilen bolge disina ciktigi tarihte basladigini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=1409-1411 ve 1413-1415)."
+  },
+  {
+    "id": "h4458-15",
+    "question": "Kanunen ödenmemesi gereken bir vergi geri verilirken izlenen genel süreç ile bir beyannamenin iptali üzerine talep edilen geri verme arasında başvuru bakımından bir fark var mıdır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "211"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "212"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 211/2, kanunen odenmemesi gereken vergilerin, yukumluye teblig ve ilgilinin uc yil icinde basvurusu uzerine geri verilecegini; Madde 212, beyannamenin iptali uzerine odenmis vergilerin, beyannamenin iptali icin ongorulen basvuru sureleri icinde yapilan talep uzerine geri verilecegini duzenliyor; her iki madde dogrudan kontrol edildi (src_para=1520-1524 ve 1526)."
+  },
+  {
+    "id": "h4458-16",
+    "question": "Gümrük vergisi ve cezalarına ilişkin idari kararlara yapılan genel itiraz süreci ile bir kimyevi tahlil sonucuna yapılan itiraz aynı usule mi tabidir?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "242"
+      },
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "243"
+      }
+    ],
+    "case_type": "multi_part",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 242/1, tebligattan itibaren onbes gun icinde ust makama veya idareye itiraz edilebilecegini genel kural olarak duzenlerken; Madde 243/1-2, tahlil sonuclarina karsi ayni surede gumruk ve muhafaza basmudurlugune yazili itiraz edilecegini ve ikinci tahlilin farkli kimyagerlerce yapilacagini ozel olarak duzenliyor; her iki madde dogrudan kontrol edildi (src_para=1758-1762 ve 1764-1768)."
+  },
+  {
+    "id": "h4458-17",
+    "question": "Gece ve gündüz sürekli yolcu/yük giriş çıkışı olan bir kara hudut kapısındaki gümrük idaresinin çalışma düzeni normal mesai saatleriyle mi sınırlıdır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "220"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 220, gumruk idarelerinde normal calisma saatlerinin Mustesarlikca belirlendigini, ancak gece-gunduz her saatte yolcu/yuk islemi yapilan hudut kapilari, istasyonlar ve limanlardaki gumruk idarelerinin devamli acik tutulacagini ve gorevlilerin nobet esasina gore calistigini duzenliyor; dogrudan kontrol edildi (src_para=1574-1575)."
+  },
+  {
+    "id": "h4458-18",
+    "question": "Bir gümrük müşavirinin tuttuğu ticari defter ve belgeleri belirli bir süre saklama zorunluluğu var mıdır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "230"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "medium",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 230, gumruk musavirlerinin tutmaya mecbur oldugu defter, vekaletname, sozlesme ve is yazismalarini bes yil muhafaza etmek ve yetkili gorevlilere gostermekle yukumlu oldugunu duzenliyor; dogrudan kontrol edildi (src_para=1627)."
+  },
+  {
+    "id": "h4458-19",
+    "question": "Aynı gümrük vergisinin ödenmesinden birden fazla kişi sorumlu tutulduğunda, bu kişilerin borcu birbirinden bağımsız paylara mı ayrılır?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "192"
+      }
+    ],
+    "case_type": "long_tail",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 192, ayni gumruk vergilerinin odenmesinden birden cok yukumlunun sorumlu oldugu hallerde, bunlarin vergilerin odenmesinden musdereken ve muteselsilen sorumlu olduklarini duzenliyor; dogrudan kontrol edildi (src_para=1430)."
+  },
+  {
+    "id": "h4458-20",
+    "question": "Serbest dolaşımda olmayan bir eşyanın gümrük gözetiminde ortadan kaldırılması için imha ile gümrüğe terk arasında maliyet sorumluluğu bakımından bir fark öngörülmüş müdür?",
+    "dataset": "4458",
+    "expected_sources": [
+      {
+        "legislation_number": "4458",
+        "article_type": "normal",
+        "article_no": "164"
+      }
+    ],
+    "case_type": "ambiguity_resistant",
+    "difficulty": "hard",
+    "source_verified": true,
+    "gold_human_approved": true,
+    "expert_validated": false,
+    "notes": "Madde 164/1, serbest dolasimda olmayan esyanin Hazineye hicbir masraf getirmeyecek sekilde gumruk idaresinin gozetiminde imhasinin veya gumruge terk edilmesinin mumkun oldugunu, ikisini de ayni masraf kosuluna bagliyor; fikra 2 imha sonucu ortaya cikan artik/atiklarin yeni bir islem/kullanima tabi tutulacagini duzenliyor; bu soru iki farkli yontemin (imha/terk) aslinda ayni masraf kuralina tabi oldugunu ayirt eder; dogrudan kontrol edildi (src_para=1144-1145)."
+  }
+]

@@ -11,5 +11,6 @@ data/processed/*
 *.sqlite3
 chroma/
 chroma_db/
+.m10e_holdout_chroma*/
 logs/*
 !logs/.gitkeep
