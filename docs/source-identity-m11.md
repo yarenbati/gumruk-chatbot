@@ -1,9 +1,115 @@
 # M11A — Document-centered source identity audit and design
 
-Status: **design for review; no migration implemented**. Audited against HEAD
+Status: **M11 implemented; closure audit complete with documentation update**.
+Final implementation HEAD: `ff93ad5a50b6ef1369d42c09d2cc534649a8c4e6`.
+No storage migration was needed or performed. The original M11A audit below was against HEAD
 `00dc862d9803a16c9b5619ba8167081dcb911c57`.
 M10E-C is closed with `selected_candidate = null`; B2 remains NOT VALIDATED.
 Production retrieval remains the existing dense implementation.
+
+## Final M11 state (supersedes planned-status statements below)
+
+Sections 1–14 and Appendix A preserve the original M11A evidence, design and
+line inventory at its stated HEAD. Their references to missing citation fields,
+unverified storage, future implementation and test plans are historical, not
+descriptions of the completed system. M11A itself did not inspect Chroma;
+M11D-A later inspected only a verified copy under separate authorization.
+
+| Milestone | Implemented outcome |
+|---|---|
+| M11A | Original identity audit/design retained below |
+| M11B | `source_identity.DocumentSourceKey`: frozen canonical document/type/normalized-number value, deterministic serialization, explicit reviewed legacy registry/adapter |
+| M11C-A | `SourceRegistry`/immutable `DocumentRecord`, explicit manifest loading, strict paragraph-root admission, pure Article/Chunk/RetrievedChunk key views |
+| M11C-B | Strict production citation builder, injected registry, typed citation provenance and canonical-string UI serialization |
+| M11D-A | Persisted production-copy metadata audit PASS; no metadata migration, vector reindex or re-embedding required |
+| M11C-C | Separate pure `evaluate_documents` layer, `document-source-v1` schema and legacy parity tests; no new benchmark |
+
+### Boundary-by-boundary closure audit
+
+| Boundary | Canonical fields | Descriptive/storage fields and fallback/failure behavior |
+|---|---|---|
+| Manifest → SourceRegistry | Validated unique `document_id` | Title/type/local_file required; legislation number optional. Explicit loading rejects malformed/duplicate JSON fields, duplicate IDs/files and ambiguous supplied numbers. No import-time I/O or identity guessing. |
+| Paragraph root → admission | Root `document_id` must equal the record resolved once by `source_file` | Missing/unregistered/mismatched root fails closed. Number comes from that same record. Older ingestion alone still uses a first matching file entry or emits no ID; it is not the trusted admission boundary. |
+| Admission → Article → Chunk | Admitted ID copied unchanged; `article_type`/raw `article_no` preserved | Number is optional. Lower-level pure constructors/parser remain permissive; canonical helper access validates and fails on missing/invalid fields. Storage IDs are not canonical source keys. |
+| Chunk → Chroma metadata | `document_id`, `article_type`, `article_no` transported | Generic index builder omits None values, retains article ID and descriptive/section provenance. It is not a strict admission gate. Chroma record ID remains chunk ID. No storage migration occurred. |
+| Chroma → RetrievedChunk | Metadata transported unchanged | Rank, chunk ID, text and distance preserved. Retrieval itself does not validate canonical identity or substitute a law number. |
+| RetrievedChunk → DocumentSourceKey | Exact document ID/type plus normalized article number | Pure key helper rejects missing/malformed identity. No title, law-number, record-prefix or model-prose fallback; manifest existence is checked separately. |
+| Key → ValidatedCitation | Typed canonical key and matching document ID | `run_rag` injects a registry or loads it once for nonempty context. Strict generation validates all context provenance before the model call, resolves title/type by document ID, checks supplied law number and source_file consistency. Errors fail closed; model labels only select admitted context positions. |
+| Citation → SerializedCitation | Document ID and canonical key string | Title/type, nullable number, article fields and source label/display are JSON-safe. No Python key object or persistent Python hash is exposed. Serialization trusts an already validated citation; it does not re-admit metadata. |
+| SerializedCitation → UI | Machine fields remain distinct from display | App renders the prepared display. Current canonical display uses trusted document title plus type-sensitive article label; optional article title is appended. Numberless display requires no fabricated law number. UI does not parse model prose to establish provenance. |
+
+Document identity, provision identity, canonical key, descriptive legal metadata,
+human display, historical QualifiedSourceKey, and article/chunk/record storage
+IDs remain distinct. `normal`, `ek`, `gecici`, `islenemeyen_hukum` are the four
+accepted machine namespaces; the last retains the existing Geçici Madde display
+and is not a newly invented legal category.
+
+Strictness lives in the active builder, not every historical dataclass constructor.
+Manual `ValidatedCitation` instances may have all document fields absent. An
+explicit `legacy_citations=True` builder option preserves historical unit callers;
+the default production RAG path does not select it or silently fall back to it.
+RAG checks source number/context position and chunk membership for all citations,
+and canonical key/document/provision agreement when document provenance is present.
+Legacy conversion uses only the reviewed 5326/4458 registry; unknown mappings fail.
+
+### Storage, retrieval and evaluation evidence
+
+The persisted [M11D-A report](../reports/evaluation/m11d-production-metadata-audit.md)
+records 329 chunks: 53 for `5326_kabahatler_kanunu`, 276 for
+`4458_gumruk_kanunu`; 329/329 valid canonical provenance, 324 unique source keys,
+five legitimate two-chunk provisions and zero manifest inconsistencies. Production
+was never opened by a Chroma client; recorded production PRE/POST hashes match.
+The audit copy's logical snapshots match despite recorded physical housekeeping
+changes. Stored vectors were readable at 1536 dimensions, but the report is not a
+vector backup or proof of historical embedding-input/model provenance. Closure
+uses that persisted evidence only; it does not reopen storage or rerun the audit.
+
+Comparison with pre-M11 HEAD `00dc862d9803a16c9b5619ba8167081dcb911c57`
+shows no changes to retrieve/embed/index/config or historical evaluation modules.
+Query/document embedding inputs, distance metric, TOP_K, ordering, filters and
+dense ranking are unchanged. B2 remains NOT VALIDATED and non-production;
+M10E-C selected no candidate. No retrieval optimization belongs to M11.
+
+The additive evaluator separates Source ANY/ALL from Document Hit/ALL/Intrusion
+at 1/3/5. Duplicate chunks consume slots; only coverage sets deduplicate provisions.
+Intrusion divides by actual retrieved slots (None for zero slots); malformed
+canonical results fail, even beyond Top-5. Summaries cover overall, per document,
+single/multi-source and single/multi-document. A multi-document question contributes
+to each expected document's diagnostic group with its full gold set unchanged.
+Historical bare-article, QualifiedSourceKey and legislation metrics/artifacts remain
+unchanged; explicit adaptation has synthetic ANY/ALL parity tests for both laws.
+
+### Readiness and remaining boundaries
+
+Identity, generic registry records, citations and the new evaluation layer support
+numbered laws, numberless regulations and decisions with canonical document IDs.
+A decision identifier such as `2009/15481` is not itself a valid slash-containing
+document ID; a reviewed canonical ID such as `2009_15481_bkk` can represent it.
+No future document is added to the legacy bridge automatically. These are identity
+capabilities, not proof that a future source's structure parses correctly.
+
+Deferred items are limited to:
+
+- Per-source parser/structure review before onboarding, including tables,
+  footnote bodies and unsupported provision namespaces where relevant.
+- A collision-safe storage-ID/admission policy before numberless or otherwise
+  colliding documents are indexed. Existing law-prefixed article/chunk IDs remain
+  compatibility aliases; lower-level missing-number IDs still use `unknown`.
+- Document-specific descriptive fields (for example decision_number) only when
+  justified by an actual source; the current manifest schema does not accept them.
+- Older ingestion lookup and embedding-title lookup remain unchanged. The latter
+  can fall back to legislation number/identifier for descriptive embedding text,
+  never for DocumentSourceKey. Review before broader onboarding; changing it may
+  change full embedding input and must not be treated as identity-only work.
+- Retrieval optimization remains paused after M10E. Results-informed candidates
+  require a new unseen holdout; the observed M10E-B set is not blind validation.
+
+No metadata migration, reindex or re-embedding is required for the current corpus.
+Any future identity-only vector reuse still requires byte-identical **full derived
+embedding input**, unchanged model/dimensions, and safely recoverable/aligned
+vectors; unchanged Chunk.text alone is insufficient.
+
+## Original M11A audit and design (historical)
 
 M11A adds only this document. No OpenAI request, network access, Chroma
 inspection/query/reindex, vector metadata migration, new statute, new benchmark,

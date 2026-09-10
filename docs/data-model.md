@@ -6,8 +6,10 @@ Bu sürüm, `docs/source-analysis-5326.md` (M1) analizinin önerdiği alanları
 modele işler — `src/ingest.py` (M2) zaten `ExtractedParagraph.index` alanı
 üzerinden orijinal paragraf konumunu koruyor; `source_paragraph_start`/`_end`
 alanları doğrudan bu indekslere karşılık gelecek şekilde tasarlanmıştır.
-Henüz parsing/chunking kodu yazılmadı (M3); bu, yalnızca gelecekteki kodun
-hedef alacağı veri sözleşmesidir.
+Parsing/chunking uygulanmıştır. M11 kanonik kaynak kimliği ve güncel provenance
+sınırları için bkz. [source-identity-m11.md](source-identity-m11.md).
+LegalDocument, Query ve Answer burada kavramsal varlıklardır; aşağıdaki
+Article, Chunk, RetrievedChunk ve ValidatedCitation alanları uygulanan tipleri izler.
 
 ## Varlıklar (Entities)
 
@@ -21,17 +23,17 @@ hedef alacağı veri sözleşmesidir.
 ### Article
 - `article_id`
 - `document_id`
+- `legislation_number` (opsiyonel açıklayıcı metadata; kanonik kimlik değildir)
 - `article_no` (ör. `"2"`, `"42/A"`, `"1"` — Ek/Geçici madde için de kendi sayacındaki numara)
 - `article_type` — `normal` | `ek` | `gecici` | `islenemeyen_hukum`. Son
   değer, ana kanuna işlenemeyen hükümler başlığı altındaki article-like
   birimleri ana kanunun aynı numaralı Geçici Maddeleriyle çakıştırmadan
   koruyan nötr yapısal namespace'tir; ayrı bir hukuki nitelendirme değildir.
-- `title` (madde başlığı paragrafı, ör. `"Sorumluluk"`; bazı Ek/Geçici maddelerde olmayabilir)
+- `article_title` (madde başlığı paragrafı, ör. `"Sorumluluk"`; bazı Ek/Geçici maddelerde olmayabilir)
 - `section_context` (opsiyonel; maddenin içinde bulunduğu Kısım/Bölüm/Ayırım'ın
   **birleşik** bağlamı, ör. `"Birinci Kısım > İkinci Bölüm >
   Üçüncü Ayırım"` — tek bir başlık değil, hiyerarşik yol)
 - `text`
-- `page` (opsiyonel, genellikle `null` — DOCX reflowable format olduğu için güvenilir değil, bkz. `docs/source-analysis-5326.md` §2)
 - `source_paragraph_start` (bu maddenin başladığı `ExtractedParagraph.index`)
 - `source_paragraph_end` (bu maddenin bittiği `ExtractedParagraph.index`)
 - `amendment_note` (opsiyonel; madde başlığındaki parantez içi değişiklik notu, ör. `"(Değişik: 6/12/2006-5560/31 md.)"`)
@@ -40,7 +42,8 @@ hedef alacağı veri sözleşmesidir.
 ### Chunk
 - `chunk_id`
 - `article_id`
-- `legislation_number` (ör. `"5326"`)
+- `document_id`
+- `legislation_number` (opsiyonel; ör. `"5326"`)
 - `article_no`
 - `article_type`
 - `article_title`
@@ -57,21 +60,35 @@ hedef alacağı veri sözleşmesidir.
 - `text`
 
 ### RetrievedChunk
-- `chunk`
-- `similarity_score`
 - `rank`
+- `chunk_id`
+- `text`
+- `metadata` (kanonik provenance alanlarını taşır)
+- `distance` (ham Chroma mesafesi; similarity skoru değildir)
 
 ### Answer
 - `text`
 - `citations`
 
-### Citation
-- `document_name`
-- `legislation_number`
+### Citation (uygulanan tip: ValidatedCitation)
+- `source_number` / `source_label` (yanıt bağlamındaki konum)
+- `document_id`
+- `document_source_key` (`DocumentSourceKey`)
+- `document_title` / `document_type` (SourceRegistry kaydı)
+- `legislation_number` (opsiyonel)
 - `article_no`
-- `paragraph_no`
-- `page` (opsiyonel)
+- `article_type` / `article_title`
+- `paragraph_numbers` (opsiyonel)
 - `chunk_id`
+
+DocumentSourceKey = (document_id, article_type, normalized_article_no).
+Üretim atıf oluşturucusu kanonik provenance ister; geçmiş/manual atıf kurucuları
+uyumluluk için belge alanlarını None bırakabilir. Article/Chunk belge alanları
+alt seviye tiplerde opsiyoneldir; manifest kabulü ve kanonik yardımcılar eksik
+kimliği reddeder. SerializedCitation anahtarı kanonik string olarak taşır;
+UI belge başlığı ve madde etiketi gösterir. article_id/chunk_id depolama
+kimliğidir ve M11'de yeniden adlandırılmamıştır. DOCX sayfa numarası bu
+uygulanan Article/ValidatedCitation tiplerinde yer almaz.
 
 ## Not: Section ve Paragraph ayrı varlık değildir
 
@@ -106,12 +123,12 @@ classDiagram
     class Article {
         +article_id
         +document_id
+        +legislation_number
         +article_no
         +article_type
-        +title
+        +article_title
         +section_context
         +text
-        +page
         +source_paragraph_start
         +source_paragraph_end
         +amendment_note
@@ -121,6 +138,7 @@ classDiagram
     class Chunk {
         +chunk_id
         +article_id
+        +document_id
         +legislation_number
         +article_no
         +article_type
@@ -140,9 +158,11 @@ classDiagram
     }
 
     class RetrievedChunk {
-        +chunk
-        +similarity_score
         +rank
+        +chunk_id
+        +text
+        +metadata
+        +distance
     }
 
     class Answer {
@@ -151,11 +171,17 @@ classDiagram
     }
 
     class Citation {
-        +document_name
+        +source_number
+        +source_label
+        +document_id
+        +document_source_key
+        +document_title
+        +document_type
         +legislation_number
         +article_no
-        +paragraph_no
-        +page
+        +article_type
+        +article_title
+        +paragraph_numbers
         +chunk_id
     }
 
@@ -170,4 +196,7 @@ classDiagram
 
 ## Not
 
-Bu model Chroma koleksiyonundaki metadata alanlarına (ör. `document_id`, `legislation_number`, `article_no`, `article_type`, `page`, `chunk_id`) doğrudan karşılık gelecek şekilde tasarlanmıştır; ayrı bir ilişkisel veritabanı planlanmamaktadır.
+Chroma metadata'sı `document_id`, opsiyonel `legislation_number`, `article_no`,
+`article_type`, `article_id` ve mevcut kaynak/section alanlarını taşır.
+`chunk_id` ayrı bir metadata alanı olarak kopyalanmaz; Chroma kayıt ID'sidir.
+Ayrı bir ilişkisel veritabanı planlanmamaktadır.
