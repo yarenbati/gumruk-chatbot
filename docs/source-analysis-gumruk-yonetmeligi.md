@@ -477,6 +477,38 @@ No `data/processed/gumruk-yonetmeligi-annexes.json` was created because legacy D
 
 M13B-2A status: `M13B-2A CLOSED — ANNEX MODEL READY, LEGACY OFFICE NORMALIZATION REQUIRED`. The annex model and modern format routing are closed as a partial compatibility milestone. 68 legacy DOC plus 5 legacy XLS members, 73/87 physical files in total, still require safe legacy Office normalization or a reviewed reader before the complete annex corpus can be ingested. M13B-2B is the next milestone; M13C does not start in this closure.
 
+## M13B-2B Legacy Office Normalization
+
+LibreOffice headless was available at `C:\\Program Files\\LibreOffice\\program\\soffice.com`, version `26.8.0.3`. It is used only as a source-preparation tool, not as a runtime retrieval dependency. An isolated temporary user profile is used for each conversion. The immutable source chain is retained as original ZIP → original member SHA256 → LibreOffice version and command family → derived OOXML path and SHA256 → annex ingestion.
+
+All 68 legacy DOC members converted successfully to structurally valid DOCX and all 5 legacy XLS members converted successfully to structurally valid XLSX. The ignored manifest is `data/processed/gumruk-yonetmeligi-annex-normalized/normalization-manifest.json`; it contains one entry for every legacy member, original archive provenance, normalized path/hash, tool/version, status, and warnings. The normalized outputs are under the same ignored derived directory and are never placed in `data/raw/`.
+
+Full ingestion uses 12 native DOCX members, 1 native XLSX member, 1 native RTF member, 68 normalized DOCX members, and 5 normalized XLSX members: 87 physical members accounted for. It produces 98 unique logical AnnexUnits, 83/83 base identities, and these 15 sub-annexes: EK-10/A, EK-10/B, EK-10/C, EK-10/Ç, EK-10/D, EK-10/E, EK-10/F, EK-10/G, EK-22/A, EK-70/A, EK-77/A, EK-77/B, EK-77/C, EK-81/A, and EK-81/B. EK-10/A–G and EK-10/Ç are discovered from `EK 10.doc`; EK-77/A–C are discovered from `EK 77.docx`.
+
+All 69 normalized main-text references resolve logically. There are zero logical identity collisions and zero storage-ID collisions. Seventeen logical annexes have multiple provenance-distinct physical contributors, including the sections exposed from `EK 14.doc` alongside their separately named members; these relationships are recorded instead of silently overwriting content. Original physical provenance is complete for all logical units, and normalization provenance is complete for all 73 converted members.
+
+Representative normalized results: EK-7 is `EK 07.doc` → DOCX with 26 paragraph blocks and 4 table blocks; EK-10 is `EK 10.doc` → DOCX with all nine logical sections and table/form blocks; EK-62 is `EK 62.doc` → DOCX with 31 paragraph blocks. The five XLS conversions are EK-22, EK-55, EK-56, EK-60, and EK-69; each is structurally valid XLSX and enters the deterministic XLSX reader. EK-48 remains native RTF: it is not converted by LibreOffice and its signature-first RTF path passes.
+
+The normalization script is idempotent. A second run reused all 73 valid outputs after matching original member SHA256 and LibreOffice version. Repeated ingestion produced the same 98 logical identities, storage IDs, rendered text, and provenance mappings; two consecutive corpus writes produced the same derived corpus hash `cc1a36b263edf80eb46f9d966363bf543148f4ade5ae67fd2afa6a114cede3f`. The complete ignored derived corpus is `data/processed/gumruk-yonetmeligi-annexes.json`; it is reproducible from the immutable ZIP, normalization manifest, and committed code and is not committed.
+
+M13B-2B final status: `M13B-2B CLOSED — ANNEX CORPUS COMPATIBLE`. No OpenAI, embeddings, indexing, retrieval, generation, or Chroma operations were performed. Main-regulation behavior remains the accepted 528 Articles, 530 chunks, and 528/528 reconstruction result.
+
+## M13B-2B Review Remediation — Multi-Source Annex Policy
+
+The 17 logical keys with multiple physical contributors were compared deterministically using byte hashes, conservative whitespace hashes, ordered block counts, table/spreadsheet structure, and rendered-text lengths. All 17 are `COMPLEMENTARY`; there are zero `EXACT_DUPLICATE`, `WHITESPACE_EQUIVALENT`, `STRUCTURALLY_EQUIVALENT`, `CONFLICTING`, or `UNKNOWN` relationships. No duplicate legal body was suppressed because none of the 17 pairs was equivalent. The complementary merge count is 17.
+
+The critical `EK 14.doc` case is a bundled historical/combined source. Its extracted EK-33 through EK-51 sections are substantive forms or explanatory content, while separately named members for EK-33 through EK-47 are repeal (`Mülga`) records and EK-49, EK-50, and EK-51 are separate form/list representations. These are distinct legal-source contributions, so they are classified as complementary rather than silently deduplicated or treated as filename-only duplicates. The affected 17 keys and every physical member/hash are reported by `scripts/audit_gumruk_annex_ingestion.py` in `multi_source_inventory`.
+
+For equivalent contributors, the deterministic policy is dedicated filename-derived source first, then native OOXML over normalized output, then archive-member path. Equivalent content would retain all contributors as provenance aliases while rendering only the canonical contributor. For complementary contributors, the unit records `multi_source_relationship: complementary`, retains `source_members`, annotates each block with its archive member, and renders explicit `SOURCE_MEMBER` boundaries before each contribution. `canonical_source_member` is explicit and does not replace original provenance.
+
+After remediation there are still 98 unique logical AnnexUnits, 83/83 base identities, 15 sub-annexes, 69/69 references, zero identity collisions, and zero storage-ID collisions. Original and normalization provenance remain complete. The regenerated ignored corpus is `data/processed/gumruk-yonetmeligi-annexes.json`; two consecutive writes are stable at SHA256 `667872550cc4816d83833328e1d3375909fbd164b80b30dd69b0f1350dbd5eea`.
+
+## M13B-2B Closure Verification
+
+Verified against baseline `4013e28dfaa9251cae48c9888b024061b87be526`: ZIP unchanged; LibreOffice `26.8.0.3`; 68/68 DOC and 5/5 XLS normalized; 87 physical sources; 98 logical AnnexUnits; 83/83 base annexes; 15 sub-annexes; 69/69 references resolved. All 17 multi-source annexes are `COMPLEMENTARY`. Duplicate, conflicting, unknown, identity, storage-ID, and output-path collision counts are zero. Original and normalization provenance are 100% complete; EK-48 remains native RTF.
+
+Two consecutive corpus writes match SHA256 `667872550cc4816d83833328e1d3375909fbd164b80b30dd69b0f1350dbd5eea`. Main-regulation verification passes with 528 Articles, 530 chunks, and 528/528 exact reconstruction. Historical regressions pass in the full suite: `839 passed, 2 skipped`. `compileall` and `git diff --check` pass. Raw sources and the derived corpus are excluded from the commit. M13C is not started.
+
 ## Recommended M13B Scope
 
 1. Preserve KİTAP/KISIM/BÖLÜM/AYIRIM hierarchy in a structured context.

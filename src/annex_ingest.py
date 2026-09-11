@@ -9,6 +9,7 @@ import hashlib
 import io
 import re
 import zipfile
+from dataclasses import replace
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
@@ -42,6 +43,18 @@ class AnnexSourceFile:
     archive_member_sha256: str
     detected_file_type: str
     declared_extension: str
+    normalization: "NormalizationProvenance | None" = None
+
+
+@dataclass(frozen=True)
+class NormalizationProvenance:
+    """Traceable transformation metadata for a legacy Office member."""
+
+    normalization_tool: str
+    normalization_tool_version: str
+    normalization_command_family: str
+    normalized_relative_path: str
+    normalized_sha256: str
 
 
 @dataclass(frozen=True)
@@ -79,6 +92,9 @@ class AnnexUnit:
     blocks: tuple[AnnexBlock, ...]
     rendered_text: str
     warnings: tuple[str, ...] = ()
+    source_members: tuple[AnnexSourceFile, ...] = ()
+    canonical_source_member: AnnexSourceFile | None = None
+    multi_source_relationship: str | None = None
 
     @property
     def storage_id(self) -> str:
@@ -88,7 +104,10 @@ class AnnexUnit:
     def to_dict(self) -> dict[str, Any]:
         """Serialize the unit for deterministic diagnostics or later preparation."""
         return {"source_key": str(self.source_key), "human_label": self.human_label,
-                "storage_id": self.storage_id, "source_member": self.source_member.__dict__,
+                "storage_id": self.storage_id, "source_member": {**{k: v for k, v in self.source_member.__dict__.items() if k != "normalization"}, "normalization": self.source_member.normalization.__dict__ if self.source_member.normalization else None},
+                "source_members": [{**{k: v for k, v in member.__dict__.items() if k != "normalization"}, "normalization": member.normalization.__dict__ if member.normalization else None} for member in self.source_members],
+                "canonical_source_member": self.canonical_source_member.archive_member_path if self.canonical_source_member else self.source_member.archive_member_path,
+                "multi_source_relationship": self.multi_source_relationship,
                 "blocks": [b.__dict__ for b in self.blocks], "rendered_text": self.rendered_text,
                 "warnings": list(self.warnings)}
 
@@ -96,6 +115,41 @@ class AnnexUnit:
 def sha256_bytes(data: bytes) -> str:
     """Return a SHA256 digest for source provenance."""
     return hashlib.sha256(data).hexdigest()
+
+
+def conservative_whitespace_hash(text: str) -> str:
+    """Hash text after collapsing whitespace only; legal characters remain unchanged."""
+    return sha256_bytes(re.sub(r"\s+", " ", text).strip().encode("utf-8"))
+
+
+def classify_contributors(units: list[AnnexUnit]) -> str:
+    """Classify multi-source content using deterministic text/structure evidence."""
+    if len(units) < 2:
+        return "UNKNOWN"
+    exact = {sha256_bytes(unit.rendered_text.encode("utf-8")) for unit in units}
+    if len(exact) == 1:
+        return "EXACT_DUPLICATE"
+    whitespace = {conservative_whitespace_hash(unit.rendered_text) for unit in units}
+    if len(whitespace) == 1:
+        return "WHITESPACE_EQUIVALENT"
+    texts = [unit.rendered_text.casefold() for unit in units]
+    if all(text and any(text in other or other in text for other in texts if other != text) for text in texts):
+        return "STRUCTURALLY_EQUIVALENT"
+    version_markers = ("version", "eski metin", "yeni metin", "yürürlük tarihi", "değişik")
+    if sum(any(marker in text for marker in version_markers) for text in texts) >= 2 and not any("mülga" in text for text in texts):
+        return "CONFLICTING"
+    if all(texts):
+        return "COMPLEMENTARY"
+    return "UNKNOWN"
+
+
+def _dedicated_for_key(unit: AnnexUnit) -> bool:
+    """Prefer a filename-derived dedicated member over an embedded section."""
+    return _filename_key(unit.source_member.archive_member_filename, unit.source_member.document_id) == unit.source_key
+
+
+def _canonical_contributor(units: list[AnnexUnit]) -> AnnexUnit:
+    return sorted(units, key=lambda unit: (not _dedicated_for_key(unit), unit.source_member.detected_file_type not in {"OOXML_DOCX", "OOXML_XLSX"}, unit.source_member.archive_member_path))[0]
 
 
 def detect_file_type(data: bytes) -> str:
@@ -276,10 +330,15 @@ def ingest_member(data: bytes, filename: str, *, source: AnnexSourceFile, docume
     return units
 
 
-def ingest_archive(zip_path: Path, *, document_id: str = "gumruk_yonetmeligi") -> tuple[list[AnnexUnit], dict[str, Any]]:
-    """Read an immutable annex ZIP and return units plus audit diagnostics."""
+def ingest_archive(zip_path: Path, *, document_id: str = "gumruk_yonetmeligi", normalization_manifest: Path | None = None) -> tuple[list[AnnexUnit], dict[str, Any]]:
+    """Read an immutable annex ZIP, optionally using approved derived files."""
     zip_bytes = zip_path.read_bytes()
     zip_hash = sha256_bytes(zip_bytes)
+    manifest_entries: dict[str, dict[str, Any]] = {}
+    manifest_root = normalization_manifest.parent if normalization_manifest else None
+    if normalization_manifest and normalization_manifest.exists():
+        import json
+        manifest_entries = {entry["archive_member_path"]: entry for entry in json.loads(normalization_manifest.read_text(encoding="utf-8"))["entries"]}
     units: list[AnnexUnit] = []
     reader_counts: dict[str, int] = {}
     with zipfile.ZipFile(io.BytesIO(zip_bytes)) as archive:
@@ -288,23 +347,55 @@ def ingest_archive(zip_path: Path, *, document_id: str = "gumruk_yonetmeligi") -
                 continue
             data = archive.read(info)
             detected = detect_file_type(data)
-            source = AnnexSourceFile(document_id, str(zip_path), zip_hash, info.filename, Path(info.filename).name, sha256_bytes(data), detected, Path(info.filename).suffix.lower())
-            member_units = ingest_member(data, info.filename, source=source, document_id=document_id)
+            original_hash = sha256_bytes(data)
+            entry = manifest_entries.get(info.filename)
+            normalized = None
+            ingest_data = data
+            if entry and entry.get("conversion_status") == "SUCCESS" and manifest_root:
+                normalized = NormalizationProvenance(entry["normalization_tool"], entry["normalization_tool_version"], entry["normalization_command_family"], entry["normalized_relative_path"], entry["normalized_sha256"])
+                ingest_data = (manifest_root / entry["normalized_relative_path"]).read_bytes()
+            source = AnnexSourceFile(document_id, str(zip_path), zip_hash, info.filename, Path(info.filename).name, original_hash, detected, Path(info.filename).suffix.lower(), normalized)
+            member_units = ingest_member(ingest_data, info.filename, source=source, document_id=document_id)
             units.extend(member_units)
-            reader = "legacy_doc" if detected == "OLE_COMPOUND_FILE" and source.declared_extension != ".xls" else ("legacy_xls" if detected == "OLE_COMPOUND_FILE" else detected.lower())
+            if normalized:
+                reader = "normalized_docx" if normalized.normalized_relative_path.lower().endswith(".docx") else "normalized_xlsx"
+            else:
+                reader = "legacy_doc" if detected == "OLE_COMPOUND_FILE" and source.declared_extension != ".xls" else ("legacy_xls" if detected == "OLE_COMPOUND_FILE" else detected.lower())
             reader_counts[reader] = reader_counts.get(reader, 0) + 1
     by_key: dict[AnnexSourceKey, list[AnnexUnit]] = {}
     for unit in units: by_key.setdefault(unit.source_key, []).append(unit)
-    duplicate_keys = {str(k): len(v) for k, v in by_key.items() if len(v) > 1}
+    relationships = {str(k): [u.source_member.archive_member_path for u in values] for k, values in by_key.items() if len(values) > 1}
+    logical_units: list[AnnexUnit] = []
+    for key, values in by_key.items():
+        first = values[0]
+        if len(values) == 1:
+            logical_units.append(first)
+            continue
+        relationship = classify_contributors(values)
+        canonical = _canonical_contributor(values)
+        if relationship in {"EXACT_DUPLICATE", "WHITESPACE_EQUIVALENT", "STRUCTURALLY_EQUIVALENT"}:
+            blocks = tuple(replace(block, metadata={**block.metadata, "archive_member_path": canonical.source_member.archive_member_path}) for block in canonical.blocks)
+            rendered = canonical.rendered_text
+        elif relationship == "COMPLEMENTARY":
+            blocks = tuple(replace(block, metadata={**block.metadata, "archive_member_path": unit.source_member.archive_member_path}) for unit in values for block in unit.blocks)
+            rendered = "\n".join(f"SOURCE_MEMBER | {unit.source_member.archive_member_path}\n{unit.rendered_text}" for unit in values if unit.rendered_text)
+        else:
+            blocks = tuple(replace(block, metadata={**block.metadata, "archive_member_path": unit.source_member.archive_member_path}) for unit in values for block in unit.blocks)
+            rendered = "\n".join(f"SOURCE_MEMBER | {unit.source_member.archive_member_path}\n{unit.rendered_text}" for unit in values if unit.rendered_text)
+        warnings = tuple(dict.fromkeys(warning for unit in values for warning in unit.warnings))
+        logical_units.append(AnnexUnit(key, canonical.human_label, canonical.source_member, blocks, rendered, warnings, tuple(unit.source_member for unit in values), canonical.source_member, relationship))
     with zipfile.ZipFile(io.BytesIO(zip_bytes)) as count_archive:
         physical_count = len([i for i in count_archive.infolist() if not i.is_dir()])
     storage_map: dict[str, set[AnnexSourceKey]] = {}
+    by_key = {unit.source_key: [unit] for unit in logical_units}
     for key in by_key:
         storage_map.setdefault(key.storage_id, set()).add(key)
     diagnostics = {"physical_member_count": physical_count,
-                   "logical_unit_count": len(units), "reader_counts": reader_counts,
-                   "extraction_failures": sum(bool(u.warnings) for u in units), "logical_identity_collisions": duplicate_keys,
+                   "logical_unit_count": len(logical_units), "reader_counts": reader_counts,
+                   "extraction_failures": sum(bool(u.warnings) for u in logical_units), "logical_identity_collisions": {},
+                   "multi_source_logical_annexes": relationships,
                    "storage_id_collisions": {storage_id: len(keys) for storage_id, keys in storage_map.items() if len(keys) > 1},
-                   "provenance_complete": all(u.source_member.archive_member_sha256 and u.source_member.source_zip_sha256 for u in units),
-                   "image_only_or_unextractable_count": sum("IMAGE_ONLY_OR_UNEXTRACTED" in u.warnings for u in units)}
-    return units, diagnostics
+                   "provenance_complete": all(member.archive_member_sha256 and member.source_zip_sha256 for u in logical_units for member in (u.source_members or (u.source_member,))),
+                   "normalization_provenance_complete": all(member.normalization is not None for u in logical_units for member in (u.source_members or (u.source_member,)) if member.detected_file_type == "OLE_COMPOUND_FILE"),
+                   "image_only_or_unextractable_count": sum("IMAGE_ONLY_OR_UNEXTRACTED" in u.warnings for u in logical_units)}
+    return logical_units, diagnostics
