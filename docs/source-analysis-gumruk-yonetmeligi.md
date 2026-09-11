@@ -553,3 +553,101 @@ Article and Chunk IDs remain unchanged.
 M13B-1 does not modify the main-document table ingestion limitation. Annex
 ingestion, annex identity, citation changes, embeddings, indexing, and
 retrieval remain deferred to later M13 work.
+
+## M13C-A Annex Chunking + Embedding Contract
+
+Baseline: `e9814262039d43ed99e5f8ea18810c0702d36209`.
+Status: `M13C-A CLOSED — ANNEX CHUNKING EMBEDDING-SAFE`.
+
+`src/annex_chunk.py` accepts deterministic `AnnexUnit` ingestion from the
+immutable ZIP and existing normalization manifest, equivalent to the admitted
+derived JSON corpus. `chunk_annex()` handles one unit; `chunk_annexes()` sorts
+units by canonical identity and rejects duplicate identities or chunk IDs.
+The existing `src/config.py` supplies `MAX_CHUNK_CHARS` (default 4000); an
+explicit positive target can be supplied for reproducible audits.
+
+Tables split at whole-row boundaries, retaining every cell, including empty
+and multiline cells. Spreadsheets split at consecutive row groups, with a
+whole-cell fallback for oversized rows; coordinates, formulas, cached values,
+and sheet names remain attached to each fragment. Sheet headers occur once
+in the exact text, with continuation context retained as metadata. Ordinary
+paragraphs stay whole; oversized multiline paragraphs (including native RTF)
+may split at existing newlines only. Empty structured blocks are retained. Greedy
+packing uses a soft character target without overlap, trimming, or arbitrary
+text slicing. Unavoidable oversized individual rows/cells/paragraphs remain
+intact and are listed explicitly in `oversized_atoms` metadata and the audit's
+`oversized_inventory`, with member, source order, ranges, character size, and
+reason. Fragment ranges are zero-based and end-exclusive. Complementary source
+changes force a new chunk; each `SOURCE_MEMBER` header stays with its first
+content block. Separating newlines belong to the following chunk. The exact
+reconstruction contract is `''.join(chunk.text for chunk in chunks)` in chunk
+order; mismatched structured/rendered input fails closed.
+
+Each chunk retains its structured fragments and metadata: `document_id`,
+`source_type=annex`, `annex_no`, nullable `annex_subpart`, canonical
+`annex_label`, `annex_source_key`, `annex_storage_id`, `chunk_id`, ordinal,
+character offsets, all original/normalization source-member provenance,
+the contributing and canonical source members, relationship, and warnings.
+Annex identity uses `gumruk_yonetmeligi`, never legislation number 4458.
+IDs include `gumruk_yonetmeligi-ek-62-chunk-001` and
+`gumruk_yonetmeligi-ek-77-a-chunk-001`.
+
+`annex_embedding_input()` defines a deterministic text-only contract:
+
+```text
+Gümrük Yönetmeliği
+EK-62
+
+<exact chunk text, including its original leading/trailing whitespace>
+```
+
+Sub-annex headers use the canonical label, such as `EK-10/A`. The title and
+label are preparation context, excluded from reconstruction and the chunk
+body's soft character target. This is not a model token-limit guarantee:
+future embedding work must account for oversized blocks. No embedding model
+is invoked, and existing 5326/4458/5607 embedding inputs are unchanged.
+
+Read-only audit: `python scripts/audit_gumruk_annex_chunking.py`.
+Actual results at 4000 characters: **98 AnnexUnits → 361 annex chunks**;
+**98/98 exact reconstruction**, deterministic output under reversed input
+order, **zero chunk-ID collisions**, and complete retained provenance.
+There are **6 oversized chunks**, each containing one unavoidable intact
+table row; the maximum is **6,918 characters**. No spreadsheet or paragraph
+chunk exceeds 4000 in this corpus. The earlier whole-block result (250 chunks,
+47 oversized, maximum 48,460) is superseded by this row-aware policy.
+
+| Oversized chunk (annex / ordinal) | Characters | Original member | Source order / row index |
+|---|---:|---|---|
+| EK-1 / 002 | 6,478 | EK 01.doc | 6 / 5 |
+| EK-10/G / 012 | 6,918 | EK 10.doc | 234 / 27 |
+| EK-10/G / 013 | 6,198 | EK 10.doc | 234 / 28 |
+| EK-61 / 010 | 6,334 | EK 61.doc | 23 / 9 |
+| EK-61 / 023 | 6,320 | EK 61.doc | 137 / 7 |
+| EK-61 / 049 | 4,878 | EK 61.doc | 183 / 8 |
+
+Sizes include exact separators. Each listed row remains whole because table
+splitting is restricted to row boundaries; no legal text is blindly sliced.
+
+| Representative | Chunks | Preserved structure |
+|---|---:|---|
+| EK-10 | 3 | 116 paragraphs and 1 table |
+| EK-10/A, B, C, Ç, D | 1 each | Separate sub-annex identities and blocks |
+| EK-10/E | 2 | 22 paragraphs and 4 tables |
+| EK-10/F | 2 | 17 paragraphs and all rows/cells from 2 tables |
+| EK-10/G | 14 | 3 paragraphs and every row/cell from 1 table; 2 oversized rows explicitly reported |
+| EK-33 | 2 | 2 complementary source members; 6 paragraphs and 1 table; source boundary retained |
+| EK-83 | 1 | All row groups of 1 spreadsheet sheet, 2,848 characters; coordinates/cells retained |
+
+The EK-10 family totals 26 chunks across nine AnnexUnits. Compatibility
+gates preserve 87 physical sources, 98 logical units, 83/83 base annexes,
+15 sub-annexes, 69/69 resolved references, and all 17 complementary annexes.
+The main regulation remains 528 Articles / 530 chunks / 528 exact
+reconstructions. Historical behavior remains green in the full suite.
+
+Validation: `RUN_OPENAI_INTEGRATION_TESTS=0 python -m pytest -q` reports
+**853 passed, 2 skipped**, including 14 focused annex chunk tests.
+`python -m compileall -q src scripts tests` and `git diff --check` pass.
+No OpenAI, embeddings, Chroma, or retrieval operations were performed.
+The closure commit includes only the annex chunk module, focused tests,
+read-only audit script, and this document. The audit writes no raw or derived
+corpus artifacts. M13C-B is not started.
