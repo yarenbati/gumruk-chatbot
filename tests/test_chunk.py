@@ -141,6 +141,112 @@ def test_uppercase_suffixed_article_preserves_canonical_number_and_id() -> None:
     assert articles[0].article_id == "5607-madde-16-a"
 
 
+@pytest.mark.parametrize(
+    ("suffix", "id_suffix"),
+    [("Ç", "c-cedilla"), ("Ğ", "g-breve"), ("İ", "i-dotted"), ("Ö", "o-umlaut"), ("Ş", "s-cedilla")],
+)
+def test_turkish_suffixed_article_is_parsed_without_ascii_collision(suffix: str, id_suffix: str) -> None:
+    articles = parse_articles(
+        [_p(0, f"MADDE 72/{suffix}- (1) Kaynak metni.")],
+        document_id="gumruk_yonetmeligi",
+        legislation_number=None,
+    )
+    assert len(articles) == 1
+    assert articles[0].article_no == f"72/{suffix}"
+    assert articles[0].article_id == f"gumruk_yonetmeligi-madde-72-{id_suffix}"
+
+
+@pytest.mark.parametrize(("raw_suffix", "canonical_suffix"), [("ç", "Ç"), ("ğ", "Ğ"), ("i", "İ"), ("ö", "Ö"), ("ş", "Ş")])
+def test_lowercase_turkish_suffix_is_canonicalized(raw_suffix: str, canonical_suffix: str) -> None:
+    article = parse_articles(
+        [_p(0, f"MADDE 72/{raw_suffix}- (1) Kaynak metni.")],
+        document_id="gumruk_yonetmeligi",
+        legislation_number=None,
+    )[0]
+    assert article.article_no == f"72/{canonical_suffix}"
+
+
+@pytest.mark.parametrize(
+    ("left", "right"), [("C", "Ç"), ("G", "Ğ"), ("I", "İ"), ("O", "Ö"), ("S", "Ş")]
+)
+def test_ascii_and_turkish_suffix_article_and_chunk_ids_are_distinct(left: str, right: str) -> None:
+    articles = parse_articles(
+        [
+            _p(0, f"MADDE 72/{left}- (1) ASCII suffix."),
+            _p(1, f"MADDE 72/{right}- (1) Turkish suffix."),
+        ],
+        document_id="gumruk_yonetmeligi",
+        legislation_number=None,
+    )
+    assert len({article.article_id for article in articles}) == 2
+    chunks = chunk.build_chunks(articles)
+    assert len({piece.chunk_id for piece in chunks}) == 2
+
+
+def test_numberless_documents_use_document_id_storage_namespaces() -> None:
+    articles_a = parse_articles(
+        [_p(0, "MADDE 1- (1) A."), _p(1, "MADDE 72/Ç- (1) A suffix.")],
+        document_id="regulation_a",
+        legislation_number=None,
+    )
+    articles_b = parse_articles(
+        [_p(0, "MADDE 1- (1) B."), _p(1, "MADDE 72/Ç- (1) B suffix.")],
+        document_id="regulation_b",
+        legislation_number=None,
+    )
+    chunks_a = chunk.build_chunks(articles_a)
+    chunks_b = chunk.build_chunks(articles_b)
+    assert [article.article_id for article in articles_a] == [
+        "regulation_a-madde-1",
+        "regulation_a-madde-72-c-cedilla",
+    ]
+    assert [article.article_id for article in articles_b] == [
+        "regulation_b-madde-1",
+        "regulation_b-madde-72-c-cedilla",
+    ]
+    assert set(article.article_id for article in articles_a).isdisjoint(
+        article.article_id for article in articles_b
+    )
+    assert set(piece.chunk_id for piece in chunks_a).isdisjoint(
+        piece.chunk_id for piece in chunks_b
+    )
+
+
+def test_storage_id_requires_one_available_namespace() -> None:
+    with pytest.raises(ValueError, match="legislation_number or document_id"):
+        parse_articles(
+            [_p(0, "MADDE 1- (1) No identity.")],
+            document_id=None,
+            legislation_number=None,
+        )
+
+
+def test_full_hierarchy_context_and_reset_semantics() -> None:
+    articles = parse_articles(
+        [
+            _p(0, "BİRİNCİ KİTAP"),
+            _p(1, "BİRİNCİ KISIM"),
+            _p(2, "BİRİNCİ BÖLÜM"),
+            _p(3, "BİRİNCİ AYIRIM"),
+            _p(4, "MADDE 1- (1) İlk hüküm."),
+            _p(5, "İKİNCİ BÖLÜM"),
+            _p(6, "MADDE 2- (1) Bölüm değişti."),
+            _p(7, "İKİNCİ KISIM"),
+            _p(8, "MADDE 3- (1) Kısım değişti."),
+            _p(9, "İKİNCİ KİTAP"),
+            _p(10, "MADDE 4- (1) Kitap değişti."),
+        ],
+        document_id="gumruk_yonetmeligi",
+        legislation_number=None,
+    )
+    assert [article.section_context for article in articles] == [
+        "Birinci Kitap > Birinci Kısım > Birinci Bölüm > Birinci Ayırım",
+        "Birinci Kitap > Birinci Kısım > İkinci Bölüm",
+        "Birinci Kitap > İkinci Kısım",
+        "İkinci Kitap",
+    ]
+
+
 def test_5607_uppercase_section_transition_is_preserved() -> None:
     articles = parse_articles(
         [

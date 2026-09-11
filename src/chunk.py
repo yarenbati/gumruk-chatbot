@@ -84,9 +84,19 @@ class Article:
 
 # Tolerant of hyphen variants: ASCII hyphen, en dash, em dash.
 _HYPHEN = "[-–—]"
+_ARTICLE_SUFFIX = r"[A-Za-zÇĞİÖŞÜçğıöşü]"
+_CANONICAL_SUFFIX = {
+    "ç": "Ç", "Ç": "Ç",
+    "ğ": "Ğ", "Ğ": "Ğ",
+    "ı": "I", "I": "I",
+    "i": "İ", "İ": "İ",
+    "ö": "Ö", "Ö": "Ö",
+    "ş": "Ş", "Ş": "Ş",
+    "ü": "Ü", "Ü": "Ü",
+}
 
 NORMAL_ARTICLE_RE = re.compile(
-    rf"^Madde\s+(\d+)(?:\s*/\s*([A-Z]))?\s*{_HYPHEN}\s*(.*)$",
+    rf"^Madde\s+(\d+)(?:\s*/\s*({_ARTICLE_SUFFIX}))?\s*{_HYPHEN}\s*(.*)$",
     re.IGNORECASE,
 )
 EK_MADDE_RE = re.compile(rf"^Ek\s+Madde\s+(\d+)\s*{_HYPHEN}\s*(.*)$", re.IGNORECASE)
@@ -114,7 +124,7 @@ _ORDINALS = (
     "ONİKİNCİ",
     "ONÜÇÜNCÜ",
 )
-SECTION_HEADING_RE = re.compile(rf"^({'|'.join(_ORDINALS)})\s+(KISIM|BÖLÜM|AYIRIM)$")
+SECTION_HEADING_RE = re.compile(rf"^({'|'.join(_ORDINALS)})\s+(KİTAP|KISIM|BÖLÜM|AYIRIM)$")
 
 # Turkish title-casing for a small closed vocabulary of ordinal/unit words —
 # not a general-purpose casing routine, and not applied to legal text.
@@ -133,7 +143,7 @@ _ORDINAL_TITLE_CASE = {
     "ONİKİNCİ": "Onikinci",
     "ONÜÇÜNCÜ": "Onüçüncü",
 }
-_UNIT_TITLE_CASE = {"KISIM": "Kısım", "BÖLÜM": "Bölüm", "AYIRIM": "Ayırım"}
+_UNIT_TITLE_CASE = {"KİTAP": "Kitap", "KISIM": "Kısım", "BÖLÜM": "Bölüm", "AYIRIM": "Ayırım"}
 
 ISLENEMEYEN_HUKUMLER_RE = re.compile(
     r"^\d+\s+SAYILI\s+KANUNA\s+İŞLENEMEYEN\s+HÜKÜMLER$", re.IGNORECASE
@@ -162,7 +172,8 @@ def _match_article_heading(text: str) -> tuple[str, str, str] | None:
     m = NORMAL_ARTICLE_RE.match(text)
     if m:
         suffix = m.group(2)
-        article_no = m.group(1) + (f"/{suffix.upper()}" if suffix else "")
+        canonical_suffix = _CANONICAL_SUFFIX.get(suffix, suffix.upper()) if suffix else None
+        article_no = m.group(1) + (f"/{canonical_suffix}" if canonical_suffix else "")
         return "normal", article_no, m.group(3)
     return None
 
@@ -233,14 +244,48 @@ def _extract_amendment_note(rest_text: str) -> str | None:
 
 
 def _combine_section_context(
-    kisim: str | None, bolum: str | None, ayirim: str | None
+    kitap: str | None,
+    kisim: str | None,
+    bolum: str | None,
+    ayirim: str | None,
 ) -> str | None:
-    parts = [p for p in (kisim, bolum, ayirim) if p]
+    parts = [p for p in (kitap, kisim, bolum, ayirim) if p]
     return " > ".join(parts) if parts else None
 
 
+_NON_ASCII_SUFFIX_ID = {
+    "Ç": "c-cedilla",
+    "Ğ": "g-breve",
+    "İ": "i-dotted",
+    "Ö": "o-umlaut",
+    "Ş": "s-cedilla",
+    "Ü": "u-umlaut",
+}
+
+
+def _article_id_no(article_no: str) -> str:
+    """Return a readable, collision-safe storage component for ``article_no``.
+
+    Historical ASCII suffix IDs retain their existing lower-case form. Turkish
+    suffixes use explicit ASCII names so pairs such as ``72/C`` and ``72/Ç``
+    cannot collapse in persistent article or chunk IDs.
+    """
+    number, separator, suffix = article_no.partition("/")
+    if not separator:
+        return number.lower()
+    suffix_upper = suffix.upper()
+    if suffix_upper in _NON_ASCII_SUFFIX_ID:
+        suffix_id = _NON_ASCII_SUFFIX_ID[suffix_upper]
+    else:
+        suffix_id = suffix.lower()
+    return f"{number.lower()}-{suffix_id}"
+
+
 def _canonical_article_id(
-    legislation_number: str | None, article_type: str, article_no: str
+    legislation_number: str | None,
+    document_id: str | None,
+    article_type: str,
+    article_no: str,
 ) -> str:
     """Deterministic, collision-free ID: no "/" characters, distinct
     namespaces per article_type so e.g. Madde 1 / Ek Madde 1 / Geçici Madde 1
@@ -248,8 +293,15 @@ def _canonical_article_id(
     special-section Geçici Madde distinct from the main law. Examples:
     5326-madde-1, 5326-madde-42-a, 5326-ek-madde-1,
     5326-gecici-madde-1."""
-    prefix = legislation_number or "unknown"
-    normalized_no = article_no.lower().replace("/", "-")
+    if legislation_number is not None and legislation_number != "":
+        prefix = legislation_number
+    elif document_id is not None and document_id.strip():
+        prefix = document_id
+    else:
+        raise ValueError(
+            "Cannot create a storage article_id without legislation_number or document_id"
+        )
+    normalized_no = _article_id_no(article_no)
     if article_type == "ek":
         return f"{prefix}-ek-madde-{normalized_no}"
     if article_type == "gecici":
@@ -280,6 +332,7 @@ def parse_articles(
     """
     articles: list[Article] = []
 
+    current_kitap: str | None = None
     current_kisim: str | None = None
     current_bolum: str | None = None
     current_ayirim: str | None = None
@@ -299,7 +352,10 @@ def parse_articles(
         articles.append(
             Article(
                 article_id=_canonical_article_id(
-                    legislation_number, open_article["article_type"], open_article["article_no"]
+                    legislation_number,
+                    document_id,
+                    open_article["article_type"],
+                    open_article["article_no"],
                 ),
                 document_id=document_id,
                 legislation_number=legislation_number,
@@ -326,6 +382,7 @@ def parse_articles(
         if ISLENEMEYEN_HUKUMLER_RE.fullmatch(text.strip()):
             close_open_article()
             in_islenemeyen_hukumler = True
+            current_kitap = None
             current_kisim = None
             current_bolum = None
             current_ayirim = text.strip()
@@ -338,7 +395,12 @@ def parse_articles(
             close_open_article()
             ordinal, unit = section
             formatted = f"{_ORDINAL_TITLE_CASE[ordinal]} {_UNIT_TITLE_CASE[unit]}"
-            if unit == "KISIM":
+            if unit == "KİTAP":
+                current_kitap = formatted
+                current_kisim = None
+                current_bolum = None
+                current_ayirim = None
+            elif unit == "KISIM":
                 current_kisim = formatted
                 current_bolum = None
                 current_ayirim = None
@@ -373,7 +435,7 @@ def parse_articles(
                 "amendment_note": _extract_amendment_note(rest_text),
                 "title": title,
                 "section_context": _combine_section_context(
-                    current_kisim, current_bolum, current_ayirim
+                    current_kitap, current_kisim, current_bolum, current_ayirim
                 ),
                 "start": para.index,
                 "end": para.index,

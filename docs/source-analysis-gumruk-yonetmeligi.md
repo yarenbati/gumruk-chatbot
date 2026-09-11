@@ -458,3 +458,40 @@ The sources are valid and usable for continued development, but generic compatib
 3. Define annex-aware canonical provenance and citations.
 4. Add safe DOC/RTF/XLS/XLSX readers and table/form extraction.
 5. Re-run reconstruction and source-reference gates on an isolated M13B corpus.
+
+## M13B-1 Compatibility Result
+
+M13A's baseline parser produced 524 Articles because it did not recognize the
+four Turkish suffix provisions `72/Ç`, `72/Ğ`, `72/Ö`, and `72/Ş`. M13B-1
+extends the generic suffix grammar and now produces all 528 raw provisions:
+515 `normal` Articles and 13 `gecici` Articles, with no unparsed provision
+labels.
+
+Article and chunk storage IDs remain collision-safe. ASCII historical IDs are
+unchanged; Turkish suffixes use readable deterministic tokens such as
+`c-cedilla`, `g-breve`, `i-dotted`, `o-umlaut`, and `s-cedilla`. The pairs
+`72/C`/`72/Ç`, `72/G`/`72/Ğ`, `72/I`/`72/İ`, `72/O`/`72/Ö`, and `72/S`/`72/Ş`
+remain distinct. DocumentSourceKey derivation succeeds for all 528 Articles.
+
+The M13A/M13B pre-fix fallback used `unknown-` when legislation_number was
+null. The final M13B-1 policy uses the legislation number when present and the
+canonical document_id when it is absent. Gümrük Yönetmeliği IDs therefore use
+`gumruk_yonetmeligi-...`; no `unknown-` Article or Chunk IDs remain. If both
+identity inputs are absent, storage ID construction fails closed.
+
+The parser now carries `KİTAP > KISIM > BÖLÜM > AYIRIM` state with generic
+reset semantics. Representative contexts include `Birinci Kitap > Birinci
+Kısım`, `Birinci Kitap > İkinci Kısım > İkinci Bölüm`, and
+`Üçüncü Kitap > İkinci Kısım` for the 72/* family. The real source contains
+no AYIRIM heading in the accepted paragraph stream; the generic AYIRIM reset
+behavior is covered by focused tests.
+
+The corrected source run produces 530 chunks, including 2 multi-chunk
+provisions, and reconstructs all 528 Articles exactly. Historical regressions
+remain green: 5326 produces 53 Articles/53 chunks, 4458 produces 271
+Articles/276 chunks, and 5607 produces 43 Articles/46 chunks; their accepted
+Article and Chunk IDs remain unchanged.
+
+M13B-1 does not modify the main-document table ingestion limitation. Annex
+ingestion, annex identity, citation changes, embeddings, indexing, and
+retrieval remain deferred to later M13 work.

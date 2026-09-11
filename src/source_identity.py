@@ -16,6 +16,7 @@ from typing import Protocol
 _DOCUMENT_ID_PATTERN = re.compile(r"[a-z0-9]+(?:[_-][a-z0-9]+)*")
 _ARTICLE_TYPES = frozenset({"normal", "ek", "gecici", "islenemeyen_hukum"})
 _IDENTITY_FIELDS = frozenset({"document_id", "article_type", "article_no"})
+_TURKISH_UPPERCASE_LETTERS = frozenset("ÇĞİÖŞÜ")
 
 
 class SourceIdentityError(ValueError):
@@ -32,10 +33,19 @@ def _normalize_article_no(article_no: str) -> str:
         raise SourceIdentityError("article_no must be a string")
     # Deliberately duplicate the tiny historical algorithm to avoid importing
     # evaluation/retrieval dependencies. Tests pin parity for supported aliases.
-    normalized = article_no.strip().lower()
+    normalized = article_no.strip()
     normalized = re.sub(r"[-_]", "/", normalized)
     normalized = re.sub(r"\s*/\s*", "/", normalized)
     normalized = normalized.strip()
+    # Keep the historical lower-case form for ASCII aliases. For non-ASCII
+    # suffixes, upper-case the segment instead of using str.lower(): Turkish
+    # capital İ lower-cases to ``i`` plus a combining dot, which is not a
+    # stable alphanumeric component and can collide with ASCII I in storage.
+    normalized = "/".join(
+        segment.upper() if any(character in _TURKISH_UPPERCASE_LETTERS for character in segment)
+        else segment.lower()
+        for segment in normalized.split("/")
+    )
     if not all(segment.isalnum() for segment in normalized.split("/")):
         raise SourceIdentityError("article_no must have nonempty alphanumeric slash-separated segments")
     return normalized

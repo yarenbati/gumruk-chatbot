@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from docx import Document
 
-from src import chunk, ingest
+from src import chunk, ingest, source_identity
 
 ROOT = Path(__file__).resolve().parents[1]
 MAIN_PATH = ROOT / "data/raw/gumruk-yonetmeligi.docx"
@@ -161,6 +161,13 @@ def audit_main(path: Path = MAIN_PATH) -> dict[str, Any]:
         reconstructed = "\n".join(piece.text for piece in article_chunks)
         if reconstructed != article.text:
             reconstruction_failures.append({"article_id": article.article_id, "missing_or_changed": True, "chunk_count": len(article_chunks)})
+    source_key_errors = []
+    source_keys = []
+    for article in article_objects:
+        try:
+            source_keys.append(str(source_identity.DocumentSourceKey(article.document_id or "", article.article_type, article.article_no)))
+        except source_identity.SourceIdentityError as exc:
+            source_key_errors.append({"article_no": article.article_no, "article_type": article.article_type, "error": str(exc)})
     section_samples = []
     for article in article_objects:
         if article.article_no in {"1", "300", "72/A", "580/A"} or article.article_type == "gecici":
@@ -185,6 +192,10 @@ def audit_main(path: Path = MAIN_PATH) -> dict[str, Any]:
         "internal_patterns": {"fikra_parenthesized": len(re.findall(r"(?<!\w)\(\d+\)", all_text)), "lettered_bent": len(re.findall(r"(?m)^\s*[a-zçğıöşü]\)\s", all_text, re.IGNORECASE)), "numbered_alt_bent": len(re.findall(r"(?m)^\s*\d+\)\s", all_text)), "mülga": len(re.findall(r"Mülga", all_text, re.IGNORECASE)), "degisik": len(re.findall(r"Değişik", all_text, re.IGNORECASE)), "ek_annotations": len(re.findall(r"\(Ek:", all_text, re.IGNORECASE)), "rg_references": len(re.findall(r"RG-\d{1,2}/\d{1,2}/\d{4}-\d+", all_text)), "court_annotations": len(re.findall(r"Danıştay|mahkeme|yürütmesinin durdurulmasına", all_text, re.IGNORECASE)), "article_titles": sum(article.article_title is not None for article in article_objects), "inline_footnote_reference_ids": sum(len(paragraph.footnote_reference_ids or []) for paragraph in paragraphs)},
         "footnote_history": {"footnotes_xml_present": "word/footnotes.xml" in zipfile.ZipFile(path).namelist(), "amendment_history_marker_present": bool(re.search(r"EK VE DEĞİŞİKLİK", all_text, re.IGNORECASE)), "history_blocks_are_not_resolved_by_current_parser": True},
         "parser": {"success": parser_error is None, "error": parser_error, "article_count": len(article_objects), "article_type_distribution": dict(Counter(article.article_type for article in article_objects)), "first": {"article_no": article_objects[0].article_no, "article_type": article_objects[0].article_type} if article_objects else None, "last": {"article_no": article_objects[-1].article_no, "article_type": article_objects[-1].article_type} if article_objects else None, "chunk_count": len(chunks), "multi_chunk_provision_count": sum(sum(piece.article_id == article.article_id for piece in chunks) > 1 for article in article_objects), "duplicate_article_ids": sorted(article_id for article_id, count in Counter(article.article_id for article in article_objects).items() if count > 1), "duplicate_chunk_ids": sorted(chunk_id for chunk_id, count in Counter(piece.chunk_id for piece in chunks).items() if count > 1), "section_samples": section_samples, "reconstruction_tested": len(article_objects), "reconstruction_failures": reconstruction_failures, "suffix_family_present": all(any(article.article_no == f"72/{letter}" for article in article_objects) for letter in "ABCDEFGĞHIİJKLMNOÖPRŞT")},
+        "document_source_key_validation": {"tested": len(source_keys), "errors": source_key_errors, "unique": len(source_keys) == len(set(source_keys))},
+        "unknown_article_id_count": sum(article.article_id.startswith("unknown-") for article in article_objects),
+        "unknown_chunk_id_count": sum(piece.chunk_id.startswith("unknown-") for piece in chunks),
+        "document_id_scoped_storage": all(article.article_id.startswith("gumruk_yonetmeligi-") for article in article_objects),
         "raw_provision_labels": labels,
         "unparsed_provision_labels": sorted(set(labels) - set(article.article_no for article in article_objects)),
         "annex_references": sorted({f"EK-{int(match.group(1))}{('/' + match.group(2).upper()) if match.group(2) else ''}" for match in REF_RE.finditer(all_text)}, key=lambda value: (int(re.search(r"\d+", value).group()), value)),

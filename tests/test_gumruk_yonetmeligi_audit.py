@@ -22,8 +22,26 @@ def test_main_audit_reports_hierarchy_and_parser_reconstruction() -> None:
     assert result["ooxml_valid"] is True
     assert result["hierarchy_counts"] == {"KİTAP": 12, "KISIM": 33, "BÖLÜM": 22}
     assert result["parser"]["success"] is True
-    assert result["parser"]["article_count"] == 524
-    assert result["parser"]["chunk_count"] == 526
+    assert result["provision_counts"] == {
+        "article_like_units": 528,
+        "plain_numeric_articles": 488,
+        "suffixed_articles": 27,
+        "temporary_articles": 13,
+        "ek_articles": 0,
+    }
+    assert result["parser"]["article_count"] == 528
+    assert result["parser"]["article_type_distribution"] == {"normal": 515, "gecici": 13}
+    assert result["parser"]["chunk_count"] == 530
+    assert result["unparsed_provision_labels"] == []
+    assert result["parser"]["suffix_family_present"] is True
+    assert result["document_source_key_validation"] == {
+        "tested": 528,
+        "errors": [],
+        "unique": True,
+    }
+    assert result["unknown_article_id_count"] == 0
+    assert result["unknown_chunk_id_count"] == 0
+    assert result["document_id_scoped_storage"] is True
     assert result["parser"]["reconstruction_failures"] == []
 
 

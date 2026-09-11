@@ -36,6 +36,20 @@ def test_normalization_matches_historical_supported_aliases(raw: str, expected: 
     assert key.article_no == expected == evaluate.normalize_article_no(raw)
 
 
+@pytest.mark.parametrize("suffix", ["Ç", "Ğ", "İ", "Ö", "Ş"])
+def test_document_source_key_preserves_turkish_suffix_identity(suffix: str) -> None:
+    key = identity.DocumentSourceKey("gumruk_yonetmeligi", "normal", f"72/{suffix}")
+    assert key.article_no == f"72/{suffix}"
+
+
+def test_document_source_key_distinguishes_ascii_and_turkish_suffixes() -> None:
+    keys = [
+        identity.DocumentSourceKey("gumruk_yonetmeligi", "normal", f"72/{suffix}")
+        for suffix in ("C", "Ç", "G", "Ğ", "I", "İ", "O", "Ö", "S", "Ş")
+    ]
+    assert len({str(key) for key in keys}) == len(keys)
+
+
 def test_immutable_hashable_value_identity() -> None:
     key = identity.DocumentSourceKey("law_a", "normal", "42/A")
     equal = identity.DocumentSourceKey("law_a", "normal", "42-a")
