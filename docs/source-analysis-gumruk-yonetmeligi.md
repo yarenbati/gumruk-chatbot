@@ -451,6 +451,32 @@ M13A READY FOR REVIEW — SOURCE ADMITTED, M13B REQUIRED
 
 The sources are valid and usable for continued development, but generic compatibility work is required for hierarchy preservation, annex identity, legacy/special formats, table-aware extraction, and citation provenance.
 
+## M13B-2 Annex Compatibility
+
+M13B-2 adds a dedicated `src/annex_ingest.py` boundary. A physical ZIP member is represented by `AnnexSourceFile`; one or more logical annexes are represented by `AnnexUnit`; future chunks remain a later concern. The immutable ZIP is read in memory and its member and archive SHA256 values are retained on every unit.
+
+`AnnexSourceKey(document_id, annex_no, annex_subpart)` is immutable and hashable. Its stable serialization is `gumruk_yonetmeligi/annex/62` or `gumruk_yonetmeligi/annex/77/a`. Human labels are canonicalized as `EK-62`, `EK-77/A`; `EK 77 A`, `EK-77-A`, and `EK-77/A` are equivalent. Future storage IDs are document-scoped, for example `gumruk_yonetmeligi-ek-62` and `gumruk_yonetmeligi-ek-77-a`; they are separate from article IDs and no Chroma records are created.
+
+The structured block model preserves ordered paragraph and table blocks for DOCX, and sheet, cell coordinate, formula, cached-value, and value information for XLSX. DOCX body XML is traversed in source order. Tables retain empty cells. Rendering is deterministic and retains the structured blocks; it performs no summarization or legal-text rewriting. Real RTF is decoded through a control-aware reader, so `EK-48.doc` is detected as RTF and routes to the RTF reader despite its extension. XLSX is read with the standard library because `openpyxl` is not installed.
+
+The archive audit found 87 physical members and 90 logical units. Base logical coverage is 83/83. Discovered sub-annexes are `EK-22/A`, `EK-70/A`, `EK-77/A`, `EK-77/B`, `EK-77/C`, `EK-81/A`, and `EK-81/B`. `EK-77.docx` is therefore represented as four logical units from one physical member, with member provenance retained. No logical-key or storage-ID collision remains after filename label normalization.
+
+The accepted main-text reference set contains 69 normalized references. 63 resolve to discovered logical units, including the three embedded `EK-77` sub-annexes. Six `EK-10` sub-annex references remain unresolved because their parent is a legacy OLE Word DOC whose content cannot be safely read in this environment. Filename presence is not counted as logical resolution. All 73 units with legacy DOC/XLS warnings retain explicit provenance and are reported; no file is silently skipped.
+
+Capability results:
+
+- DOCX: available through the installed `python-docx`; paragraph/table order and form tables are preserved.
+- XLSX: available through deterministic standard-library OOXML parsing; sheet order, names, coordinates, and non-empty cells are preserved without formula evaluation.
+- RTF: available through the deterministic control-aware reader; extension mismatch handling passes for `EK-48.doc`.
+- Legacy XLS: no safe local reader is installed (`xlrd`, `olefile`, and equivalent tooling are absent). Adding a runtime dependency requires review before installation; the five `.xls` members are explicitly diagnostic failures.
+- Legacy DOC: no safe local parser or deterministic converter is installed (`soffice`, `antiword`, `catdoc`, `pandoc`, Word automation, and OLE readers are absent). No raw binary parsing, strings extraction, OCR, or network installation was used.
+
+The required representative results are: EK-7 and EK-10 detected as OLE legacy DOC with `LEGACY_DOC_READER_UNAVAILABLE`; EK-48 detected as RTF with one paragraph block and rendered text; EK-62 detected as OLE legacy DOC with the same explicit warning; EK-70 yields distinct base and `/A` identities from two members; EK-77 yields EK-77 plus A/B/C from one DOCX; EK-81 yields the base form/table DOCX and separate A/B DOCX members; EK-83 yields one XLSX spreadsheet block with sheet and cell coordinates. Provenance completeness is 90/90 units. Image-only count is zero; unextractable legacy count is reported separately.
+
+No `data/processed/gumruk-yonetmeligi-annexes.json` was created because legacy DOC/XLS extraction is incomplete and a complete derived corpus would be misleading. No embedding, indexing, retrieval, generation, Chroma, or main-regulation production path was changed. The main-regulation regression remains the accepted M13B-1 result: 528 Articles, 530 chunks, and 528/528 exact reconstruction; historical 5326, 4458, and 5607 IDs remain outside this annex change.
+
+M13B-2A status: `M13B-2A CLOSED — ANNEX MODEL READY, LEGACY OFFICE NORMALIZATION REQUIRED`. The annex model and modern format routing are closed as a partial compatibility milestone. 68 legacy DOC plus 5 legacy XLS members, 73/87 physical files in total, still require safe legacy Office normalization or a reviewed reader before the complete annex corpus can be ingested. M13B-2B is the next milestone; M13C does not start in this closure.
+
 ## Recommended M13B Scope
 
 1. Preserve KİTAP/KISIM/BÖLÜM/AYIRIM hierarchy in a structured context.

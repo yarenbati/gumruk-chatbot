@@ -16,11 +16,68 @@ from typing import Protocol
 _DOCUMENT_ID_PATTERN = re.compile(r"[a-z0-9]+(?:[_-][a-z0-9]+)*")
 _ARTICLE_TYPES = frozenset({"normal", "ek", "gecici", "islenemeyen_hukum"})
 _IDENTITY_FIELDS = frozenset({"document_id", "article_type", "article_no"})
+_ANNEX_LABEL_RE = re.compile(r"^\s*EK\s*[-–—]?\s*(\d{1,3})(?:\s*[/–—-]?\s*([A-Za-zÇĞİÖŞÜçğıöşü]))?\s*$", re.IGNORECASE)
 _TURKISH_UPPERCASE_LETTERS = frozenset("ÇĞİÖŞÜ")
 
 
 class SourceIdentityError(ValueError):
     """Invalid canonical identity, serialized key or legacy resolution."""
+
+
+def _normalize_annex_label(label: str) -> tuple[int, str | None]:
+    """Normalize an EK label into its numeric and optional letter components."""
+    if not isinstance(label, str):
+        raise SourceIdentityError("annex label must be a string")
+    match = _ANNEX_LABEL_RE.fullmatch(label.replace("/", "-"))
+    if not match:
+        raise SourceIdentityError("annex label must look like EK-62 or EK-77/A")
+    return int(match.group(1)), match.group(2).upper() if match.group(2) else None
+
+
+@dataclass(frozen=True)
+class AnnexSourceKey:
+    """Immutable identity for a logical regulation annex or sub-annex."""
+
+    document_id: str
+    annex_no: int
+    annex_subpart: str | None = None
+
+    def __post_init__(self) -> None:
+        _validate_document_id(self.document_id)
+        if not isinstance(self.annex_no, int) or isinstance(self.annex_no, bool) or self.annex_no < 1:
+            raise SourceIdentityError("annex_no must be a positive integer")
+        if self.annex_subpart is not None:
+            if not isinstance(self.annex_subpart, str) or not re.fullmatch(r"[A-ZÇĞİÖŞÜ]", self.annex_subpart.upper()):
+                raise SourceIdentityError("annex_subpart must be one letter")
+            object.__setattr__(self, "annex_subpart", self.annex_subpart.upper())
+
+    @classmethod
+    def from_label(cls, label: str, document_id: str = "gumruk_yonetmeligi") -> "AnnexSourceKey":
+        """Build a key from equivalent human EK label spellings."""
+        number, subpart = _normalize_annex_label(label)
+        return cls(document_id, number, subpart)
+
+    @property
+    def label(self) -> str:
+        """Return the canonical human label, such as EK-77/A."""
+        return f"EK-{self.annex_no}" + (f"/{self.annex_subpart}" if self.annex_subpart else "")
+
+    @property
+    def storage_id(self) -> str:
+        """Return the stable document-scoped future storage identifier."""
+        suffix = f"-{self.annex_subpart.lower()}" if self.annex_subpart else ""
+        return f"{self.document_id}-ek-{self.annex_no}{suffix}"
+
+    def __str__(self) -> str:
+        """Return the stable canonical serialization."""
+        suffix = f"/{self.annex_subpart.lower()}" if self.annex_subpart else ""
+        return f"{self.document_id}/annex/{self.annex_no}{suffix}"
+
+    def __lt__(self, other: object) -> bool:
+        """Provide deterministic ordering with base annexes before sub-annexes."""
+        if not isinstance(other, AnnexSourceKey):
+            return NotImplemented
+        return (self.document_id, self.annex_no, self.annex_subpart or "") < (other.document_id, other.annex_no, other.annex_subpart or "")
 
 
 def _validate_document_id(document_id: str) -> None:
