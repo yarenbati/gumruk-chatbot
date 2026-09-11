@@ -49,6 +49,7 @@ def test_current_manifest_records_and_all_explicit_lookups() -> None:
         "5326_kabahatler_kanunu",
         "4458_gumruk_kanunu",
         "5607_kacakcilikla_mucadele_kanunu",
+        "gumruk_yonetmeligi",
     }
     raw = json.loads(before)
     for expected in raw:
@@ -56,7 +57,12 @@ def test_current_manifest_records_and_all_explicit_lookups() -> None:
         assert asdict(record) == expected
         assert actual.by_local_file(expected["local_file"]) is record
         assert actual.by_local_file(ROOT / expected["local_file"]) is record
-        assert actual.unique_by_legislation_number(expected["legislation_number"]) is record
+        if expected["legislation_number"] is not None:
+            assert actual.unique_by_legislation_number(expected["legislation_number"]) is record
+    regulation = actual.by_document_id("gumruk_yonetmeligi")
+    assert regulation.legislation_number is None
+    assert regulation.local_file == "data/raw/gumruk-yonetmeligi.docx"
+    assert actual.by_local_file(regulation.local_file) is regulation
     assert path.read_bytes() == before
 
 

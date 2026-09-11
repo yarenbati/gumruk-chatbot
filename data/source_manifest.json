@@ -31,5 +31,16 @@
     "retrieved_at": "2026-09-10",
     "local_file": "data/raw/5607-kacakcilikla-mucadele-kanunu.docx",
     "notes": "Resmî mevzuat.gov.tr kaynağı manuel Microsoft Word Save As ile DOCX biçimine normalize edilmiştir; özgün DOC dosyası bu çalışma alanında mevcut değildir. Resmî kaynak -> manuel Microsoft Word Save As -> DOCX."
+  },
+  {
+    "document_id": "gumruk_yonetmeligi",
+    "title": "Gümrük Yönetmeliği",
+    "document_type": "Yönetmelik",
+    "legislation_number": null,
+    "issuing_authority": null,
+    "official_source_url": "https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=13472&MevzuatTur=7&MevzuatTertip=5",
+    "retrieved_at": "2026-09-11",
+    "local_file": "data/raw/gumruk-yonetmeligi.docx",
+    "notes": "Main regulation supplied as DOCX; annexes supplied separately as ZIP and belonging to the same Gümrük Yönetmeliği corpus. Annex files use heterogeneous formats and must not be treated as 83 unrelated legal documents. The regulation is based on 4458 Gümrük Kanunu, but 4458 is not its canonical document identity."
   }
 ]
