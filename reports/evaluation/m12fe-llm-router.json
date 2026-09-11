@@ -1,0 +1,3895 @@
+{
+  "status": "completed",
+  "verdict": "M12F-E READY FOR REVIEW — LLM ROUTER PROMISING",
+  "head": "05fecc99973c0d81fd84d777f3298ffd51126ed3",
+  "created_utc": "2026-09-11T08:08:49.955717+00:00",
+  "population": {
+    "count": 105,
+    "composition": {
+      "5326": 45,
+      "4458": 30,
+      "5607": 30
+    },
+    "implicit": 99,
+    "explicit": 6,
+    "full_records_identical": true,
+    "loader": "scripts.run_m12d_three_source._questions"
+  },
+  "prompt": {
+    "template": "You classify which available legal document most likely answers a user's question.\n\nAvailable documents:\n1. 5326_kabahatler_kanunu — general misdemeanour and administrative sanction framework.\n2. 4458_gumruk_kanunu — customs procedures, duties, declarations, customs regimes and administration.\n3. 5607_kacakcilikla_mucadele_kanunu — smuggling offences and anti-smuggling provisions.\n\nRank all three document IDs from most likely to least likely for the user's question.\nReturn only the requested structured object. Do not explain your ranking.\n",
+    "schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ranked_documents": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "5326_kabahatler_kanunu",
+              "4458_gumruk_kanunu",
+              "5607_kacakcilikla_mucadele_kanunu"
+            ]
+          },
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "ranked_documents"
+      ]
+    },
+    "fingerprint": "aa5d6288db8b55b64a3b2759b0f9c200510ef118fe095411be58f25e04ade0b3",
+    "frozen_before_run": true,
+    "input_contract": "instructions plus raw question text only; no ID, gold, answer, retrieval, centroid or failure labels"
+  },
+  "configuration": {
+    "model": "gpt-5.6-terra",
+    "max_retries": 0,
+    "temperature": 0.0,
+    "llm_send_temperature": false,
+    "temperature_parameter_sent": false,
+    "retrieval": false,
+    "chroma": false,
+    "embeddings": false,
+    "supervised_fitting": false
+  },
+  "input_hashes": {
+    "app.py": {
+      "size_bytes": 3322,
+      "sha256": "9a20b06a4887e71904f6f83c30a76bb8be4671f0a1987f6974b50ad3b7a0344a"
+    },
+    "data/source_manifest.json": {
+      "size_bytes": 3215,
+      "sha256": "f4f45a8ec19926e3a43ab4ae0223874d38feeb05d8c16219d83b85ba4a657706"
+    },
+    "evaluation/questions_4458.candidate.json": {
+      "size_bytes": 21643,
+      "sha256": "f07f5843b31346ff1ac269bd8e1b53d7e07f739a1c0b03508141cc0b0569a368"
+    },
+    "evaluation/questions_4458.json": {
+      "size_bytes": 23400,
+      "sha256": "bf81bb00f665435ace8ab28bbce274ba473074825501fcde0af34c98c45bb595"
+    },
+    "evaluation/questions_5607.candidate.json": {
+      "size_bytes": 29724,
+      "sha256": "30de79d0c7564bf67e7ef01c88e27077d530b50f4a47d3ce9f6df6d1d7b117a2"
+    },
+    "evaluation/questions_5607.json": {
+      "size_bytes": 29724,
+      "sha256": "30de79d0c7564bf67e7ef01c88e27077d530b50f4a47d3ce9f6df6d1d7b117a2"
+    },
+    "evaluation/questions_m10e_holdout.candidate.json": {
+      "size_bytes": 24669,
+      "sha256": "0c61a8ed1dae6bc4152957543c0149a1e2d127c236d0e2621d4a32db9c898d09"
+    },
+    "evaluation/questions_m10e_holdout.json": {
+      "size_bytes": 26272,
+      "sha256": "6c38c04ef73cc8aee755e5e97c748b6b141ad55da888f9fde5a2af51ad17af48"
+    },
+    "evaluation/questions_m9b.json": {
+      "size_bytes": 12813,
+      "sha256": "a762e2fc892256b23f45bdeca3019eec8a34d8889e9ecf196fe0e4f5ef163130"
+    },
+    "reports/evaluation/m12d-5607-question-review.csv": {
+      "size_bytes": 13836,
+      "sha256": "091a754c1984e73f80a1e242b47f771cc280d5966a12a8ef0b7a937097ab4900"
+    },
+    "reports/evaluation/m12d-offline-audit.md": {
+      "size_bytes": 8734,
+      "sha256": "1286f96efceea976e8d4f0f74d75dba53b2cbfd8fa557ceee335d5a503a09c84"
+    },
+    "reports/evaluation/m12d-three-source-retrieval.csv": {
+      "size_bytes": 261890,
+      "sha256": "c92246b0e8b639528e0e0f5bc2b29c5927fb6868b91a4e08ddc1070347005c7a"
+    },
+    "reports/evaluation/m12d-three-source-retrieval.json": {
+      "size_bytes": 781398,
+      "sha256": "8b13dbde203d277858810165218b46982212d99b11efd8752732b7314bfeebe8"
+    },
+    "reports/evaluation/m12e-failure-matrix.csv": {
+      "size_bytes": 116535,
+      "sha256": "cea9343a7cd94c4438b5f24f5384c9dcc4e0c8a2799ea979eaec2ac876ed263e"
+    },
+    "reports/evaluation/m12e-three-source-failure-analysis.json": {
+      "size_bytes": 607723,
+      "sha256": "2ba3b2ec1320f0b1d6b35073a2e4394a24bf234cee8a0d01601c267b51bd629e"
+    },
+    "reports/evaluation/m12e-three-source-failure-analysis.md": {
+      "size_bytes": 63167,
+      "sha256": "a2d0c3523ed93c2aecb694a8e44939a9cf12fe4379da87107b2b4b9f3cfe51a8"
+    },
+    "reports/evaluation/m12fa-explicit-law-experiment.csv": {
+      "size_bytes": 48093,
+      "sha256": "b09bef4e300687a03d3142c631f386fc921cc1018afccf3f8150b99454bc3b7e"
+    },
+    "reports/evaluation/m12fa-explicit-law-experiment.json": {
+      "size_bytes": 215801,
+      "sha256": "71658e87a093890801d23d3d9c699e05049dc3289fe3661d4a5c4682722a53c9"
+    },
+    "reports/evaluation/m12fa-explicit-law-experiment.md": {
+      "size_bytes": 21333,
+      "sha256": "dcce2d7252e1cd3d5370a2d3c5804f63076d522fcd72ee166224b9aef47307d4"
+    },
+    "reports/evaluation/m12fb-candidate-pool-diagnostic.csv": {
+      "size_bytes": 2351570,
+      "sha256": "6cd32851af7c297d7ca6c4ef633fdb57508362b74ed3eb14e91d9f20ab13b8e8"
+    },
+    "reports/evaluation/m12fb-candidate-pool-diagnostic.json": {
+      "size_bytes": 3322868,
+      "sha256": "a5e90e17a032a9aa92f2ba25a279c5d961251731aa70b026898f9bf4b6d9d4bf"
+    },
+    "reports/evaluation/m12fb-candidate-pool-diagnostic.md": {
+      "size_bytes": 43427,
+      "sha256": "f44e574844eae6c0b6e8461fd6d5c4bbd85589fc29e1a42ec50774f65ab48cda"
+    },
+    "reports/evaluation/m12fc-oracle-decomposition.csv": {
+      "size_bytes": 2244643,
+      "sha256": "cbd26fbd6febf7eb7fe2b2a7c5359081df1a9f43409a2f556c08f6cb638e1ff7"
+    },
+    "reports/evaluation/m12fc-oracle-decomposition.json": {
+      "size_bytes": 3216797,
+      "sha256": "0902002ed04a1b5e06e666de9f55facd70007eacf041dad7106ea8edcc7b1755"
+    },
+    "reports/evaluation/m12fc-oracle-decomposition.md": {
+      "size_bytes": 30680,
+      "sha256": "49889a532015ee695ae8242050fa49f71061d7cf607c20715b1f19042c408fa1"
+    },
+    "reports/evaluation/m12fd-centroid-routing.csv": {
+      "size_bytes": 1855896,
+      "sha256": "446a6374db3ba49298e5b3bee01234ad90e41f0d795ff7a801e951178fe76b47"
+    },
+    "reports/evaluation/m12fd-centroid-routing.json": {
+      "size_bytes": 3324125,
+      "sha256": "c5479f85ec33b8c89e6697534062abcd6aa5de253ed9ec9dcbf185d421bc454d"
+    },
+    "reports/evaluation/m12fd-centroid-routing.md": {
+      "size_bytes": 31878,
+      "sha256": "53f38e9a1bde84186bf61d3ce83e6ae699bcd3048e1c0d5d248484e4d5258faf"
+    },
+    "src/chunk.py": {
+      "size_bytes": 32528,
+      "sha256": "ff361a830f4522087d660a6e0a57c31a2df01e429626e54fa68a6895a08af4fc"
+    },
+    "src/config.py": {
+      "size_bytes": 1882,
+      "sha256": "ac44ec500a6645947b40fd726c5e7ee4dba39f52447fba4c4746922f3e23477a"
+    },
+    "src/embed.py": {
+      "size_bytes": 19233,
+      "sha256": "38531e5f64cad1a953419ed1c3cec7d0caa9f35e15d76c40149e329329c05bda"
+    },
+    "src/evaluate.py": {
+      "size_bytes": 23063,
+      "sha256": "3ff4806d7ef6203047b539cea34dc078bb79d662188397efc283af2f23a7c274"
+    },
+    "src/evaluate_documents.py": {
+      "size_bytes": 12753,
+      "sha256": "51b887820374af8354c2f0516f41d78806405df387767e7c6a56993704c51a32"
+    },
+    "src/evaluate_e2e.py": {
+      "size_bytes": 25372,
+      "sha256": "9a3a45b5f20269765f395015717ffe457838265ad0525b30cc4feb5d4e1ac23c"
+    },
+    "src/evaluate_m10e_holdout.py": {
+      "size_bytes": 27975,
+      "sha256": "bee37a6ad4e9a591b0132876735b832ab1fa3893922aa0a17b13429450dbbcbb"
+    },
+    "src/evaluate_multilaw.py": {
+      "size_bytes": 46149,
+      "sha256": "ba2eb2ce20568c31ea5fd43c0c67b9393d1d60d3e2b301e794cc7fe86ca1a5ec"
+    },
+    "src/evaluate_retrieval_experiments.py": {
+      "size_bytes": 26422,
+      "sha256": "3d81c4f81fa669d3e5b2c3632d15789f754bf672c49f5d331a192b38531021ab"
+    },
+    "src/evaluation_dataset.py": {
+      "size_bytes": 6410,
+      "sha256": "276d0f28d358785ee66903c96e14572ca2a89873614d090cf5621358226648b4"
+    },
+    "src/generate.py": {
+      "size_bytes": 37574,
+      "sha256": "92bd697c583764f05e746a76d760641c1ee2e182cd14b8a4a06dd62a87691a45"
+    },
+    "src/index.py": {
+      "size_bytes": 15180,
+      "sha256": "0066dfebd3e5b6f10951b2d56afc8f8229c7f3bd753bc8ec18903f15cbb88757"
+    },
+    "src/ingest.py": {
+      "size_bytes": 8855,
+      "sha256": "0ffba8495538c0ac9d9ca040713bfa5bf25ffab6c4cb2f2ba7ce58747e266e6a"
+    },
+    "src/m10e_failure_analysis.py": {
+      "size_bytes": 7994,
+      "sha256": "7ac99b65a3f394ce1894bbca07e19a6834e8d6219da17982e23386a8a7919d95"
+    },
+    "src/m10e_holdout.py": {
+      "size_bytes": 11041,
+      "sha256": "e14a0a9b43346005d3eeda74e4e458c6d0e2773c58f69a5a36abec5315316861"
+    },
+    "src/rag.py": {
+      "size_bytes": 8477,
+      "sha256": "96f11b8dbcccfbbf294b7c81baffc4f8e13ebb42039012adf422ec9d0130928d"
+    },
+    "src/retrieve.py": {
+      "size_bytes": 16928,
+      "sha256": "6ca477aa28d2b9071cb8b5b4403ca041c6cd829b7a1710c1f1e41324e6ce92df"
+    },
+    "src/source_identity.py": {
+      "size_bytes": 7470,
+      "sha256": "7f12c4c680bdb09c6fbba9d9b3a43a0cc5af1195103ce12635955969808aad1c"
+    },
+    "src/source_registry.py": {
+      "size_bytes": 11243,
+      "sha256": "0f8befb2e55032b644b599d6da7e8413766802cedff63835707b389ab9732e13"
+    },
+    "src/ui.py": {
+      "size_bytes": 3597,
+      "sha256": "76001ba5659240c43c33496b25f257dfc3b2ee856ae3793dc234fbc37b532ceb"
+    }
+  },
+  "api": {
+    "model": "gpt-5.6-terra",
+    "requests": 105,
+    "successful_classifications": 105,
+    "failures": 0,
+    "input_tokens": 24373,
+    "output_tokens": 10217,
+    "total_tokens": 34590,
+    "generation_calls": 0,
+    "generation_calls_meaning": "0 downstream RAG answer-generation calls; the 105 LLM classification calls are counted separately in requests."
+  },
+  "results": [
+    {
+      "question": {
+        "id": "q001",
+        "question": "Kabahat nedir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "2"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 201,
+          "output_tokens": 49,
+          "total_tokens": 250
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q002",
+        "question": "Kabahat karşılığı uygulanacak yaptırımın türü, süresi ve miktarı hangi esasla belirlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "4"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 220,
+          "output_tokens": 49,
+          "total_tokens": 269
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q003",
+        "question": "Bir kabahatin kasten veya taksirle işlenmesi nasıl düzenlenmiştir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "9"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 214,
+          "output_tokens": 49,
+          "total_tokens": 263
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q004",
+        "question": "Onbeş yaşını doldurmamış çocuk hakkında idarî para cezası uygulanabilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "11"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 217,
+          "output_tokens": 49,
+          "total_tokens": 266
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q005",
+        "question": "Hukuka uygunluk nedenleri ve kusurluluğu ortadan kaldıran nedenlerde hangi hükümler uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "12"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 220,
+          "output_tokens": 49,
+          "total_tokens": 269
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q006",
+        "question": "Kabahate teşebbüs cezalandırılır mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "13"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 208,
+          "output_tokens": 49,
+          "total_tokens": 257
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q007",
+        "question": "Bir kabahatin işlenmesine birden fazla kişi katılırsa sorumluluk nasıl belirlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "14"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 49,
+          "total_tokens": 267
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q008",
+        "question": "Aynı fiille birden fazla kabahat işlenirse idarî yaptırım nasıl belirlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "15"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 49,
+          "total_tokens": 267
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q009",
+        "question": "Kabahatler karşılığında uygulanabilecek idarî yaptırım türleri nelerdir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "16"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 214,
+          "output_tokens": 49,
+          "total_tokens": 263
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q010",
+        "question": "İdarî para cezasının türleri ve ceza miktarının belirlenmesinde dikkate alınacak ölçütler nelerdir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "17"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 226,
+          "output_tokens": 93,
+          "total_tokens": 319
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q011",
+        "question": "Kabahatlerde soruşturma zamanaşımı süresi nasıl belirlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "20"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 213,
+          "output_tokens": 49,
+          "total_tokens": 262
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q012",
+        "question": "Kesinleşen idarî yaptırım kararlarının yerine getirilmesinde zamanaşımı nasıl düzenlenmiştir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "21"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 220,
+          "output_tokens": 131,
+          "total_tokens": 351
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q013",
+        "question": "İdarî yaptırım kararına ilişkin tutanakta hangi bilgilerin bulunması gerekir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "25"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 214,
+          "output_tokens": 85,
+          "total_tokens": 299
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q014",
+        "question": "İdarî para cezasına karşı hangi sürede ve nereye başvurulabilir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "27"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 215,
+          "output_tokens": 49,
+          "total_tokens": 264
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q015",
+        "question": "Yetkili makamın hukuka uygun olarak verdiği emre aykırı davranmanın yaptırımı nedir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "32"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 220,
+          "output_tokens": 94,
+          "total_tokens": 314
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q016",
+        "question": "Kabahatler Kanunu'nun genel kuralları başka kanunlardaki idari para cezalarına hangi durumda uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 224,
+          "output_tokens": 49,
+          "total_tokens": 273
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q017",
+        "question": "Bir kabahat, davranışın yapıldığı anda mı yoksa sonucu ortaya çıktığında mı işlenmiş sayılır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "5"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 220,
+          "output_tokens": 49,
+          "total_tokens": 269
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q018",
+        "question": "Bir şeyi yapmamak hangi şartla kabahat sayılabilir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "7"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 210,
+          "output_tokens": 49,
+          "total_tokens": 259
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q019",
+        "question": "Şirket çalışanının işi sırasında işlediği kabahat yüzünden şirket sahibine de yaptırım uygulanabilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "8"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 219,
+          "output_tokens": 49,
+          "total_tokens": 268
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q020",
+        "question": "Kişinin yanılmasıyla ilgili ceza hukuku kuralları her kabahatte uygulanır mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "10"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 49,
+          "total_tokens": 267
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q021",
+        "question": "Bir eşyaya kabahat nedeniyle devletçe el konulup mülkiyetinin alınabilmesi için mutlaka faile ayrıca ceza verilmiş olması gerekir mi?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "18"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 120,
+          "total_tokens": 351
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q022",
+        "question": "Kanun cezayı verecek görevliyi açıkça söylemiyorsa idari yaptırım kararını kim verir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "22"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 219,
+          "output_tokens": 82,
+          "total_tokens": 301
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q023",
+        "question": "İdari yaptırım kararı kişiye bildirilirken itiraz edebileceği yer ve süre de yazılmak zorunda mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "26"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 225,
+          "output_tokens": 49,
+          "total_tokens": 274
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q024",
+        "question": "Kabahate teşebbüs hangi istisnai durumda cezalandırılabilir ve bu durumda hangi hükümler uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "13"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 221,
+          "output_tokens": 49,
+          "total_tokens": 270
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q025",
+        "question": "Tek bir davranış hem suç hem kabahat olarak düzenlenmişse hangi yaptırım uygulanır; suçtan ceza verilemezse ne olur?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "15"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 81,
+          "total_tokens": 308
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q026",
+        "question": "İdari para cezası ödeme süresinde ödenirse indirim uygulanır mı ve ödeme itiraz hakkını ortadan kaldırır mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "17"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 49,
+          "total_tokens": 276
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q027",
+        "question": "Nispi idari para cezasını gerektiren bir kabahatte soruşturma zamanaşımı kaç yıldır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "20"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 223,
+          "output_tokens": 83,
+          "total_tokens": 306
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q028",
+        "question": "Mücbir sebeple on beş günlük başvuru süresi kaçırılırsa ne kadar sürede başvurulabilir ve başvuru kesinleşmeyi durdurur mu?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "27"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 236,
+          "output_tokens": 299,
+          "total_tokens": 535
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q029",
+        "question": "Kanun yolu başvurusundan vazgeçen kişi aynı konuda yeniden başvurabilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "30"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 216,
+          "output_tokens": 171,
+          "total_tokens": 387
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q030",
+        "question": "Kamu binasında sigara içme yasağı, sigara içmek için ayrılmış bölümde de uygulanır mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "39"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 221,
+          "output_tokens": 123,
+          "total_tokens": 344
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q031",
+        "question": "Çevreyi kirleten kişi kirliliği hemen temizlerse yine de idari para cezası verilmesi zorunlu mudur?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "41"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 49,
+          "total_tokens": 276
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q032",
+        "question": "İdari yaptırım kararını vermeye kim yetkilidir ve karar tutanağında kişi ile fiil hakkında hangi temel bilgiler bulunmalıdır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "22"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "25"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 226,
+          "output_tokens": 49,
+          "total_tokens": 275
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q033",
+        "question": "Bir fiilin soruşturma sırasında veya kovuşturma sırasında kabahat olduğu anlaşılırsa idari yaptırım kararını sırasıyla kim verir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "23"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "24"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 49,
+          "total_tokens": 276
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q034",
+        "question": "İdari yaptırım kararı nasıl tebliğ edilir ve bu karara karşı olağan başvurunun mercii ile süresi nedir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "26"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "27"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 226,
+          "output_tokens": 108,
+          "total_tokens": 334
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q035",
+        "question": "İdari para cezasını süresinde ödeyen kişi indirimden yararlanıp yine de kanun yoluna başvurabilir mi ve bu başvuru harca tabi midir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "17"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "31"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 49,
+          "total_tokens": 286
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "q036",
+        "question": "Eşyanın mülkiyetinin kamuya geçirilmesi kararı ne zaman yerine getirilir ve bu karar için yerine getirme zamanaşımı ne kadardır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "18"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "21"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 232,
+          "output_tokens": 164,
+          "total_tokens": 396
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q037",
+        "question": "Dilencilik ve kumar kabahatlerinde gelire ne olur ve mülkiyetin kamuya geçirilmesine hangi makamlar karar verir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "33"
+          },
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "34"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 225,
+          "output_tokens": 49,
+          "total_tokens": 274
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q038",
+        "question": "112'yi kasıtlı biçimde meşgul eden veya asılsız ihbarda bulunan kişi bir yıl içinde aynı fiili tekrarlarsa ceza nasıl uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "42/a"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 234,
+          "output_tokens": 105,
+          "total_tokens": 339
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q039",
+        "question": "Bir şirket yararına rüşvet veya dolandırıcılık işlenirse şirkete ayrıca idari para cezasını hangi mahkeme verebilir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "43/a"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 203,
+          "total_tokens": 431
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q040",
+        "question": "Bir banka kendisine verilen paranın sahte olduğunu fark ettiği halde bildirim yapmazsa tüzel kişiye kim idari para cezası verebilir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "43/b"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 404,
+          "total_tokens": 632
+        },
+        "raw_sha256": "dfe6b5e23cd63af145aeb5dc6380f4e37197cac3458f02231960cac892eeb242"
+      }
+    },
+    {
+      "question": {
+        "id": "q041",
+        "question": "On sekiz yaşından küçüklerin kapsam dışı bıçakları satın alması veya taşıması yasak mıdır; meslek ya da eğitim için kullanım bu kurala tabi midir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "43/c"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 241,
+          "total_tokens": 476
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q042",
+        "question": "Türkiye'de gerçekleşmeyen bir davranışa Kabahatler Kanunu'nun uygulanıp uygulanmayacağı hangi yer kuralına göre belirlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "6"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 49,
+          "total_tokens": 277
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q043",
+        "question": "İşyeri kapatma veya ruhsat geri alma gibi süreli yaptırımlar Kabahatler Kanunu yürürlüğe girince kendiliğinden ortadan kalkmış sayılır mı?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "19"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 234,
+          "output_tokens": 49,
+          "total_tokens": 283
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q044",
+        "question": "Mahkeme, alt ve üst sınırı kanunda yazılı bir idari para cezasına yapılan başvuruda ceza miktarını değiştirerek karar verebilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "28"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 233,
+          "output_tokens": 49,
+          "total_tokens": 282
+        },
+        "raw_sha256": "62a7a01190db15230af296e7c5255f9ac0a11f96b7ba5e8d48e8924d45b4a519"
+      }
+    },
+    {
+      "question": {
+        "id": "q045",
+        "question": "Sulh ceza mahkemesinin idari yaptırım başvurusunda verdiği son karara karşı hangi yola, ne kadar sürede gidilebilir?",
+        "expected_sources": [
+          {
+            "document_id": "5326_kabahatler_kanunu",
+            "article_type": "normal",
+            "article_no": "29"
+          }
+        ],
+        "expected_document_ids": [
+          "5326_kabahatler_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 229,
+          "output_tokens": 173,
+          "total_tokens": 402
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "gk001",
+        "question": "Gümrük uygulamasında \"geri verme\" ile \"kaldırma\" terimleri arasında ne fark vardır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "210"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 221,
+          "output_tokens": 71,
+          "total_tokens": 292
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk002",
+        "question": "İhracat rejimi olarak adlandırılan gümrük rejimi hangi işlemleri kapsar?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "150"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 49,
+          "total_tokens": 267
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk003",
+        "question": "Türk Gümrük Tarifesi denildiğinde nelerden oluşan bir bütün kastedilir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "15"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 49,
+          "total_tokens": 267
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk004",
+        "question": "Serbest dolaşımda bulunmayan bir eşyanın Türkiye Gümrük Bölgesinden tekrar yurt dışına gönderilmesi mümkün müdür?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "163"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 229,
+          "output_tokens": 49,
+          "total_tokens": 278
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk005",
+        "question": "Transit rejimi hangi nitelikteki eşyanın taşınmasında uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "84"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 214,
+          "output_tokens": 49,
+          "total_tokens": 263
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk006",
+        "question": "Sınır ticareti yapılacak merkezlerin kurulmasına ve buralardaki usul ve esasların belirlenmesine kim yetkilidir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "172"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 226,
+          "output_tokens": 49,
+          "total_tokens": 275
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk007",
+        "question": "Gümrüğe yazılı beyanda kullanılan beyanname hangi bilgileri içermeli ve imza bakımından hangi şartı taşımalıdır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "60"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 226,
+          "output_tokens": 49,
+          "total_tokens": 275
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk008",
+        "question": "Türkiye Gümrük Bölgesine getirilecek eşya için özet beyan ne zaman verilir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "35/a"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 218,
+          "output_tokens": 72,
+          "total_tokens": 290
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk009",
+        "question": "Bir işletmeye yetkilendirilmiş yükümlü statüsü tanınabilmesi için hangi şartları taşıması gerekir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "5/a"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 221,
+          "output_tokens": 49,
+          "total_tokens": 270
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk010",
+        "question": "İthal edilen bir eşyanın alıcı ile satıcı arasında kararlaştırılan satış bedelinin gümrük kıymeti olarak kabul edilebilmesi için hangi koşulların birlikte gerçekleşmesi gerekir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "24"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 240,
+          "output_tokens": 100,
+          "total_tokens": 340
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk011",
+        "question": "Bir gümrük idaresinden önceden alınmış bağlayıcı bir tarife bilgisi hangi durumlarda geçerliliğini kaybeder?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "9"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 49,
+          "total_tokens": 277
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk012",
+        "question": "Yolcuların kendi kullanımına ayrılmış, ticari nitelik taşımayan kişisel eşyası, taklit ürünlere karşı uygulanan gümrükte alıkoyma tedbirine tabi tutulur mu?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "57"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 244,
+          "output_tokens": 85,
+          "total_tokens": 329
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk013",
+        "question": "Denizyoluyla gelen ve özet beyan kapsamında bulunan eşyaya bir kullanım belirlenmesi işlemi kaç gün içinde tamamlanmalıdır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "46"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 225,
+          "output_tokens": 83,
+          "total_tokens": 308
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk014",
+        "question": "Değeri belirli bir tutarın altında kalan eşya, serbest dolaşıma sokulurken gümrük vergisinden muaf tutulur mu?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "167"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 230,
+          "output_tokens": 49,
+          "total_tokens": 279
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk015",
+        "question": "Daha önce ihraç edilmiş bir eşya belirli bir süre içinde tekrar serbest dolaşıma girerse ithalat vergisinden muaf tutulabilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "168"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 230,
+          "output_tokens": 109,
+          "total_tokens": 339
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk016",
+        "question": "Sonradan gümrük yükümlülüğü doğan hallerde, eşyaya daha önce uygulanmayan bir tercihli tarife veya vergi muafiyeti yine de tanınabilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "191/a"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 240,
+          "output_tokens": 49,
+          "total_tokens": 289
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk017",
+        "question": "İthal edilen bir eşyanın gümrük kıymeti belirlenirken esas alınan satış bedeline hangi unsurlar ilave edilir ve bu satış bedelinin kıymet tespitinde esas alınabilmesi için ayrıca hangi şartlar aranır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "24"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "27"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 249,
+          "output_tokens": 71,
+          "total_tokens": 320
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk018",
+        "question": "Türkiye'ye gelecek eşya için özet beyan ne zaman verilir ve bu beyanı vermekle kim yükümlü tutulur?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "35/a"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "35/b"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 49,
+          "total_tokens": 276
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk019",
+        "question": "İthalat vergilerine tabi eşyanın serbest dolaşıma girişi veya kısmi muafiyet suretiyle geçici ithali halinde gümrük yükümlülüğü ne zaman başlar ve gümrük yükümlülüğü hangi hallerde sona erer?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "181"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "208"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 257,
+          "output_tokens": 77,
+          "total_tokens": 334
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk020",
+        "question": "Beyan edilen kıymetin gerçek kıymetten düşük çıkması ile Kanunda ayrıca ceza öngörülmemiş bir düzenlemeye aykırı davranılması, para cezası bakımından nasıl farklı sonuçlar doğurur?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "234"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "241"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 245,
+          "output_tokens": 102,
+          "total_tokens": 347
+        },
+        "raw_sha256": "095b73f0b8c4e48404b366307943ca5be313e9b50c9f6d924b809538b96a4151"
+      }
+    },
+    {
+      "question": {
+        "id": "gk021",
+        "question": "Türkiye Gümrük Bölgesini terk edecek eşya için hangi hallerde gümrük beyannamesi, hangi hallerde özet beyan verilir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "165/b"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "165/c"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 234,
+          "output_tokens": 76,
+          "total_tokens": 310
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk022",
+        "question": "Yetkilendirilmiş yükümlü statüsü kazanmak için hangi şartlar aranır ve Müsteşarlık bu yükümlüleri basitleştirilmiş uygulamalardan ne kadar süreyle yararlandırmaya yetkilidir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "islenemeyen_hukum",
+            "article_no": "1"
+          },
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "5/a"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 245,
+          "output_tokens": 49,
+          "total_tokens": 294
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk023",
+        "question": "Bir kara taşıtına, gümrük mevzuatına aykırılık nedeniyle mülkiyetin kamuya geçirilmesi kararı verilmişse, bu taşıt belirli bir tutar ödenerek sahibine iade edilebilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "gecici",
+            "article_no": "9"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 249,
+          "output_tokens": 222,
+          "total_tokens": 471
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk024",
+        "question": "Türkiye'deki yabancı devlet misyon şeflerinin verdiği garanti mektupları, gümrükte teminat olarak kabul edilebilir mi?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "202"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 49,
+          "total_tokens": 277
+        },
+        "raw_sha256": "095b73f0b8c4e48404b366307943ca5be313e9b50c9f6d924b809538b96a4151"
+      }
+    },
+    {
+      "question": {
+        "id": "gk025",
+        "question": "Kanunun yürürlüğe girmesinden önce gümrük komisyoncu yardımcısı karnesine sahip olan kişiler, yeni düzenlemeye göre hangi belgeyi almaya hak kazanabilir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "gecici",
+            "article_no": "5"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 96,
+          "total_tokens": 333
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk026",
+        "question": "Mesleki kurallara aykırı davranan bir gümrük müşavirine hangi tür disiplin cezaları verilebilir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "gecici",
+            "article_no": "6"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 224,
+          "output_tokens": 83,
+          "total_tokens": 307
+        },
+        "raw_sha256": "095b73f0b8c4e48404b366307943ca5be313e9b50c9f6d924b809538b96a4151"
+      }
+    },
+    {
+      "question": {
+        "id": "gk027",
+        "question": "Dahilde işleme rejiminde, eşyanın önceden vergi ödenmeden geçici olarak ithal edilip teminata bağlandığı sistem ile, verginin önce ödenip eşyanın işlem görmüş ürün olarak ihracından sonra geri verildiği sistem birbirinden nasıl ayrılır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "108"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 262,
+          "output_tokens": 49,
+          "total_tokens": 311
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk028",
+        "question": "Kanunda ayrıca özel bir ceza öngörülmemiş olmakla birlikte, açıkça belirtilmiş bir düzenlemeye aykırı davranılması hâlinde ne tür bir para cezası uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "241"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 239,
+          "output_tokens": 133,
+          "total_tokens": 372
+        },
+        "raw_sha256": "11ce51cb224b402fbdf5a92d9e32a29b3ab9053fdf46ebd5c9033a92adaaf7bc"
+      }
+    },
+    {
+      "question": {
+        "id": "gk029",
+        "question": "Kanunun yürürlüğe girdiği tarihte gümrük sundurmalarında veya eşya konulmasına izin verilen yerlerde bulunan eşyanın bekleme süreleri hangi hükümlere tabidir?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "gecici",
+            "article_no": "1"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 238,
+          "output_tokens": 81,
+          "total_tokens": 319
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "gk030",
+        "question": "Bir gümrük idaresinden alınan bağlayıcı tarife bilgisi, o idareyi hangi kapsamda ve ne kadar süreyle bağlar?",
+        "expected_sources": [
+          {
+            "document_id": "4458_gumruk_kanunu",
+            "article_type": "normal",
+            "article_no": "9"
+          }
+        ],
+        "expected_document_ids": [
+          "4458_gumruk_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 229,
+          "output_tokens": 84,
+          "total_tokens": 313
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-001",
+        "question": "5607 sayılı Kanunun amacı nedir; hangi fiilleri, yaptırımları ve hangi usul ve esasları belirlemeyi hedefler?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "1"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 227,
+          "output_tokens": 49,
+          "total_tokens": 276
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-002",
+        "question": "5607 sayılı Kanunda “gümrüklenmiş değer” nasıl tanımlanır ve ithal ve ihraç eşyası bakımından hangi değerlerin toplamı esas alınır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "2"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 49,
+          "total_tokens": 286
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-003",
+        "question": "Eşyanın gümrük işlemlerine tabi tutulmadan ülkeye sokulması hangi hapis ve adlî para cezasını gerektirir; eşya gümrük kapıları dışından sokulursa ceza nasıl değişir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 249,
+          "output_tokens": 76,
+          "total_tokens": 325
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-004",
+        "question": "İhracat gerçekleşmediği hâlde gerçekleşmiş gibi gösterilmesi veya ihraç malının cins, miktar, evsaf ya da fiyatının değiştirilmesi hangi yaptırımla karşılanır; beyandaki fark yüzde onu aşmıyorsa hangi işlem uygulanır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 257,
+          "output_tokens": 135,
+          "total_tokens": 392
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-005",
+        "question": "Ulusal marker seviyenin altında olan veya hiç marker içermeyen akaryakıt bakımından hangi ticari fiiller suç kapsamındadır ve hangi yaptırım öngörülür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 234,
+          "output_tokens": 99,
+          "total_tokens": 333
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-006",
+        "question": "Kaçakçılık suçunun teşebbüs aşamasında kalması hâlinde 5607 sayılı Kanun bakımından nasıl cezalandırma yapılır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 231,
+          "output_tokens": 49,
+          "total_tokens": 280
+        },
+        "raw_sha256": "dfe6b5e23cd63af145aeb5dc6380f4e37197cac3458f02231960cac892eeb242"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-007",
+        "question": "Kaçakçılık suçunun bir örgütün faaliyeti çerçevesinde veya üç ya da daha fazla kişi tarafından birlikte işlenmesi hâlinde cezalar nasıl artırılır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "4"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu",
+        "4458_gumruk_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 49,
+          "total_tokens": 284
+        },
+        "raw_sha256": "dfe6b5e23cd63af145aeb5dc6380f4e37197cac3458f02231960cac892eeb242"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-008",
+        "question": "Etkin pişmanlık gösteren kişi, resmî makamlar haber almadan önce hangi bilgileri verirse ve bu bilgi neyi sağlarsa cezalandırılmaz?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "5"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 233,
+          "output_tokens": 153,
+          "total_tokens": 386
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-009",
+        "question": "Yolcunun üzerinde, eşyası arasında veya taşıma aracında beyanına aykırı olarak çıkan eşya hangi iki durumda 3 üncü madde hükümlerine tabi olur?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "6"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 102,
+          "total_tokens": 339
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-010",
+        "question": "İzinsiz olarak gümrük bölgesine girip sahile veya başka bir gemiye yanaşan geminin kaptanı hangi ek bulgular varsa kaçakçılık hükümlerine göre cezalandırılır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "7"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 242,
+          "output_tokens": 121,
+          "total_tokens": 363
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-011",
+        "question": "Kaçak eşya, silah, mühimmat, patlayıcı veya uyuşturucu bulunduğundan şüphe edilen kap, ambalaj, taşıma aracı ve kişiler üzerindeki arama ve elkoyma hangi kanuna göre yapılır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "9"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 249,
+          "output_tokens": 84,
+          "total_tokens": 333
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-012",
+        "question": "Kaçakçılık suçlarında kullanılan taşıta hangi şartlarda elkonulur ve elkonulan taşıtın müsadere edilebilmesi bakımından hangi bağlantılı durumlar önem taşır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "10"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "13"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 84,
+          "total_tokens": 321
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-013",
+        "question": "Kaçak şüphesiyle elkonulan eşya ile alıkonulan taşıtların gümrük idaresine tesliminde hangi ayırt edici bilgileri içeren tutanak düzenlenir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "11"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 242,
+          "output_tokens": 82,
+          "total_tokens": 324
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-014",
+        "question": "Yabancı ülkeden gelen yasak eşya yükleme veya taşıma belgelerinde gösterilerek gümrüğe getirilmişse hangi güvenlik koşulları altında nereye gönderilebilir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "12"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 159,
+          "total_tokens": 396
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-015",
+        "question": "Kaçak eşya taşımasında bilerek kullanılan bir taşıtın müsadere edilebilmesi için 5607 sayılı Kanunda öngörülen koşullardan hangileri vardır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "13"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 237,
+          "output_tokens": 75,
+          "total_tokens": 312
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-016",
+        "question": "Müsadere yaptırımının uygulanabileceği eşyanın tasfiyesi bakımından, kaçak akaryakıt dışındaki eşya için temel süre ve istisnai hızlandırma koşulları nelerdir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "16"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 242,
+          "output_tokens": 155,
+          "total_tokens": 397
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-017",
+        "question": "Elkonulan ve teknik düzenlemelere uygun kaçak akaryakıtın hangi kurumlar tarafından, hangi yöntemlerle tasfiye edilmesi öngörülür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "16/a"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 232,
+          "output_tokens": 101,
+          "total_tokens": 333
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-018",
+        "question": "5607 sayılı Kanun kapsamındaki suçlar nedeniyle açılan davalara hangi mahkemeler bakar; resmî belgede sahtecilik bağlantısı varsa görevli mahkeme nasıl değişir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "17"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 239,
+          "output_tokens": 113,
+          "total_tokens": 352
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-019",
+        "question": "Kaçakçılık fiillerini önleme, izleme ve araştırma yükümlülüğü hangi kamu görevlileri ve kurum personeline verilmiştir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "19"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 228,
+          "output_tokens": 71,
+          "total_tokens": 299
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-020",
+        "question": "Kaçakçılık fiillerinin izlenmesine ilişkin tutanakta olay ve kanıtlar ile elkonulan eşya ve taşıma araçları hakkında hangi ayrıntılar bulunmalıdır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "20"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 70,
+          "total_tokens": 305
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-021",
+        "question": "5607 sayılı Kanun çerçevesindeki kontrollü teslimat işlemlerini hangi kurumlar yürütür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "21"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 221,
+          "output_tokens": 49,
+          "total_tokens": 270
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-022",
+        "question": "Gümrük kapıları ve yolları dışından gümrük bölgesine girmek isteyen kişi “dur” uyarısına uymazsa, silah kullanma yetkisi bakımından kanun hangi aşamalı uyarıyı öngörür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "22"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 253,
+          "output_tokens": 496,
+          "total_tokens": 749
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-023",
+        "question": "Kaçak şüphesiyle eşya yakalanması hâlinde muhbir ve elkoyma ikramiyesine hak kazananlara ödeme yapılmasının temel dayanağı nedir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "23"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 236,
+          "output_tokens": 75,
+          "total_tokens": 311
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-024",
+        "question": "Kaçakçılık fiillerinin önlenmesi, izlenmesi ve araştırılması için kriminal laboratuvarları hangi kurum kurar ve çalışma usul ve esaslarını kim belirler?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "24"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 235,
+          "output_tokens": 126,
+          "total_tokens": 361
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-025",
+        "question": "Eşyayı gümrük işlemlerine tabi tutmaksızın ülkeye sokan kişi için Madde 3 fıkra 1'deki temel yaptırım nedir; aynı suç örgüt faaliyeti çerçevesinde işlenirse ve eşya toplum sağlığını tehdit edecek nitelikteyse Madde 4 fıkra 1 ve 7 hangi ek sonuçları, hangi koşulla öngörür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "4"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 290,
+          "output_tokens": 77,
+          "total_tokens": 367
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-026",
+        "question": "Eşyayı gümrük işlemlerine tabi tutmaksızın ülkeye sokmanın Madde 3 fıkra 1'deki temel yaptırımı nedir; Madde 5 kapsamında etkin pişmanlıkla ödeme yapılırsa ödeme tutarı, soruşturma ve kovuşturma evrelerindeki indirimler ve bu imkândan yararlanamayan hâller nelerdir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "5"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 284,
+          "output_tokens": 77,
+          "total_tokens": 361
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-027",
+        "question": "Kaçak şüphesiyle elkonulan eşyanın gümrük idaresine tesliminde Madde 11'e göre tutanakta hangi ayırıcı bilgiler bulunmalıdır; ayrıca kaçak akaryakıt dışındaki eşya için Madde 16'da tasfiye kararı verilmesinin temel süresi ve bu sürede karar verilmemesinin sonucu nedir?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "11"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "16"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 278,
+          "output_tokens": 83,
+          "total_tokens": 361
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-028",
+        "question": "16/A ve 23 üncü maddelerde belirtilen yönetmeliklerin yürürlüğe konulması için Geçici Madde 7 hangi süreyi öngörür?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "gecici",
+            "article_no": "7"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "4458_gumruk_kanunu",
+        "5607_kacakcilikla_mucadele_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 234,
+          "output_tokens": 811,
+          "total_tokens": 1045
+        },
+        "raw_sha256": "fa4a0ed096e57723f55b7720879517d9dc49ec298f44f8994eae802add077726"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-029",
+        "question": "Madde 3 fıkra 2 hangi fiili ve yaptırımı düzenler; gümrük vergilerinin kısmen eksik ödenmesi nedeniyle açılmış kamu davalarında, Geçici Madde 10'un yürürlüğünden önce elkonulan ve müsadere kararı verilmemiş kara taşıtlarının iadesi için bu geçici hüküm hangi başvuru, ödeme ve tasfiye koşullarını arar?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "gecici",
+            "article_no": "10"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "3"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 290,
+          "output_tokens": 114,
+          "total_tokens": 404
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    },
+    {
+      "question": {
+        "id": "k5607-030",
+        "question": "Madde 5 fıkra 2(b) uyarınca kovuşturma evresinde hangi ödeme karşılığında ne oranda ceza indirimi uygulanır; Geçici Madde 12 fıkra 1 bu imkânı hüküm verilmiş ve dosyası infaz aşamasındaki kişilere hangi ödeme ve geçici süre koşullarıyla tanır?",
+        "expected_sources": [
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "gecici",
+            "article_no": "12"
+          },
+          {
+            "document_id": "5607_kacakcilikla_mucadele_kanunu",
+            "article_type": "normal",
+            "article_no": "5"
+          }
+        ],
+        "expected_document_ids": [
+          "5607_kacakcilikla_mucadele_kanunu"
+        ]
+      },
+      "prediction": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "classification": {
+        "status": "success",
+        "usage": {
+          "input_tokens": 277,
+          "output_tokens": 119,
+          "total_tokens": 396
+        },
+        "raw_sha256": "742a0b75f52dfed44f001368fda55a25071169c9eee06552c3a8354333306b8f"
+      }
+    }
+  ],
+  "network_failures": [],
+  "inputs_unchanged": true,
+  "accuracy": {
+    "all": {
+      "count": 105,
+      "valid_predictions": 105,
+      "top1": 100,
+      "top2": 105,
+      "top1_accuracy": 0.9523809523809523,
+      "top2_accuracy": 1.0,
+      "classification_failures": 0
+    },
+    "implicit": {
+      "count": 99,
+      "valid_predictions": 99,
+      "top1": 94,
+      "top2": 99,
+      "top1_accuracy": 0.9494949494949495,
+      "top2_accuracy": 1.0,
+      "classification_failures": 0
+    },
+    "explicit": {
+      "count": 6,
+      "valid_predictions": 6,
+      "top1": 6,
+      "top2": 6,
+      "top1_accuracy": 1.0,
+      "top2_accuracy": 1.0,
+      "classification_failures": 0
+    }
+  },
+  "routing_evaluation": {
+    "by_true_document": {
+      "5326_kabahatler_kanunu": {
+        "count": 45,
+        "valid_predictions": 45,
+        "top1": 44,
+        "top2": 45
+      },
+      "4458_gumruk_kanunu": {
+        "count": 30,
+        "valid_predictions": 30,
+        "top1": 29,
+        "top2": 30
+      },
+      "5607_kacakcilikla_mucadele_kanunu": {
+        "count": 30,
+        "valid_predictions": 30,
+        "top1": 27,
+        "top2": 30
+      }
+    },
+    "confusion_matrix": {
+      "5326_kabahatler_kanunu": {
+        "5326_kabahatler_kanunu": 44,
+        "4458_gumruk_kanunu": 0,
+        "5607_kacakcilikla_mucadele_kanunu": 1
+      },
+      "4458_gumruk_kanunu": {
+        "5326_kabahatler_kanunu": 1,
+        "4458_gumruk_kanunu": 29,
+        "5607_kacakcilikla_mucadele_kanunu": 0
+      },
+      "5607_kacakcilikla_mucadele_kanunu": {
+        "5326_kabahatler_kanunu": 0,
+        "4458_gumruk_kanunu": 3,
+        "5607_kacakcilikla_mucadele_kanunu": 27
+      }
+    },
+    "top1_error_ids": [
+      "q040",
+      "gk028",
+      "k5607-010",
+      "k5607-014",
+      "k5607-028"
+    ]
+  },
+  "centroid_comparison": {
+    "top1": {
+      "both_correct": {
+        "count": 85,
+        "ids": [
+          "q001",
+          "q002",
+          "q003",
+          "q004",
+          "q005",
+          "q006",
+          "q007",
+          "q008",
+          "q009",
+          "q010",
+          "q011",
+          "q012",
+          "q013",
+          "q014",
+          "q015",
+          "q016",
+          "q017",
+          "q018",
+          "q019",
+          "q020",
+          "q021",
+          "q022",
+          "q023",
+          "q024",
+          "q025",
+          "q026",
+          "q027",
+          "q028",
+          "q029",
+          "q031",
+          "q032",
+          "q033",
+          "q034",
+          "q035",
+          "q036",
+          "q037",
+          "q038",
+          "q039",
+          "q042",
+          "q043",
+          "q044",
+          "q045",
+          "gk001",
+          "gk002",
+          "gk003",
+          "gk004",
+          "gk005",
+          "gk006",
+          "gk007",
+          "gk008",
+          "gk009",
+          "gk010",
+          "gk011",
+          "gk012",
+          "gk013",
+          "gk014",
+          "gk015",
+          "gk016",
+          "gk017",
+          "gk018",
+          "gk019",
+          "gk021",
+          "gk023",
+          "gk024",
+          "gk025",
+          "gk026",
+          "gk027",
+          "gk029",
+          "gk030",
+          "k5607-001",
+          "k5607-006",
+          "k5607-007",
+          "k5607-009",
+          "k5607-011",
+          "k5607-012",
+          "k5607-015",
+          "k5607-016",
+          "k5607-017",
+          "k5607-018",
+          "k5607-019",
+          "k5607-020",
+          "k5607-023",
+          "k5607-024",
+          "k5607-027",
+          "k5607-030"
+        ]
+      },
+      "llm_only": {
+        "count": 15,
+        "ids": [
+          "q030",
+          "q041",
+          "gk020",
+          "gk022",
+          "k5607-002",
+          "k5607-003",
+          "k5607-004",
+          "k5607-005",
+          "k5607-008",
+          "k5607-013",
+          "k5607-021",
+          "k5607-022",
+          "k5607-025",
+          "k5607-026",
+          "k5607-029"
+        ]
+      },
+      "centroid_only": {
+        "count": 3,
+        "ids": [
+          "q040",
+          "k5607-010",
+          "k5607-028"
+        ]
+      },
+      "both_wrong": {
+        "count": 2,
+        "ids": [
+          "gk028",
+          "k5607-014"
+        ]
+      }
+    },
+    "top2": {
+      "both_correct": {
+        "count": 102,
+        "ids": [
+          "q001",
+          "q002",
+          "q003",
+          "q004",
+          "q005",
+          "q006",
+          "q007",
+          "q008",
+          "q009",
+          "q010",
+          "q011",
+          "q012",
+          "q013",
+          "q014",
+          "q015",
+          "q016",
+          "q017",
+          "q018",
+          "q019",
+          "q020",
+          "q021",
+          "q022",
+          "q023",
+          "q024",
+          "q025",
+          "q026",
+          "q027",
+          "q028",
+          "q029",
+          "q030",
+          "q031",
+          "q032",
+          "q033",
+          "q034",
+          "q035",
+          "q036",
+          "q037",
+          "q038",
+          "q039",
+          "q040",
+          "q041",
+          "q042",
+          "q043",
+          "q044",
+          "q045",
+          "gk001",
+          "gk002",
+          "gk003",
+          "gk004",
+          "gk005",
+          "gk006",
+          "gk007",
+          "gk008",
+          "gk009",
+          "gk010",
+          "gk011",
+          "gk012",
+          "gk013",
+          "gk014",
+          "gk015",
+          "gk016",
+          "gk017",
+          "gk018",
+          "gk019",
+          "gk021",
+          "gk022",
+          "gk023",
+          "gk024",
+          "gk025",
+          "gk026",
+          "gk027",
+          "gk029",
+          "gk030",
+          "k5607-001",
+          "k5607-002",
+          "k5607-003",
+          "k5607-004",
+          "k5607-005",
+          "k5607-006",
+          "k5607-007",
+          "k5607-009",
+          "k5607-010",
+          "k5607-011",
+          "k5607-012",
+          "k5607-013",
+          "k5607-014",
+          "k5607-015",
+          "k5607-016",
+          "k5607-017",
+          "k5607-018",
+          "k5607-019",
+          "k5607-020",
+          "k5607-021",
+          "k5607-022",
+          "k5607-023",
+          "k5607-024",
+          "k5607-025",
+          "k5607-026",
+          "k5607-027",
+          "k5607-028",
+          "k5607-029",
+          "k5607-030"
+        ]
+      },
+      "llm_only": {
+        "count": 3,
+        "ids": [
+          "gk020",
+          "gk028",
+          "k5607-008"
+        ]
+      },
+      "centroid_only": {
+        "count": 0,
+        "ids": []
+      },
+      "both_wrong": {
+        "count": 0,
+        "ids": []
+      }
+    },
+    "reference": "Saved M12F-D predictions; centroid routing was not rerun."
+  },
+  "primary_cases": {
+    "k5607-002": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    },
+    "k5607-003": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    },
+    "k5607-004": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    },
+    "k5607-025": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    },
+    "k5607-026": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    },
+    "k5607-029": {
+      "ranked_documents": [
+        "5607_kacakcilikla_mucadele_kanunu",
+        "4458_gumruk_kanunu",
+        "5326_kabahatler_kanunu"
+      ],
+      "true_document": "5607_kacakcilikla_mucadele_kanunu",
+      "true_document_rank": 1
+    }
+  },
+  "comparison": "LLM classification is compared with saved M12F-D centroid predictions only; no retrieval, Chroma access, or B0 combination was performed.",
+  "next_step": "M12F-E2: run one development-only LLM-router retrieval integration diagnostic. Do not implement production routing or adopt a candidate before review and a NEW UNSEEN HOLDOUT.",
+  "review_conclusion": "Phase A is document classification only. No benchmark-label tuning, prompt adaptation, retrieval integration, production routing or adoption occurred. A NEW UNSEEN HOLDOUT remains mandatory before any future candidate adoption."
+}
