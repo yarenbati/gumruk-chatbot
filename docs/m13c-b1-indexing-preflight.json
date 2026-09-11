@@ -1,0 +1,486 @@
+{
+  "annex_chunks": 361,
+  "annex_metadata_contract": "Filterable scalars plus lossless canonical annex_metadata_json; no production integration yet.",
+  "batches": [
+    {
+      "inputs": 64,
+      "tokens": 43446
+    },
+    {
+      "inputs": 64,
+      "tokens": 30057
+    },
+    {
+      "inputs": 64,
+      "tokens": 34187
+    },
+    {
+      "inputs": 64,
+      "tokens": 28357
+    },
+    {
+      "inputs": 64,
+      "tokens": 31775
+    },
+    {
+      "inputs": 64,
+      "tokens": 25327
+    },
+    {
+      "inputs": 64,
+      "tokens": 26359
+    },
+    {
+      "inputs": 64,
+      "tokens": 46104
+    },
+    {
+      "inputs": 64,
+      "tokens": 51999
+    },
+    {
+      "inputs": 64,
+      "tokens": 68912
+    },
+    {
+      "inputs": 64,
+      "tokens": 63260
+    },
+    {
+      "inputs": 64,
+      "tokens": 72529
+    },
+    {
+      "inputs": 64,
+      "tokens": 75201
+    },
+    {
+      "inputs": 59,
+      "tokens": 58638
+    }
+  ],
+  "batching_note": "Sequential requests, <=64 inputs and <=300000 tokens; account rate limits remain runtime constraints.",
+  "encoding": "cl100k_base",
+  "expected_post_index_vectors": 1266,
+  "gates": {
+    "all_inputs_safe": true,
+    "annex_361": true,
+    "deterministic_inputs": true,
+    "main_530": true,
+    "metadata_compatible": true,
+    "new_891_unique": true,
+    "no_existing_collisions": true,
+    "production_375": true,
+    "production_law_counts": true,
+    "production_unchanged": true
+  },
+  "largest_inputs_by_tokens": [
+    {
+      "characters": 13264,
+      "chunk_id": "gumruk_yonetmeligi-madde-22-chunk-001",
+      "input_sha256": "b8d466fb2d96f6156c6305135c89e38d4d1bd877944e0eb1c3161d1d42018190",
+      "tokens": 5432
+    },
+    {
+      "characters": 11077,
+      "chunk_id": "gumruk_yonetmeligi-madde-181-chunk-001",
+      "input_sha256": "e3fe9b6673cf52d938d9d1f8232be180b3ec80524b73277c33bb7112f7023f25",
+      "tokens": 4297
+    },
+    {
+      "characters": 10809,
+      "chunk_id": "gumruk_yonetmeligi-madde-238-a-chunk-001",
+      "input_sha256": "d99ba1a8edcf27b0568a63949ab100284fdfbf6a36c2d31877f90c6218ff0b70",
+      "tokens": 4158
+    },
+    {
+      "characters": 10009,
+      "chunk_id": "gumruk_yonetmeligi-madde-574-chunk-001",
+      "input_sha256": "16a46504e996b4b4581e9bbe3ec3279fa585d0664b4a5c2b83e49a2245ebfc02",
+      "tokens": 4113
+    },
+    {
+      "characters": 8365,
+      "chunk_id": "gumruk_yonetmeligi-madde-196-chunk-001",
+      "input_sha256": "0dab5c8dbd50f471881d177f5bb8e979a1f5b5487b5b7031ea783e8da271d122",
+      "tokens": 3188
+    },
+    {
+      "characters": 7877,
+      "chunk_id": "gumruk_yonetmeligi-madde-514-chunk-001",
+      "input_sha256": "f184191f955a02149126c049af7d5173a0fa58b56047af6bab5754561c6f72ba",
+      "tokens": 3088
+    },
+    {
+      "characters": 7947,
+      "chunk_id": "gumruk_yonetmeligi-madde-169-chunk-001",
+      "input_sha256": "f38cda83f1b851487f02a6e4eb1e38a472a7f5c8c53f9954d8d2e02a4fbca06f",
+      "tokens": 3077
+    },
+    {
+      "characters": 6810,
+      "chunk_id": "gumruk_yonetmeligi-gecici-madde-1-chunk-002",
+      "input_sha256": "bca4b8b42b52409f3140a83d3c6eebd05e1984e54486a0c200687a2f7c2cb6b0",
+      "tokens": 2934
+    },
+    {
+      "characters": 6857,
+      "chunk_id": "gumruk_yonetmeligi-madde-518-chunk-001",
+      "input_sha256": "de05dd76be9378420a4fca6c394e66d1da66c9016bccc8207659d89d7d3cc7a3",
+      "tokens": 2888
+    },
+    {
+      "characters": 6518,
+      "chunk_id": "gumruk_yonetmeligi-madde-523-chunk-001",
+      "input_sha256": "bf42c9902b4df04e42041960e6c0b0459f85ae6eb7f8a2b7e9bea1dc3bc68c6a",
+      "tokens": 2678
+    }
+  ],
+  "main_chunks": 530,
+  "maximum_input_tokens": 5432,
+  "model": "text-embedding-3-small",
+  "new_inputs": 891,
+  "production_file_sha256": {
+    "448e5756-391d-4ede-87e8-7792e286ce3b\\data_level0.bin": "d01002cd6dc39bc7fe41c23a23ba46352ac15bd5230d765c62855c33e79490de",
+    "448e5756-391d-4ede-87e8-7792e286ce3b\\header.bin": "b081be2c2276a57e995075c7de2f3cb25e903798aac36d98042045533ab28f7d",
+    "448e5756-391d-4ede-87e8-7792e286ce3b\\length.bin": "2a4df7bd12d50f141b6be124c04e481ab19931434e725a335a760315ecd46757",
+    "448e5756-391d-4ede-87e8-7792e286ce3b\\link_lists.bin": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "chroma.sqlite3": "6cd69109e90d7637a2c756770d9436634b0f7b1c0bcae4deb73c0d41c0832ea7"
+  },
+  "production_law_counts": {
+    "4458": 276,
+    "5326": 53,
+    "5607": 46
+  },
+  "production_vectors": 375,
+  "proposed_batch_count": 14,
+  "status": "M13C-B1 READY — INDEXING PREFLIGHT PASS",
+  "total_input_tokens": 656151,
+  "unusual_definition": "input characters > 4000 OR tokens >= 4096; headers included",
+  "unusually_large_inputs": [
+    {
+      "characters": 13264,
+      "chunk_id": "gumruk_yonetmeligi-madde-22-chunk-001",
+      "input_sha256": "b8d466fb2d96f6156c6305135c89e38d4d1bd877944e0eb1c3161d1d42018190",
+      "tokens": 5432
+    },
+    {
+      "characters": 11077,
+      "chunk_id": "gumruk_yonetmeligi-madde-181-chunk-001",
+      "input_sha256": "e3fe9b6673cf52d938d9d1f8232be180b3ec80524b73277c33bb7112f7023f25",
+      "tokens": 4297
+    },
+    {
+      "characters": 10809,
+      "chunk_id": "gumruk_yonetmeligi-madde-238-a-chunk-001",
+      "input_sha256": "d99ba1a8edcf27b0568a63949ab100284fdfbf6a36c2d31877f90c6218ff0b70",
+      "tokens": 4158
+    },
+    {
+      "characters": 10009,
+      "chunk_id": "gumruk_yonetmeligi-madde-574-chunk-001",
+      "input_sha256": "16a46504e996b4b4581e9bbe3ec3279fa585d0664b4a5c2b83e49a2245ebfc02",
+      "tokens": 4113
+    },
+    {
+      "characters": 8365,
+      "chunk_id": "gumruk_yonetmeligi-madde-196-chunk-001",
+      "input_sha256": "0dab5c8dbd50f471881d177f5bb8e979a1f5b5487b5b7031ea783e8da271d122",
+      "tokens": 3188
+    },
+    {
+      "characters": 7877,
+      "chunk_id": "gumruk_yonetmeligi-madde-514-chunk-001",
+      "input_sha256": "f184191f955a02149126c049af7d5173a0fa58b56047af6bab5754561c6f72ba",
+      "tokens": 3088
+    },
+    {
+      "characters": 7947,
+      "chunk_id": "gumruk_yonetmeligi-madde-169-chunk-001",
+      "input_sha256": "f38cda83f1b851487f02a6e4eb1e38a472a7f5c8c53f9954d8d2e02a4fbca06f",
+      "tokens": 3077
+    },
+    {
+      "characters": 6810,
+      "chunk_id": "gumruk_yonetmeligi-gecici-madde-1-chunk-002",
+      "input_sha256": "bca4b8b42b52409f3140a83d3c6eebd05e1984e54486a0c200687a2f7c2cb6b0",
+      "tokens": 2934
+    },
+    {
+      "characters": 6857,
+      "chunk_id": "gumruk_yonetmeligi-madde-518-chunk-001",
+      "input_sha256": "de05dd76be9378420a4fca6c394e66d1da66c9016bccc8207659d89d7d3cc7a3",
+      "tokens": 2888
+    },
+    {
+      "characters": 6518,
+      "chunk_id": "gumruk_yonetmeligi-madde-523-chunk-001",
+      "input_sha256": "bf42c9902b4df04e42041960e6c0b0459f85ae6eb7f8a2b7e9bea1dc3bc68c6a",
+      "tokens": 2678
+    },
+    {
+      "characters": 6099,
+      "chunk_id": "gumruk_yonetmeligi-madde-513-chunk-001",
+      "input_sha256": "519621c65fe98813876ba32d0f25062c43a6d8fe7d0ef247ef30f2fee4fc2ab2",
+      "tokens": 2457
+    },
+    {
+      "characters": 4009,
+      "chunk_id": "gumruk_yonetmeligi-ek-24-chunk-001",
+      "input_sha256": "90412036bfa56f8f3e520cd08bf326859913c0e848fd7b33004eac1db78929bc",
+      "tokens": 2114
+    },
+    {
+      "characters": 4017,
+      "chunk_id": "gumruk_yonetmeligi-ek-48-chunk-004",
+      "input_sha256": "f5d1aa4983e69d7afd897b9179e0a16bdc2b6724da028583f19928f534b636fa",
+      "tokens": 2091
+    },
+    {
+      "characters": 6946,
+      "chunk_id": "gumruk_yonetmeligi-ek-10-g-chunk-012",
+      "input_sha256": "8b08ccd10a3fd45426340b5e59689872707decba9603eff266f36ee78a79c5fe",
+      "tokens": 2087
+    },
+    {
+      "characters": 5219,
+      "chunk_id": "gumruk_yonetmeligi-gecici-madde-13-chunk-001",
+      "input_sha256": "9f43a44175461990267e03938cf85592f9afe76547b1975ee5a830634278a871",
+      "tokens": 2077
+    },
+    {
+      "characters": 5238,
+      "chunk_id": "gumruk_yonetmeligi-madde-525-chunk-001",
+      "input_sha256": "862ec87d090e7d0e3264ce982abe001e13706b186f1cd580fdf5aaf231471c06",
+      "tokens": 2074
+    },
+    {
+      "characters": 4751,
+      "chunk_id": "gumruk_yonetmeligi-gecici-madde-1-chunk-001",
+      "input_sha256": "5c2d7fa0fbee0beac2778661ffc9fbe8f8b4b8dd97d41c49bf9328d9cc6453d4",
+      "tokens": 2043
+    },
+    {
+      "characters": 5155,
+      "chunk_id": "gumruk_yonetmeligi-madde-542-chunk-001",
+      "input_sha256": "0c6b209b2915cd31ffb4229ccb91ad9c639b77b5daac43f3c5f7344afbe3827e",
+      "tokens": 2042
+    },
+    {
+      "characters": 4010,
+      "chunk_id": "gumruk_yonetmeligi-ek-59-chunk-001",
+      "input_sha256": "5e5b880cdb5e413ec89b44f7de9d214f895e481100f59532037b258c75a8a13d",
+      "tokens": 1995
+    },
+    {
+      "characters": 5129,
+      "chunk_id": "gumruk_yonetmeligi-madde-3-chunk-001",
+      "input_sha256": "72e68a297eef5d0a11684d3aa4acdc2b39f11be5313461749a1f97d400b9a395",
+      "tokens": 1993
+    },
+    {
+      "characters": 5269,
+      "chunk_id": "gumruk_yonetmeligi-madde-539-chunk-001",
+      "input_sha256": "8c911b72ced159a646a0c75616baec8294d7a24024a124ce9eaa23c01c409f1f",
+      "tokens": 1956
+    },
+    {
+      "characters": 4004,
+      "chunk_id": "gumruk_yonetmeligi-ek-59-chunk-018",
+      "input_sha256": "53838f403ffa3a51d845517f605ab8656ecae25fd8c2b3ee54ec5398a41565da",
+      "tokens": 1939
+    },
+    {
+      "characters": 4024,
+      "chunk_id": "gumruk_yonetmeligi-ek-59-chunk-017",
+      "input_sha256": "7ff2f3b006d95197b86a193301917bf67f7c5e49147f01c1e324955c5eff93fd",
+      "tokens": 1856
+    },
+    {
+      "characters": 4661,
+      "chunk_id": "gumruk_yonetmeligi-madde-333-chunk-001",
+      "input_sha256": "893d392c00ed1f191d8d679eb7de1d422c43caa85b9dedca89d74867001469bb",
+      "tokens": 1854
+    },
+    {
+      "characters": 4016,
+      "chunk_id": "gumruk_yonetmeligi-ek-14-chunk-013",
+      "input_sha256": "5ddcb873bce483ff8135e2923bd24035c3f3264b41aa88e871794d80bd049bc2",
+      "tokens": 1852
+    },
+    {
+      "characters": 6226,
+      "chunk_id": "gumruk_yonetmeligi-ek-10-g-chunk-013",
+      "input_sha256": "f81addb2032c5993b6191ad621827bdd5e0d82b73c1a5e37e437f03e2d92d816",
+      "tokens": 1817
+    },
+    {
+      "characters": 4615,
+      "chunk_id": "gumruk_yonetmeligi-madde-563-chunk-001",
+      "input_sha256": "db469d36e7671ecc388379c817bfff466a48be426ab95bcab5e886fa0dbc2d0c",
+      "tokens": 1814
+    },
+    {
+      "characters": 6346,
+      "chunk_id": "gumruk_yonetmeligi-ek-61-chunk-023",
+      "input_sha256": "ddc64cfff7a3caa66c2e196fc699c4bcc9828487977dd2c32f53d43152c17d36",
+      "tokens": 1738
+    },
+    {
+      "characters": 4374,
+      "chunk_id": "gumruk_yonetmeligi-madde-114-chunk-001",
+      "input_sha256": "ca1c96f7eb286eb3027991598091cbbb6c9621597b36560661e360433a3a97f2",
+      "tokens": 1733
+    },
+    {
+      "characters": 4506,
+      "chunk_id": "gumruk_yonetmeligi-madde-51-chunk-001",
+      "input_sha256": "3c7b3a9a89f9928c53b5c21f15455dcd2025d0169956078d23ded6ce950953db",
+      "tokens": 1733
+    },
+    {
+      "characters": 4002,
+      "chunk_id": "gumruk_yonetmeligi-ek-48-chunk-001",
+      "input_sha256": "e8d632a1d76f73cc17eb03c33239d1ae30792c9794464b51698eba5fd5d90761",
+      "tokens": 1725
+    },
+    {
+      "characters": 4462,
+      "chunk_id": "gumruk_yonetmeligi-madde-561-chunk-001",
+      "input_sha256": "e5126d55e1ebebecbdfe46d60f6ffa95331a4c8db446c997b4e451da887f842d",
+      "tokens": 1711
+    },
+    {
+      "characters": 4011,
+      "chunk_id": "gumruk_yonetmeligi-ek-5-chunk-001",
+      "input_sha256": "ae5552431fb30ad9b543ceb56332f25b4f2c48a3eb6cc97ff35f4387cb2432be",
+      "tokens": 1644
+    },
+    {
+      "characters": 4019,
+      "chunk_id": "gumruk_yonetmeligi-ek-61-chunk-041",
+      "input_sha256": "4ebf179452fc60a4860c2cd3575232c00a050a40f53a8258e15658c23e8a51d3",
+      "tokens": 1615
+    },
+    {
+      "characters": 4012,
+      "chunk_id": "gumruk_yonetmeligi-ek-4-chunk-002",
+      "input_sha256": "4bfc089c1cc0b16b3e593c9f126d04fe3db20a5a035da08f9b848e0c747f7f68",
+      "tokens": 1610
+    },
+    {
+      "characters": 4013,
+      "chunk_id": "gumruk_yonetmeligi-ek-32-chunk-018",
+      "input_sha256": "c143fd4127571299a34b31daf5d8c52e28cc30826a7bd15033c5f99d303855e2",
+      "tokens": 1608
+    },
+    {
+      "characters": 4180,
+      "chunk_id": "gumruk_yonetmeligi-madde-103-chunk-001",
+      "input_sha256": "1882b4d8780e4745d21900065fe520affd1a910f6e455e90930548ba135ac89e",
+      "tokens": 1601
+    },
+    {
+      "characters": 6360,
+      "chunk_id": "gumruk_yonetmeligi-ek-61-chunk-010",
+      "input_sha256": "43b863c1b54e9a3a22c2940caeff0933f6a0df94805b769aa13403c30273ccae",
+      "tokens": 1600
+    },
+    {
+      "characters": 4016,
+      "chunk_id": "gumruk_yonetmeligi-ek-7-chunk-004",
+      "input_sha256": "3566fd02134eb4fc5d773e2846ddb1e47eb83b0cafb56037bd4631240209d496",
+      "tokens": 1598
+    },
+    {
+      "characters": 4008,
+      "chunk_id": "gumruk_yonetmeligi-ek-61-chunk-055",
+      "input_sha256": "3d4277e63be2e940f7e9f7d328e09c8e0dcfc65d2f8a78ea550b6ed297d49ca2",
+      "tokens": 1594
+    },
+    {
+      "characters": 4024,
+      "chunk_id": "gumruk_yonetmeligi-ek-80-chunk-006",
+      "input_sha256": "5f986547d012b43e6c49befe6d0676b48a04703d0ce03ce6aeaa09e90fbcbf9f",
+      "tokens": 1592
+    },
+    {
+      "characters": 4003,
+      "chunk_id": "gumruk_yonetmeligi-ek-32-chunk-019",
+      "input_sha256": "0fe49f9e3e4de3ac760f295799f77e78d0f035ea629db95ca7888df002d95d54",
+      "tokens": 1591
+    },
+    {
+      "characters": 4008,
+      "chunk_id": "gumruk_yonetmeligi-ek-14-chunk-010",
+      "input_sha256": "74e68d7cd550bad35f2da5be468ad60da806308ae604fb91f1bb1e77433eb576",
+      "tokens": 1584
+    },
+    {
+      "characters": 4904,
+      "chunk_id": "gumruk_yonetmeligi-ek-61-chunk-049",
+      "input_sha256": "6d9cb079e723ef1fbb97da8cb66362d48d21c5e3669fc24cafb3d13959abd891",
+      "tokens": 1584
+    },
+    {
+      "characters": 4015,
+      "chunk_id": "gumruk_yonetmeligi-ek-48-chunk-002",
+      "input_sha256": "8e45edd0504a2d7f6532451a82bf1b0abaeb55468d416c907bba4afb20881e3b",
+      "tokens": 1567
+    },
+    {
+      "characters": 4022,
+      "chunk_id": "gumruk_yonetmeligi-ek-78-chunk-001",
+      "input_sha256": "0b9da640b79119c48e70e2df01d89f196781e1115329b887e8efb062cf1487db",
+      "tokens": 1566
+    },
+    {
+      "characters": 4014,
+      "chunk_id": "gumruk_yonetmeligi-ek-68-chunk-001",
+      "input_sha256": "7e9b0385361751b503ac3c9fc853155d3ed8fc4c7568f749ae613c80aa718f3e",
+      "tokens": 1536
+    },
+    {
+      "characters": 4025,
+      "chunk_id": "gumruk_yonetmeligi-ek-80-chunk-003",
+      "input_sha256": "1cc5220535c600a941c0e8bf70cbe6018350acda767a5cd283ddb93648787efc",
+      "tokens": 1527
+    },
+    {
+      "characters": 4002,
+      "chunk_id": "gumruk_yonetmeligi-ek-81-chunk-003",
+      "input_sha256": "c0853bf2eb3feb03603c60b2e688af5a72d3bd6078ef55f89a480fb319a03462",
+      "tokens": 1507
+    },
+    {
+      "characters": 4020,
+      "chunk_id": "gumruk_yonetmeligi-ek-79-chunk-001",
+      "input_sha256": "745156a62841e01a0ee59436250e254329600e0f5b7ef00419becc57ea837659",
+      "tokens": 1468
+    },
+    {
+      "characters": 4024,
+      "chunk_id": "gumruk_yonetmeligi-ek-32-chunk-015",
+      "input_sha256": "7301253d71fb5abad5874eb4f88cd0cae9eb061cf604b01091ebea2e572b8fa8",
+      "tokens": 1372
+    },
+    {
+      "characters": 4004,
+      "chunk_id": "gumruk_yonetmeligi-ek-67-chunk-008",
+      "input_sha256": "6857b63dee68a9be5f215434bbea4d1e95a4debadfdccbc52d3650eb9c8468e7",
+      "tokens": 1255
+    },
+    {
+      "characters": 4022,
+      "chunk_id": "gumruk_yonetmeligi-ek-66-chunk-001",
+      "input_sha256": "cdb75894631a911b629b29f2bfb8a94ec43ec126bbff5d3f1b63323f3865dc38",
+      "tokens": 776
+    },
+    {
+      "characters": 6503,
+      "chunk_id": "gumruk_yonetmeligi-ek-1-chunk-002",
+      "input_sha256": "b91c54576d2ce34fc3ec26a95798067abe75f56bb01c583b14b146fb1ca25979",
+      "tokens": 370
+    }
+  ]
+}
