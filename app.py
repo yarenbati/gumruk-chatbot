@@ -37,7 +37,11 @@ def _render_sidebar() -> None:
     """Render fixed project information and the session-only clear action."""
     with st.sidebar:
         st.header("Hakkında")
-        st.write("5326 sayılı Kabahatler Kanunu kapsamındaki indekslenmiş mevzuata dayalı bilgi asistanı.")
+        st.write(
+            "Gümrük Kanunu (4458), Kabahatler Kanunu (5326), Kaçakçılıkla "
+            "Mücadele Kanunu (5607) ve Gümrük Yönetmeliği (ekleri dahil) "
+            "kapsamındaki indekslenmiş mevzuata dayalı bilgi asistanı."
+        )
         st.caption("Model ve retrieval ayarları merkezi uygulama konfigürasyonundan yönetilir.")
         if st.button("Konuşmayı temizle", use_container_width=True):
             st.session_state.messages = []

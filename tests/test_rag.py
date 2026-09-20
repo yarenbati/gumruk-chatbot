@@ -335,6 +335,35 @@ def test_mixed_article_and_annex_real_component_contract_with_tmp_chroma(tmp_pat
     assert result.insufficient_context is False
 
 
+# ============================================================================
+# Manual-CLI display-only label (showcase fix: no more "Madde ?" for annexes)
+# ============================================================================
+
+
+def test_retrieved_display_label_article_unchanged() -> None:
+    assert rag._retrieved_display_label({"article_no": "13"}) == "Madde 13"
+    assert rag._retrieved_display_label({}) == "Madde ?"
+    assert rag._retrieved_display_label(None) == "Madde ?"
+
+
+def test_retrieved_display_label_annex_shows_ek_not_madde() -> None:
+    assert rag._retrieved_display_label(
+        {"source_type": "annex", "document_id": "gumruk_yonetmeligi", "annex_no": 1}
+    ) == "EK-1"
+
+
+def test_retrieved_display_label_annex_with_subpart() -> None:
+    assert rag._retrieved_display_label({
+        "source_type": "annex", "document_id": "gumruk_yonetmeligi", "annex_no": 77, "annex_subpart": "A",
+    }) == "EK-77/A"
+
+
+def test_retrieved_display_label_malformed_annex_metadata_fails_safe_not_crash() -> None:
+    """Display-only: malformed annex metadata degrades to a placeholder, never a crash."""
+    assert rag._retrieved_display_label({"source_type": "annex", "document_id": "gumruk_yonetmeligi"}) == "EK-?"
+    assert rag._retrieved_display_label({"source_type": "annex", "annex_no": 1}) == "EK-?"
+
+
 def test_module_has_no_forbidden_architecture_dependencies() -> None:
     tree = ast.parse(Path(rag.__file__).read_text(encoding="utf-8"))
     imports: set[str] = set()

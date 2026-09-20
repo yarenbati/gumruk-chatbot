@@ -95,6 +95,39 @@ def test_initial_app_starts_without_rag_call(monkeypatch: pytest.MonkeyPatch) ->
     assert app.chat_input
 
 
+# ============================================================================
+# Showcase display fixes: 4-source sidebar text, diverse example questions
+# ============================================================================
+
+
+def test_example_questions_are_diverse_across_source_shapes() -> None:
+    """One article, one annex, one mixed article+annex, and one 4458 question."""
+    assert len(ui.EXAMPLE_QUESTIONS) == 4
+    assert len(set(ui.EXAMPLE_QUESTIONS)) == 4  # no duplicates
+    article, annex, mixed, other_source = ui.EXAMPLE_QUESTIONS
+    assert article == "Gümrük Yönetmeliğinin amacı ve kapsamı nedir?"
+    assert "tehlikeli eşyaya ilişkin liste" in annex
+    assert "bağlayıcı tarife bilgisine başvuru" in mixed.lower()
+    assert other_source == "İhracat rejimi olarak adlandırılan gümrük rejimi hangi işlemleri kapsar?"
+
+
+def test_sidebar_about_text_describes_all_four_sources(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(rag, "run_rag", lambda question: pytest.fail("RAG must not run at startup"))
+    app = AppTest.from_file(str(APP_PATH)).run()
+    assert not app.exception
+    about = next(m.value for m in app.markdown if "indekslenmiş mevzuata dayalı" in m.value)
+    for token in ("4458", "5326", "5607", "Gümrük Yönetmeliği"):
+        assert token in about
+
+
+def test_example_questions_render_from_ui_module(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(rag, "run_rag", lambda question: pytest.fail("RAG must not run at startup"))
+    app = AppTest.from_file(str(APP_PATH)).run()
+    assert not app.exception
+    rendered = [m.value[2:] for m in app.markdown if m.value.startswith("- ")]
+    assert rendered == list(ui.EXAMPLE_QUESTIONS)
+
+
 def test_citation_format_uses_trusted_metadata_and_title() -> None:
     assert ui.format_citation(_citation()) == "5326 sayılı Kanun, Madde 13 — Teşebbüs"
 

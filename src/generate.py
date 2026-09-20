@@ -643,11 +643,13 @@ def build_validated_citations(
 def render_citation(citation: ValidatedCitation) -> str:
     """Optional, pure human-readable rendering of one `ValidatedCitation`
     (docs §11) built ONLY from its own trusted fields - e.g.
-    "5326 sayılı Kanun, Madde 13". Reuses `embed.build_article_label` for
-    the "Madde"/"Ek Madde"/"Geçici Madde" prefix rules rather than
-    duplicating them. Never invents a document display title, a
-    paragraph/fıkra actually used, or any field not present on `citation` -
-    a piece is simply omitted from the rendering if unavailable.
+    "5326 sayılı Kanun, Madde 13" or "Gümrük Yönetmeliği — EK-1". Reuses
+    `embed.build_article_label` for the "Madde"/"Ek Madde"/"Geçici Madde"
+    prefix rules, and `AnnexSourceKey.label` for the "EK-N"/"EK-N/subpart"
+    form, rather than duplicating either. Never invents a document display
+    title, a paragraph/fıkra actually used, or any field not present on
+    `citation` - a piece is simply omitted from the rendering if
+    unavailable.
     """
     parts: list[str] = []
     if citation.document_title:
@@ -663,6 +665,8 @@ def render_citation(citation: ValidatedCitation) -> str:
                 parts.append(f"Madde {citation.article_no}")
         else:
             parts.append(f"Madde {citation.article_no}")
+    elif isinstance(citation.document_source_key, source_identity.AnnexSourceKey):
+        parts.append(citation.document_source_key.label)
 
     separator = " — " if citation.document_title else ", "
     return separator.join(parts) if parts else f"[{citation.source_label}]"

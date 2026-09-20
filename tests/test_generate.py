@@ -783,6 +783,44 @@ def test_render_citation_never_invents_missing_fields() -> None:
     assert "Madde" not in rendered
 
 
+def test_render_citation_annex_label() -> None:
+    """Showcase fix: an annex citation must display "EK-N", not just the document title."""
+    citation = generate.ValidatedCitation(
+        source_number=1, source_label="KAYNAK 1", chunk_id="c-1",
+        document_title="Gümrük Yönetmeliği",
+        document_source_key=source_identity.AnnexSourceKey("gumruk_yonetmeligi", 1),
+    )
+    assert generate.render_citation(citation) == "Gümrük Yönetmeliği — EK-1"
+
+
+def test_render_citation_annex_label_with_subpart() -> None:
+    citation = generate.ValidatedCitation(
+        source_number=1, source_label="KAYNAK 1", chunk_id="c-1",
+        document_title="Gümrük Yönetmeliği",
+        document_source_key=source_identity.AnnexSourceKey("gumruk_yonetmeligi", 77, "A"),
+    )
+    assert generate.render_citation(citation) == "Gümrük Yönetmeliği — EK-77/A"
+
+
+def test_render_citation_annex_without_document_title_never_invents_one() -> None:
+    citation = generate.ValidatedCitation(
+        source_number=1, source_label="KAYNAK 1", chunk_id="c-1",
+        document_source_key=source_identity.AnnexSourceKey("gumruk_yonetmeligi", 1),
+    )
+    assert generate.render_citation(citation) == "EK-1"
+
+
+def test_render_citation_article_no_still_wins_over_annex_key_if_both_present() -> None:
+    """Defensive: a citation with both fields (should never happen in practice) keeps
+    the existing article-rendering behavior unchanged rather than adding EK- to it."""
+    citation = generate.ValidatedCitation(
+        source_number=1, source_label="KAYNAK 1", chunk_id="c-1",
+        article_type="normal", article_no="13",
+        document_source_key=source_identity.AnnexSourceKey("gumruk_yonetmeligi", 1),
+    )
+    assert generate.render_citation(citation) == "Madde 13"
+
+
 # ============================================================================
 # M6B 20-22: citation requirements by status (through generate_answer)
 # ============================================================================
@@ -1043,6 +1081,13 @@ def _annex_chunk(chunk_id: str = "c-1", **overrides: Any) -> SimpleNamespace:
                     annex_source_key="gumruk_yonetmeligi/annex/62")
     metadata.update(overrides)
     return _rc(chunk_id=chunk_id, metadata=metadata)
+
+
+def test_canonical_annex_citation_renders_with_ek_label(citation_registry) -> None:
+    """Showcase display fix, end-to-end from the real manifest: "Gümrük Yönetmeliği — EK-1"."""
+    chunk = _annex_chunk(annex_no=1, annex_source_key="gumruk_yonetmeligi/annex/1")
+    citation, = generate.build_validated_citations([1], [chunk], registry=citation_registry)
+    assert generate.render_citation(citation) == "Gümrük Yönetmeliği — EK-1"
 
 
 def test_canonical_annex_citation_uses_manifest(citation_registry) -> None:

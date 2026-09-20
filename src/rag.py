@@ -167,6 +167,26 @@ def _real_rag_opt_in() -> bool:
     return bool(config.OPENAI_API_KEY) and os.getenv("RUN_OPENAI_INTEGRATION_TESTS") == "1"
 
 
+def _retrieved_display_label(metadata: Any) -> str:
+    """Pure, display-only label for one retrieved chunk in the manual CLI
+    printout below - never used for citation integrity or generation, and
+    never affects retrieval/ranking. Annex metadata (`source_type ==
+    "annex"`) renders as its canonical `AnnexSourceKey.label` (e.g. "EK-1",
+    "EK-77/A") instead of a misleading "Madde ?"; anything else is treated
+    as article metadata, unchanged from before this function existed.
+    """
+    metadata = metadata or {}
+    if metadata.get("source_type") == "annex":
+        try:
+            key = source_identity.AnnexSourceKey(
+                metadata.get("document_id"), metadata.get("annex_no"), metadata.get("annex_subpart"),
+            )
+        except source_identity.SourceIdentityError:
+            return "EK-?"
+        return key.label
+    return f"Madde {metadata.get('article_no', '?')}"
+
+
 def main(argv: list[str] | None = None) -> None:
     """Run the gated manual RAG CLI and print a compact safe summary."""
     parser = argparse.ArgumentParser(description="Run the end-to-end RAG pipeline")
@@ -186,8 +206,8 @@ def main(argv: list[str] | None = None) -> None:
     print(f"Status:\n{status}\n")
     print("Retrieved:")
     for chunk in result.retrieval.results:
-        article_no = chunk.metadata.get("article_no", "?")
-        print(f"{chunk.rank}. Madde {article_no} | {chunk.chunk_id} | distance={chunk.distance:.4f}")
+        label = _retrieved_display_label(chunk.metadata)
+        print(f"{chunk.rank}. {label} | {chunk.chunk_id} | distance={chunk.distance:.4f}")
     print(f"\nAnswer:\n{result.generation.answer}\n")
     print("Validated citations:")
     for citation in result.citations:

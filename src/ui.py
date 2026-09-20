@@ -17,11 +17,14 @@ INSUFFICIENT_CONTEXT_WARNING = (
 SAFE_BACKEND_ERROR_MESSAGE = "Yanıt oluşturulurken bir hata oluştu. Lütfen tekrar deneyin."
 MISSING_API_KEY_MESSAGE = "OPENAI_API_KEY yapılandırılmamış."
 
+# One example per representative retrieval shape, spanning all four sources -
+# see docs/demo-guide.md: an article-only question, an annex-only question,
+# a mixed article+annex question, and one from a different source (4458).
 EXAMPLE_QUESTIONS = (
-    "Kabahat nedir?",
-    "Kabahate teşebbüs cezalandırılır mı?",
-    "Kabahatlerde soruşturma zamanaşımı süresi nasıl belirlenir?",
-    "İdarî para cezasına karşı hangi sürede ve nereye başvurulabilir?",
+    "Gümrük Yönetmeliğinin amacı ve kapsamı nedir?",
+    "Geçici depolama yeri ve antrepoya alınması bakımından özellik gösteren tehlikeli eşyaya ilişkin liste hangi sınıflandırmaya dayanır?",
+    "Bağlayıcı tarife bilgisine başvuru kaç kalem eşya için yapılabilir ve kullanılacak başvuru formunda başvuru sahibi nasıl tanımlanır?",
+    "İhracat rejimi olarak adlandırılan gümrük rejimi hangi işlemleri kapsar?",
 )
 
 
