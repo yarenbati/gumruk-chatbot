@@ -1,0 +1,33 @@
+{
+  "baseline": "fb4ee67f272fc2cda7c3063c8912d065d59ed034",
+  "dataset_sha256": "63d296bcf1a02f7494f6469fc3aff479f96ab7c8ce2725843e95e470c6577a08",
+  "collection": "gumruk_mevzuati",
+  "production_count": 1266,
+  "distribution": {
+    "4458_gumruk_kanunu": 276,
+    "5326_kabahatler_kanunu": 53,
+    "5607_kacakcilikla_mucadele_kanunu": 46,
+    "gumruk_yonetmeligi": 891
+  },
+  "production_fingerprints": {
+    "448e5756-391d-4ede-87e8-7792e286ce3b/data_level0.bin": "7be66c3654fc41ca08e46d61481e75ed5fde0d2be32d4607ae42ed2df8be59cc",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/header.bin": "f1c31dd3c00a8fcbe815ce4b8577ab60de7a1d87e68af0b6f861b02fb75cd4ce",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/index_metadata.pickle": "4c6f5c6af7421b93e58f0021a4eae4b9019d75cb688949824f7363d63de67b83",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/length.bin": "33ff381b8bb1a6dcd7389027813e9241c72e66926e585ced77485d768e9bfbdb",
+    "448e5756-391d-4ede-87e8-7792e286ce3b/link_lists.bin": "2c535c1dd01a4714451945ab4b60c261410d9dbe2eb8d3ff18c23678211c2d08",
+    "chroma.sqlite3": "4eafaa2121075b4a555d065b748c1421faceb96a66af5371b333b972b32526a3"
+  },
+  "model": "text-embedding-3-small",
+  "top_k": 5,
+  "questions": 30,
+  "groups": {
+    "article": 14,
+    "annex": 10,
+    "mixed": 6
+  },
+  "planned_embedding_requests": 30,
+  "planned_dense_queries": 30,
+  "generation_requests": 0,
+  "network_calls_performed": 0,
+  "status": "AWAITING_API_APPROVAL"
+}
