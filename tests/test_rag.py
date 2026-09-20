@@ -219,17 +219,15 @@ class _EmbeddingClient:
 
 
 class _GenerationClient:
-    def __init__(self) -> None:
+    def __init__(self, answer: str = "Kabahate teşebbüs kural olarak cezalandırılmaz. [KAYNAK 1]") -> None:
         self.calls = 0
         self.responses = self
+        self.answer = answer
 
     def create(self, **kwargs: Any) -> Any:
         self.calls += 1
         return SimpleNamespace(
-            output_text=(
-                "DURUM: YETERLI\nCEVAP:\n"
-                "Kabahate teşebbüs kural olarak cezalandırılmaz. [KAYNAK 1]"
-            ),
+            output_text=f"DURUM: YETERLI\nCEVAP:\n{self.answer}",
             output=[],
             model="fake-llm",
             usage=SimpleNamespace(input_tokens=10, output_tokens=8, total_tokens=18),
@@ -265,6 +263,76 @@ def test_real_component_contracts_compose_with_tmp_chroma(tmp_path: Path) -> Non
     assert result.citations[0].article_no == "13"
     assert result.insufficient_context is False
     assert embedding_client.calls == generation_client.calls == 1
+
+
+def _annex_metadata(annex_no: int = 62, annex_subpart: str | None = None) -> dict[str, Any]:
+    key = source_identity.AnnexSourceKey("gumruk_yonetmeligi", annex_no, annex_subpart)
+    return {"document_id": "gumruk_yonetmeligi", "source_type": "annex",
+            "annex_no": annex_no, "annex_subpart": annex_subpart, "annex_source_key": str(key)}
+
+
+def test_annex_only_real_component_contract_with_tmp_chroma(tmp_path: Path) -> None:
+    """The reported bug: an annex-only retrieval used to raise CitationValidationError."""
+    collection = index.get_collection(index.get_client(tmp_path), "m7-annex-contract")
+    metadata = _annex_metadata()
+    del metadata["annex_subpart"]  # Omitted entirely when absent, matching real production annex records.
+    collection.upsert(
+        ids=["gumruk_yonetmeligi-ek-62-chunk-001"],
+        embeddings=[[0.0, 0.0]],
+        documents=["EK-62 Tehlikeli Eşya Listesi metni."],
+        metadatas=[metadata],
+    )
+    embedding_client = _EmbeddingClient([0.0, 0.0])
+    generation_client = _GenerationClient(answer="EK-62 listesine bakılmalıdır. [KAYNAK 1]")
+
+    result = rag.run_rag(
+        "Tehlikeli eşya listesi hangi ekte düzenlenmiştir?",
+        collection=collection,
+        embedding_client=embedding_client,
+        generation_client=generation_client,
+    )
+
+    assert result.retrieval.results[0].chunk_id == "gumruk_yonetmeligi-ek-62-chunk-001"
+    assert result.citations[0].document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert result.insufficient_context is False
+    assert embedding_client.calls == generation_client.calls == 1
+
+
+def test_mixed_article_and_annex_real_component_contract_with_tmp_chroma(tmp_path: Path) -> None:
+    """A mixed retrieval (one article chunk, one annex chunk) must validate both citations end to end."""
+    collection = index.get_collection(index.get_client(tmp_path), "m7-mixed-contract")
+    article_chunks = [
+        Chunk("gumruk_yonetmeligi-madde-330-chunk-001", "gy-a330", "gumruk_yonetmeligi", None, "330",
+              "normal", None, None, "Madde 330- Parlayıcı eşya özel düzenek gerektirir.", None, 1, 1, None),
+    ]
+    embeddings = [embed.EmbeddingResult("gumruk_yonetmeligi-madde-330-chunk-001", [0.0, 0.0], "fake-embedding")]
+    index.index_chunks(article_chunks, embeddings, collection=collection)
+    metadata = _annex_metadata()
+    del metadata["annex_subpart"]
+    collection.upsert(
+        ids=["gumruk_yonetmeligi-ek-62-chunk-001"],
+        embeddings=[[10.0, 10.0]],
+        documents=["EK-62 Tehlikeli Eşya Listesi metni."],
+        metadatas=[metadata],
+    )
+    embedding_client = _EmbeddingClient([0.0, 0.0])
+    generation_client = _GenerationClient(
+        answer="Madde 330 ve EK-62 birlikte uygulanır. [KAYNAK 1] [KAYNAK 2]")
+
+    result = rag.run_rag(
+        "Parlayıcı eşya için hangi madde ve ek uygulanır?",
+        collection=collection,
+        embedding_client=embedding_client,
+        generation_client=generation_client,
+    )
+
+    assert [c.chunk_id for c in result.retrieval.results] == [
+        "gumruk_yonetmeligi-madde-330-chunk-001", "gumruk_yonetmeligi-ek-62-chunk-001"]
+    assert len(result.citations) == 2
+    assert isinstance(result.citations[0].document_source_key, source_identity.DocumentSourceKey)
+    assert isinstance(result.citations[1].document_source_key, source_identity.AnnexSourceKey)
+    assert result.citations[1].document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert result.insufficient_context is False
 
 
 def test_module_has_no_forbidden_architecture_dependencies() -> None:

@@ -86,14 +86,20 @@ def _validate_cross_layer_invariants(
             raise RAGPipelineError("Retrieved citation lacks canonical provenance") from exc
         if citation.document_id != key.document_id or citation.document_source_key != key:
             raise RAGPipelineError("Citation document provenance does not match retrieved context")
-        try:
-            citation_key = source_identity.DocumentSourceKey(
-                citation.document_id, citation.article_type, citation.article_no,
-            )
-        except source_identity.SourceIdentityError as exc:
-            raise RAGPipelineError("Citation provision fields lack canonical provenance") from exc
-        if citation_key != key:
-            raise RAGPipelineError("Citation provision fields do not match retrieved context")
+        # Annex identity has no parallel scalar article_type/article_no fields
+        # on ValidatedCitation to redundantly re-derive from - the
+        # document_source_key equality check above already proves an annex
+        # citation matches the retrieved chunk. Only article citations get
+        # this extra scalar-consistency check.
+        if isinstance(key, source_identity.DocumentSourceKey):
+            try:
+                citation_key = source_identity.DocumentSourceKey(
+                    citation.document_id, citation.article_type, citation.article_no,
+                )
+            except source_identity.SourceIdentityError as exc:
+                raise RAGPipelineError("Citation provision fields lack canonical provenance") from exc
+            if citation_key != key:
+                raise RAGPipelineError("Citation provision fields do not match retrieved context")
 
 
 def run_rag(

@@ -215,10 +215,30 @@ class RetrievedProvenance(Protocol):
         ...
 
 
-def source_key_from_metadata(metadata: Mapping[str, object]) -> source_identity.DocumentSourceKey:
-    """Validate an observational canonical view; never mutate or use law fallback."""
+def source_key_from_metadata(
+    metadata: Mapping[str, object],
+) -> source_identity.DocumentSourceKey | source_identity.AnnexSourceKey:
+    """Validate an observational canonical view; never mutate or use law fallback.
+
+    Branches only on the stored ``source_type``. ``"annex"`` metadata builds
+    an ``AnnexSourceKey`` strictly from ``document_id``/``annex_no``/
+    ``annex_subpart`` - never from ``chunk_id`` - and then requires the
+    stored ``annex_source_key`` string to equal that key's own canonical
+    serialization; a mismatch fails closed rather than trusting either value
+    alone. Anything else is treated as article metadata and yields a
+    ``DocumentSourceKey``, exactly as before this function ever saw annexes.
+    """
     if not isinstance(metadata, Mapping):
         raise source_identity.SourceIdentityError("canonical provenance requires metadata")
+    if metadata.get("source_type") == "annex":
+        key = source_identity.AnnexSourceKey(
+            metadata.get("document_id"), metadata.get("annex_no"), metadata.get("annex_subpart"),
+        )
+        if metadata.get("annex_source_key") != str(key):
+            raise source_identity.SourceIdentityError(
+                "stored annex_source_key does not match the canonical AnnexSourceKey"
+            )
+        return key
     return source_identity.DocumentSourceKey(metadata.get("document_id"), metadata.get("article_type"), metadata.get("article_no"))
 
 
@@ -230,7 +250,9 @@ def provision_source_key(provision: ProvisionFields) -> source_identity.Document
         raise source_identity.SourceIdentityError("provision lacks canonical provenance fields") from exc
 
 
-def retrieved_source_key(chunk: RetrievedProvenance) -> source_identity.DocumentSourceKey:
+def retrieved_source_key(
+    chunk: RetrievedProvenance,
+) -> source_identity.DocumentSourceKey | source_identity.AnnexSourceKey:
     """Opt-in RetrievedChunk provenance view with no retrieval/ranking dependency.
 
     Existing callers can keep using metadata without requesting this strict view.

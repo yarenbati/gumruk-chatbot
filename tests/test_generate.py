@@ -1031,3 +1031,75 @@ def test_legacy_mode_cannot_mix_with_registry(citation_registry) -> None:
     with pytest.raises(generate.CitationValidationError, match="legacy"):
         generate.build_validated_citations([1], [_canonical_chunk()],
                                            registry=citation_registry, legacy_citations=True)
+
+
+# ============================================================================
+# Annex canonical citation provenance (annex citation fix)
+# ============================================================================
+
+
+def _annex_chunk(chunk_id: str = "c-1", **overrides: Any) -> SimpleNamespace:
+    metadata = dict(document_id="gumruk_yonetmeligi", source_type="annex", annex_no=62,
+                    annex_source_key="gumruk_yonetmeligi/annex/62")
+    metadata.update(overrides)
+    return _rc(chunk_id=chunk_id, metadata=metadata)
+
+
+def test_canonical_annex_citation_uses_manifest(citation_registry) -> None:
+    """The reported bug: annex metadata used to raise instead of citing EK-62."""
+    citation, = generate.build_validated_citations([1], [_annex_chunk()], registry=citation_registry)
+    assert citation.document_id == "gumruk_yonetmeligi"
+    assert citation.document_title == "Gümrük Yönetmeliği"
+    assert citation.document_type == "Yönetmelik"
+    assert citation.document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert citation.legislation_number is None  # Never invented for a numberless regulation.
+    assert citation.article_no is None and citation.article_type is None  # No article fields on annex metadata.
+
+
+def test_canonical_annex_citation_with_subpart(citation_registry) -> None:
+    chunk = _annex_chunk(annex_no=77, annex_subpart="a", annex_source_key="gumruk_yonetmeligi/annex/77/a")
+    citation, = generate.build_validated_citations([1], [chunk], registry=citation_registry)
+    assert citation.document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 77, "A")
+
+
+@pytest.mark.parametrize("overrides", [
+    {"annex_source_key": "gumruk_yonetmeligi/annex/99"},  # Stored key names the wrong annex.
+    {"annex_no": None},  # Never inferred from chunk_id when metadata is incomplete.
+    {"document_id": "unknown_document"},  # Not in the manifest at all.
+])
+def test_malformed_annex_citation_provenance_rejected(citation_registry, overrides) -> None:
+    with pytest.raises(generate.CitationValidationError):
+        generate.build_validated_citations([1], [_annex_chunk(**overrides)], registry=citation_registry)
+
+
+def test_mixed_article_and_annex_citations_both_accepted(citation_registry) -> None:
+    """A mixed retrieval (one article chunk, one annex chunk) must validate both."""
+    chunks = [_canonical_chunk(document_id="gumruk_yonetmeligi", legislation_number=None, article_no="330"),
+              _annex_chunk()]
+    article_citation, annex_citation = generate.build_validated_citations([1, 2], chunks, registry=citation_registry)
+    assert isinstance(article_citation.document_source_key, source_identity.DocumentSourceKey)
+    assert isinstance(annex_citation.document_source_key, source_identity.AnnexSourceKey)
+    assert article_citation.document_source_key == source_identity.DocumentSourceKey("gumruk_yonetmeligi", "normal", "330")
+    assert annex_citation.document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert article_citation.document_title == annex_citation.document_title == "Gümrük Yönetmeliği"
+
+
+def test_annex_only_generation_end_to_end_no_citation_error(citation_registry) -> None:
+    """End-to-end through generate_answer: an annex-only retrieval must not raise."""
+    client = _FakeClient(_FakeResponse(output_text=_envelope(answer="EK-62 listesine bakılmalıdır. [KAYNAK 1]")))
+    result = generate.generate_answer("Soru?", [_annex_chunk()], client=client, registry=citation_registry)
+    assert result.insufficient_context is False
+    assert result.citations[0].document_source_key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+
+
+def test_mixed_article_and_annex_generation_end_to_end_no_citation_error(citation_registry) -> None:
+    """End-to-end through generate_answer: a mixed retrieval must validate both citations."""
+    article_chunk = _canonical_chunk(document_id="gumruk_yonetmeligi", legislation_number=None, article_no="330")
+    chunks = [article_chunk, _annex_chunk(chunk_id="c-2")]  # article_chunk defaults to chunk_id="c-1"
+    client = _FakeClient(_FakeResponse(output_text=_envelope(
+        answer="Madde 330 ve EK-62 birlikte uygulanır. [KAYNAK 1] [KAYNAK 2]")))
+    result = generate.generate_answer("Soru?", chunks, client=client, registry=citation_registry)
+    assert result.insufficient_context is False
+    assert len(result.citations) == 2
+    assert isinstance(result.citations[0].document_source_key, source_identity.DocumentSourceKey)
+    assert isinstance(result.citations[1].document_source_key, source_identity.AnnexSourceKey)

@@ -292,6 +292,68 @@ def test_retrieved_provenance_is_observational_not_a_ranking_operation(monkeypat
     assert [record.distance for record in records] == [0.9, 0.1]  # Deliberately not sorted.
 
 
+# ============================================================================
+# Annex canonical identity from retrieved metadata (annex citation fix)
+# ============================================================================
+
+
+def _annex_metadata(**changes: Any) -> dict[str, Any]:
+    metadata = {"document_id": "gumruk_yonetmeligi", "source_type": "annex", "annex_no": 62,
+                "annex_source_key": "gumruk_yonetmeligi/annex/62"}
+    metadata.update(changes)
+    return metadata
+
+
+def test_annex_metadata_yields_annex_source_key_not_document_source_key() -> None:
+    key = registry.source_key_from_metadata(_annex_metadata())
+    assert isinstance(key, source_identity.AnnexSourceKey)
+    assert not isinstance(key, source_identity.DocumentSourceKey)
+    assert key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert str(key) == "gumruk_yonetmeligi/annex/62"
+
+
+def test_annex_metadata_with_subpart_yields_matching_key() -> None:
+    metadata = _annex_metadata(annex_no=77, annex_subpart="a", annex_source_key="gumruk_yonetmeligi/annex/77/a")
+    key = registry.source_key_from_metadata(metadata)
+    assert key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 77, "A")
+    assert str(key) == "gumruk_yonetmeligi/annex/77/a"
+
+
+@pytest.mark.parametrize("changes", [
+    {"annex_source_key": "gumruk_yonetmeligi/annex/99"},  # Stored key names the wrong annex.
+    {"annex_source_key": "gumruk_yonetmeligi/annex/62/a"},  # Stored key names a subpart that isn't there.
+    {"annex_no": None},  # Missing annex_no is never inferred from chunk_id or elsewhere.
+    {"annex_no": "62"},  # Wrong type: annex_no must be an int, not a numeral string.
+    {"annex_no": 0},
+    {"document_id": None},
+    {"document_id": "UPPER"},
+    {"annex_source_key": None},
+])
+def test_malformed_annex_metadata_fails_closed(changes: dict[str, Any]) -> None:
+    with pytest.raises(source_identity.SourceIdentityError):
+        registry.source_key_from_metadata(_annex_metadata(**changes))
+
+
+def test_annex_identity_never_inferred_from_chunk_id() -> None:
+    """The chunk_id is deliberately misleading; only metadata fields decide identity."""
+    chunk = retrieve.RetrievedChunk(1, "gumruk_yonetmeligi-madde-999-chunk-001", "annex text", _annex_metadata(), 0.5)
+    before = copy.deepcopy(chunk)
+    key = registry.retrieved_source_key(chunk)
+    assert key == source_identity.AnnexSourceKey("gumruk_yonetmeligi", 62)
+    assert chunk == before
+
+
+def test_annex_and_article_metadata_are_disjoint_key_types() -> None:
+    """The same accessor discriminates by source_type alone, not by any other heuristic."""
+    article_key = registry.source_key_from_metadata(
+        {"document_id": "gumruk_yonetmeligi", "article_type": "normal", "article_no": "1"})
+    annex_key = registry.source_key_from_metadata(_annex_metadata())
+    assert isinstance(article_key, source_identity.DocumentSourceKey)
+    assert isinstance(annex_key, source_identity.AnnexSourceKey)
+    assert article_key != annex_key
+    assert article_key.document_id == annex_key.document_id == "gumruk_yonetmeligi"
+
+
 def test_existing_index_metadata_contract_needs_no_migration_or_builder_change() -> None:
     piece = chunk.Chunk(chunk_id="storage-id", article_id="article-id", document_id="synthetic_law",
         legislation_number="123", article_no="27", article_type="normal", article_title="Title",

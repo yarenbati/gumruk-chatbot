@@ -158,7 +158,9 @@ class ValidatedCitation:
     application-controlled data - NEVER parsed or trusted from the model's
     own prose (e.g. a stray "Madde 99'a göre..." in the answer text is
     never used to populate `article_no` here). A metadata field that is
-    absent on the source chunk stays `None` here - never invented.
+    absent on the source chunk stays `None` here - never invented (an annex
+    chunk has no `article_type`/`article_no` metadata, so those stay `None`
+    while `document_source_key` holds an `AnnexSourceKey` instead).
     Canonical document title/type come from the explicitly resolved registry.
     Canonical fields are populated by the strict builder; defaults retain
     construction compatibility with historical evaluation records.
@@ -179,7 +181,7 @@ class ValidatedCitation:
     paragraph_numbers: tuple[str, ...] | None = None
     # None is retained only for explicitly legacy callers/historical records.
     document_id: str | None = None
-    document_source_key: source_identity.DocumentSourceKey | None = None
+    document_source_key: source_identity.DocumentSourceKey | source_identity.AnnexSourceKey | None = None
     document_title: str | None = None
     document_type: str | None = None
 
