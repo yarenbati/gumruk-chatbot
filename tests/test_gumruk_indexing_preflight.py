@@ -53,6 +53,11 @@ def test_real_preflight_never_constructs_clients(monkeypatch: pytest.MonkeyPatch
 
     monkeypatch.setattr('src.embed.OpenAI', forbidden)
     monkeypatch.setattr('chromadb.PersistentClient', forbidden)
+    # B1 is a pre-addition contract; isolate its 375-record fixture so the
+    # regression remains valid after the authorized B2 production addition.
+    monkeypatch.setattr('scripts.preflight_gumruk_indexing.production_ids',
+                        lambda path: [(f'{law}-fixture-{i}', law) for law, count in [('5326', 53), ('4458', 276), ('5607', 46)] for i in range(count)])
+    monkeypatch.setattr('scripts.preflight_gumruk_indexing.production_fingerprints', lambda path: {})
     report = run()
     assert all(report['gates'].values())
     assert report['new_inputs'] == 891
