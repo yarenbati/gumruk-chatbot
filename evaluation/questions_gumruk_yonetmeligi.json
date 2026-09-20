@@ -1,0 +1,846 @@
+{
+  "source_identity_schema": "document-annex-source-v1",
+  "baseline_commit": "a31459fb03f90974b40ab645133ce9f3768bb19f",
+  "milestone": "M13D-A",
+  "freeze_status": "frozen_for_review",
+  "questions": [
+    {
+      "id": "gy-001",
+      "question": "Gümrük Yönetmeliğinin amacı ve kapsamı nedir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "1"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/1"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "direct_provision",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 1 amaç ve kapsamı açıklar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/1": "MADDE 1 – (1) Bu Yönetmeliğin amacı; 4458 sayılı Gümrük Kanununun yönetmelikle düzenlenmesini öngördüğü konuları düzenlemek ve uygulamaya yön verecek hususlara açıklık getirmektir.\n(2) Bu Yönetmelik, gümrük işlemlerine ilişkin usul ve esasları kapsar."
+      }
+    },
+    {
+      "id": "gy-002",
+      "question": "Gümrük Yönetmeliğinde dökme eşya ne demektir; ambalajlı olarak sayılabilen eşya bu tanıma girer mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "3"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/3"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "definition",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 3 dökme eşyanın tanımında ambalajlı eşya ayrımını yapar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/3": "Dökme eşya: Levha, kangal, profil, kütük, firkete, her türlü boru, rulo sac, pik gibi ambalajlı olarak sayılabilen veya ambalajlanmış eşya dışında kalan; maden cevheri, mineraller, hurda demir, kömür, hububat, hayvan yemi, küspe, çimento, klinker, ponza, suni gübre, mucur gibi ambalajlanmamış ve genellikle yükleme ve boşaltması mekanik vasıta ve tesis gerektiren her nevi gaz, sıvı ve katı maddeleri,"
+      }
+    },
+    {
+      "id": "gy-003",
+      "question": "Onaylanmış kişi statü belgesinde borcun ödenmemesi ile sahte belgeyle başvuru aynı sonucu mu doğurur; askıya alma ve iptal nasıl ayrılır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "26"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/26"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "ambiguity_resistant",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 26 borç nedeniyle askıya alma ile yanlış/eksik bilgi veya sahte belge nedeniyle iptali ayırır.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/26": "MADDE 26 – (1) Onaylanmış kişi statü belgesinin geçerlilik süresi içinde gümrük işlemlerinden veya gümrük cezalarından doğan herhangi bir kamu alacağının, süresi içinde ödenmediğinin tespit edilmesi durumunda söz konusu onaylanmış kişi statü belgesi, kesinleşmiş gümrük vergisi ve/veya ceza borcu ödenene kadar askıya alınır. Kişi, onaylanmış kişi statü belgesinin askıya alındığı tarihten itibaren bu belge kapsamındaki hak ve uygulamalardan yararlandırılmaz.\n(Değişik:RG-1/4/2020-31086) Onaylanmış kişi statü belgesinin düzenlenme tarihini takip eden on iki aylık dönem içinde 23 üncü maddenin birinci fıkrasının (b), (c) ve (ç) bentlerinde veya belgenin geçerlilik süresi içinde aynı fıkranın diğer bentlerinde belirtilen genel koşullardan herhangi birinin veya 24 üncü maddenin birinci fıkrasının (b) bendinde belirtilen özel koşulun ortadan kalktığının öğrenilmesi ya da belge sahibince talep edilmesi halinde, onaylanmış kişi statü belgesi geri alınır.\n(Mülga:RG-7/10/2016-29850)(21)\nKişi, onaylanmış kişi statü belgesinin geri alındığı tarihten itibaren bu belge kapsamındaki hak ve uygulamalardan yararlandırılmaz.\nYanlış veya eksik bilgilere veya sahte belgelere dayanılarak verildiği anlaşılan onaylanmış kişi statü belgesi iptal edilir. Onaylanmış kişi statü belgesinin iptal edildiği durumda, bu belge kapsamındaki yetki ve uygulamalar, onaylanmış kişi statü belgesinin düzenlendiği tarih itibariyle geçersiz sayılır. Adına düzenlenmiş onaylanmış kişi statü belgesi bu fıkra uyarınca iptal edilmiş kişilere iptal tarihinden itibaren iki yıl süreyle onaylanmış kişi statüsü verilmez."
+      }
+    },
+    {
+      "id": "gy-004",
+      "question": "Gümrük idaresinin lehe kararının değiştirilmesi, o karara dayanılarak zaten rejime alınmış eşyaya uygulanır mı?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "27"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/27"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "exception_condition",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 27 lehe kararın değiştirilmesinin önceden rejime alınan eşyaya etkisini düzenler.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/27": "MADDE 27 – (1) Gerekli bilgi ve belgelerle başvuran her kişi gümrük mevzuatının uygulanmasına ilişkin bir karar vermesini gümrük idaresinden isteyebilir.\nGümrük idaresinin ilgilinin lehine olan kararları, Kanunun 7 nci maddesinde belirtilen hallerde değiştirilir veya iptal edilir.\nDeğiştirme ya da iptal kararları, bu kararların yürürlüğe girdiği tarihte, iptal edilen ya da değiştirilen kararlar uyarınca bir gümrük rejimine tabi tutulmaya başlanmış eşya için uygulanmaz."
+      }
+    },
+    {
+      "id": "gy-005",
+      "question": "Gümrük görevlisinin yükümlüye ait sırları açıklama yasağı görevden ayrılınca sona erer mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "30"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/30"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "direct_provision",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 30 gizlilik yasağının görevden ayrılma sonrasında da devamını belirtir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/30": "Gümrük işlemleriyle ve bu işlemlerin denetimiyle görevli memurlar, görevleri dolayısıyla yükümlünün kendisine ve yükümlüyle ilgili olanların şahıslarına, işlem ve hesap durumlarına, işlerine, işletmelerine, mal varlıklarına, mesleklerine ilişkin olarak öğrendikleri sırları ve gizli kalması gereken diğer hususları açıklayamaz ve bunları kendilerinin veya üçüncü kişilerin yararına kullanamaz. Bu yasak yukarıda belirtilen kişilerin görevlerinden ayrılmalarından sonra da devam eder."
+      }
+    },
+    {
+      "id": "gy-006",
+      "question": "Mücbir sebep yüzünden süre kaçırılmışsa, süresi geçtikten sonra ek süre talebi hangi belge koşuluyla değerlendirilebilir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "31"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/31"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "exception_condition",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 31 süresi dışındaki başvurularda olayın zamanını kanıtlama koşulunu belirtir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/31": "MADDE 31 – (1) Kanunda belirtilen süreler aksine bir hüküm bulunmadıkça uzatılamaz veya ertelenemez. Ancak, mücbir sebep ve beklenmeyen hallerden herhangi birinin bulunması halinde bu sebep ortadan kalkıncaya kadar bu süreler işlemez.\nSüresi dışında yapılan müracaatlarda, mücbir sebep ve beklenmeyen hallerin süresi içerisinde meydana geldiğini kanıtlayan belge ibrazı halinde ilgili gümrük idaresince mücbir sebep ve beklenmeyen hallere ilişkin olarak ibraz edilen belgelere göre ek süre verilir."
+      }
+    },
+    {
+      "id": "gy-007",
+      "question": "Ticari olmayan küçük gönderilerde menşe şahadetnamesi aranmayacak kıymet sınırı nedir; aynı göndericinin kolileri ayrı ayrı mı değerlendirilir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "39"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/39"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "multi_part",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 39 CIF sınırını ve aynı göndericinin kolilerinin birlikte değerlendirilmesini düzenler.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/39": "MADDE 39 – (1) Ticari mahiyette olmayan ve CIF kıymeti 430 Avro’yu geçmeyen eşya için menşe şahadetnamesi aranmaz. Aynı gönderici tarafından Türkiye’deki bir alıcı adına gönderilen kap ve kolilerin hepsi bir bütün teşkil eder ve tamamın kıymeti birlikte dikkate alınır."
+      }
+    },
+    {
+      "id": "gy-008",
+      "question": "Menşe şahadetnamesi gerekli bilgileri taşısa bile şüphe halinde gümrük idaresi ek kanıt isteyebilir mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "40"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/40"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "exception_condition",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 40 bilgileri içeren şahadetnameye rağmen şüphede ek kanıt istenebileceğini belirtir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/40": "Birinci fıkrada belirtilen bilgileri içeren menşe şahadetnamelerinin ibrazına rağmen şüphe durumunda ek kanıtları isteme konusunda gümrük idareleri yetkilidir."
+      }
+    },
+    {
+      "id": "gy-009",
+      "question": "Menşe şahadetnamesinin doğruluğu hakkında incelemeden sonra da tereddüt kalırsa sonradan kontrol için hangi yol izlenir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "41"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/41"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "procedure",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 41 devam eden tereddütte sonradan kontrol talebinin yolunu açıklar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/41": "Gümrük idaresince yapılan inceleme sonucunda şahadetnamenin gerçekliği veya eşyanın gerçek menşeine ilişkin bilgilerin doğruluğu hakkında yeterli bir kanaat elde olunamaz ve tereddüt devam eder ise, şahadetname bu kanaati uyandıran tüm bilgi ve belgeler ile birlikte sonradan kontrol talebiyle Müsteşarlığa gönderilir. Müsteşarlıkça ihracatçı ülke gümrük idaresi nezdinde yapılan incelemeler sonucunda elde olunacak bilgiler çerçevesinde, duruma göre yukarıda belirtilen şekilde işlem yapılması için keyfiyet ilgili gümrük idaresine bildirilir."
+      }
+    },
+    {
+      "id": "gy-010",
+      "question": "Gümrük kıymeti bakımından aynı eşya ile benzer eşya nasıl ayrılır; görünüşteki küçük farklılıklar aynı eşya sayılmayı engeller mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "43"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/43"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "ambiguity_resistant",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 43 aynı eşya ile benzer eşyayı ayırır; küçük görünüş farklarını ele alır.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/43": "Aynı eşya: Fiziksel özellik, kalite ve tanındığı özellikleri dahil olmak üzere her hususta aynı olan ve aynı ülkede üretilmiş eşyayı (görünüşteki küçük farklılıklar diğer hususlarda tanıma uyan eşyanın aynı eşya sayılmasını önlemez),\nAynı sınıf veya cins eşya: Belli bir sanayi sektöründe üretilen bir grup veya bir dizi eşya kapsamına giren eşyayı (bu ifade aynı veya benzer eşyayı da kapsar),\nç) Aynı veya yakın bir tarih: İthal edilen eşya ya da aynı veya benzer eşyaya ait birim fiyatın belirlenmesine imkan verecek ileri ve geriye doğru tespiti mümkün olan ilk tarihi,\nBenzer eşya: Her hususta aynı olmamakla birlikte aynı işlevi görmelerini ve ticari olarak birbirlerini ikame edebilmelerini mümkün kılan, benzer özellik ve benzer unsurları bulunan ve aynı ülkede üretilmiş olan eşyayı (eşyanın kalitesi, tanındığı özellikleri, bir ticari markasının bulunması, eşyanın benzerliğinin belirlenmesinde göz önüne alınacak faktörler arasında yer alır),"
+      }
+    },
+    {
+      "id": "gy-011",
+      "question": "Gümrük kıymeti yöntemleri hangi sırayla uygulanır; indirgeme ve hesaplanmış kıymet yöntemlerinin sırası değiştirilebilir mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "44"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/44"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "exception_condition",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 44 sıralı yöntem uygulamasını ve yazılı taleple sıra değişikliği istisnasını düzenler.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/44": "MADDE 44 – (1) Eşyanın gümrük kıymeti, gümrük tarifesinin ve eşya ticaretine ilişkin belirli konularda getirilen tarife dışı düzenlemelerin uygulanması amacıyla 45 ila 50 nci maddelerde yer alan yöntemlerin sırasıyla uygulanması yoluyla tayin ve tespit olunan kıymettir. Bir yönteme göre belirlenemeyen kıymet için sıra dahilinde olmak üzere izleyen yönteme geçilir. Eşyanın gümrük kıymeti bir üst maddede yer alan yöntem hükümlerine göre belirlenebildiği sürece bir alt madde hükümleri uygulanamaz. Ancak, beyan sahibinin yazılı talebinin gümrük idaresince uygun bulunması şartıyla, aşağıda yer alan yöntemlerden indirgeme yöntemi ile hesaplanmış kıymet yönteminin uygulama sırası değiştirilebilir."
+      }
+    },
+    {
+      "id": "gy-012",
+      "question": "Aynı eşyanın satış bedeli yönteminde birden fazla satış bedeli bulunursa hangisi esas alınır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "46"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/46"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "direct_provision",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 46 aynı eşyanın birden fazla satış bedeli için seçim kuralını içerir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/46": "Bu yöntemin uygulanması sırasında aynı eşyaya ilişkin birden fazla satış bedeli tespit edilirse, ithal eşyasının gümrük kıymetini belirlemek üzere bunlardan en düşük olanı kullanılır."
+      }
+    },
+    {
+      "id": "gy-013",
+      "question": "Benzer eşyanın satış bedeli kullanılırken ticari düzey veya miktar farklıysa düzeltme hangi ispat koşuluyla yapılır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "47"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/47"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "exception_condition",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 47 ticari düzey ve miktar düzeltmesinin ispat koşulunu içerir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/47": "Bu yönteme göre gümrük kıymeti belirlenirken, kıymeti belirlenecek eşya ile aynı ticari düzey ve yaklaşık aynı miktarda satılan benzer eşyanın satış bedeli kullanılır. Böyle bir satışın bulunmaması durumunda, farklı ticari düzey ve/veya farklı miktarlardaki benzer eşyanın satış bedeli, bu ticari düzey ve/veya miktar farkları göz önüne alınarak yapılacak düzeltmeden sonra kullanılır. Kıymet artış veya azalışına da yol açsa, düzeltmenin yapılabilmesi için makul olduğunun ve doğruluğunun kesin delillerle ispatı gerekir."
+      }
+    },
+    {
+      "id": "gy-014",
+      "question": "Serbest bölgedeki elleçleme işlemleri için önceden izin gerekir mi; INF 8 Bilgi Formu kaç nüsha düzenlenir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "426"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/426"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "multi_part",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 426 serbest bölgede elleçleme izni ile INF 8 nüsha sayısını düzenler.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/426": "MADDE 426 – (1) Ek-63’te belirtilen elleçleme işlemleri için önceden izin alınmasına gerek yoktur.\nBeyan sahibinin talebi üzerine, Kanunun 161 inci maddesinin ikinci fıkrası hükmünün uygulanacağı hallerde; bir serbest bölgeye konulan ve elleçleme işlemlerine tabi tutulan eşyanın gümrükçe onaylanmış işlem veya kullanımı yönünde yapılan beyanda INF 8 Bilgi Formu düzenlenebilir.\nINF 8 Bilgi Formu ek-61’de gösterilen şekle uygun olarak biri asıl olmak üzere iki nüsha düzenlenir."
+      }
+    },
+    {
+      "id": "gy-015",
+      "question": "Bağlayıcı tarife bilgisi başvuru formunda başvuru sahibinin adı ve adresi için alan var mı?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 1,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/1"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "form_field",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-1 ilk alanında başvuru sahibinin adı ve adresi bulunur.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/1": "EK 1\nBAĞLAYICI TARİFE BİLGİSİ BAŞVURU FORMU\nTABLE | 1. Başvuru Sahibi: Adı ve Adresi | SADECE RESMİ KULLANIM İÇİNDİR"
+      }
+    },
+    {
+      "id": "gy-016",
+      "question": "Bağlayıcı menşe bilgisi bildirim formunda BMB referans numarası ve geçerliliğin başlama tarihi hangi alanlarda gösterilir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 3,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/3"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "form_field",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-3 formunun 2 ve 3 numaralı alanları referans numarası ve geçerlilik başlangıcıdır.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/3": "EK 3\nT.C. GÜMRÜKLERİ- BAĞLAYICI MENŞE BİLGİSİ\nTURKISH CUSTOMS – BINDING ORIGIN INFORMATION\nTABLE | 1 | 1. Hak Sahibinin Adı ve Adresi                    Gizli\n\n\n\n\n\n\n | 2. BMB Referans Numarası\n | 2. BMB Referans Numarası\n\nTABLE | HAK SAHİBİ NÜSHASI | 1. Hak Sahibinin Adı ve Adresi                    Gizli\n\n\n\n\n\n\n |  | \nTABLE | HAK SAHİBİ NÜSHASI | 1. Hak Sahibinin Adı ve Adresi                    Gizli\n\n\n\n\n\n\n | 3. Geçerliliğin Başlama Tarihi"
+      }
+    },
+    {
+      "id": "gy-017",
+      "question": "Geçici depolama yeri ve antrepoya alınması bakımından özellik gösteren tehlikeli eşyaya ilişkin liste hangi sınıflandırmaya dayanır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 62,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/62"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "annex_list",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-62 açıklaması ADR tehlikeli mallar listesine, sınıflarına ve UN(BM) kodlarına dayanır.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/62": "EK 62\n(Değişik:RG-12/6/2012-28321) \nGeçici Depolama Yeri ve Antrepoya Alınması Bakımından Özellik Gösteren Eşya Listesi\n\tListe-1’de yer alan parlayıcı, patlayıcı, yanıcı ve yanmayı artırıcı eşya ile Liste-2’de yer alan diğer tehlikeli ve zararlı maddelere ilişkin, 30/10/2009 tarihli, 27391 mükerrer sayılı Resmî Gazete’de yayımlanan 2009/15454 sayılı Bakanlar Kurulu Kararı eki Tehlikeli Malların Karayolu ile Uluslararası Taşımacılığına ilişkin Avrupa Anlaşmasının (ADR) ekinde yer alan tehlikeli mallar listesi esas alınarak oluşturulan eşya listesi, sınıfları ve UN(BM) tehlikeli eşya kodları ile Liste-3’de yer alan korunmaları, soğuk hava depolarında olduğu gibi özel tertibat gerektiren eşya Bakanlığın kurumsal internet sayfasında duyurulur."
+      }
+    },
+    {
+      "id": "gy-018",
+      "question": "Antrepo veya serbest bölgedeki elleçleme faaliyetleri listesinde sekizli tarife pozisyonunun değişmesi bakımından genel kural nedir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 63,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/63"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "annex_list",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-63 girişinde sekizli tarife pozisyonu değişikliği için genel kural vardır.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/63": "EK 63\nGÜMRÜK ANTREPOLARINDA VEYA SERBEST BÖLGELERDE YAPILABİLECEK ELLEÇLEME FAALİYETLERİNE İLİŞKİN LİSTE\nAksi belirtilmedikçe, aşağıda belirtilen elleçleme faaliyetlerinden hiçbiri sekizli tarife pozisyonunun değişmesine neden olmamalıdır. Gümrük idareleri, faaliyetin suiistimal hallerine yol açmasının muhtemel olduğu durumlarda, aşağıda belirtilen elleçleme faaliyetlerine izin vermezler."
+      }
+    },
+    {
+      "id": "gy-019",
+      "question": "Gümrük Statü Belgesinde eşyanın serbest dolaşımda olup olmadığı nasıl işaretlenir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 69,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/69"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "form_field",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-69 tablo metni uygun seçeneğin çarpı ile işaretlenmesini açıklar.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/69": "SHEET | Sayfa1\nE1=EK 69\nA2=GÜMRÜK STATÜ BELGESİ\nA3=1. Malı Satın Alan veya Adına Mal Gönderilen Serbest Bögle Faaliyet Ruhsatı Sahibi (Tam İsim/Firma İsmi ve Adres)\nC3=Serbest Bölgede Bulunan Eşyanın Gümrük Statü \nBelgesi\n\nTescil\nNo:                                          Tarih:\nA4=2.Onaylayan Serbest Bölge Gümrük İdaresi (Tam İsmi)\nC4=3.   4 üncü kutuda tanımlanan eşya\nE5=         Serbest dolaşımda bulunan eşya\nE7=         Serbest dolaşımda bulunmayan eşya\nC8=\nUygun olan, daha sonra bir düzeltme yapılamayacak şekilde çarpı işaret (x) ile belirtilecektir."
+      }
+    },
+    {
+      "id": "gy-020",
+      "question": "Antrepo rejimi kapsamındaki eşyaya ait tespit ve tahakkuk kağıdında antrepo firmasının unvanı ve adresi hangi formda yer alır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 70,
+          "annex_subpart": "A"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/70/a"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "ambiguity_resistant",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-70/A antrepo rejimi formudur; serbest bölgeye ilişkin EK-70 ile karıştırılmamalıdır.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/70/a": "Ek-70/A\nANTREPO REJİMİ KAPSAMINDAKİ  EŞYAYA İLİŞKİN\nTESPİT VE TAHAKKUK KAĞIDI\nTABLE | ANTREPO FİRMASININ TİCARET ÜNVANI VE ADRESİ :"
+      }
+    },
+    {
+      "id": "gy-021",
+      "question": "Götürü teminat mektubu örneğinde gümrük idaresinin ilk isteğinde başka bir ispat belgesi aranmadan ödeme taahhüdü var mı?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 77,
+          "annex_subpart": "A"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/77/a"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "ambiguity_resistant",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-77/A götürü teminat mektubudur; ilk istekte itirazsız ödeme ifadesi içerir.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/77/a": "(Değişik:RG-1/4/2020-31086)   EK 77/A\nGötürü Teminat Mektubu Metni\nTİCARET BAKANLIĞINA\n                            ANKARA\nTicaret Bakanlığında yapılan götürü teminat konusu her türlü gümrük işlemlerine ilişkin olarak kısmen veya tamamen …………………………………………………….’dan tahsili gereken……………………………………. (yazıyla……………………………..) AVRO*/TL’ ni gümrük idaresince yapılacak ilk istek üzerine bu durumu ispat eden başka bir belge aramaya lüzum görmeksizin itirazsız ödemeyi taahhüt ettiğimizi ve bu miktarın gümrük idaresince istenmiş olması, istenen miktarın tahsil edilmesi gereken hale geldiğini ifade edeceğinden ve istek tarihinden itibaren 15 gün içinde ödenmemesi halinde 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun hükümlerine göre belirlenen gecikme zammı ile birlikte ödeyeceğimizi, teminat veren …………………………………………………..’nın kurumu temsil ve ilzama yetkili memurları sıfatıyla beyan ve taahhüt ederiz. "
+      }
+    },
+    {
+      "id": "gy-022",
+      "question": "Toplu teminat mektubu için hangi ek metni kullanılır ve bu metinde ödeme tutarı hangi para birimiyle yazılır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 77,
+          "annex_subpart": "B"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/77/b"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "ambiguity_resistant",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-77/B toplu teminat başlığını ve TL tutar alanını içerir.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/77/b": "EK 77-B\n(Ek:RG-31/3/2010-27538) (Değişik:RG-1/4/2020-31086) \nToplu Teminat Mektubu Metni\nTİCARET BAKANLIĞINA\n                            ANKARA\nTicaret Bakanlığı’nda yapılan her türlü gümrük işlemlerine ilişkin olarak kısmen veya tamamen………………………………………………….’dan tahsili gereken ………………..……………….. TL’yi (yazıyla ……………………………………………….) gümrük idaresince yapılacak ilk istek üzerine bu durumu ispat eden başka bir belge aramaya lüzum görmeksizin itirazsız ödemeyi taahhüt ettiğimizi ve bu miktarın gümrük idaresince istenmiş olması, istenen miktarın tahsil edilmesi gereken hale geldiğini ifade edeceğinden ve istek tarihinden itibaren 15 gün içinde ödenmemesi halinde, 6183 sayılı Amme Alacaklarının Tahsil Usulü Hakkında Kanun hükümlerine göre belirlenen gecikme zammı ile birlikte ödeyeceğimizi teminatı veren …………………………………………..’nın kurumu temsil ve ilzama yetkili memurları sıfatıyla beyan ve taahhüt ederiz. "
+      }
+    },
+    {
+      "id": "gy-023",
+      "question": "Kabul edilmiş kaynak metninde EK-81/A yürürlükte bir form olarak mı, mülga kaydıyla mı yer alıyor?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 81,
+          "annex_subpart": "A"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/81/a"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "repeal_status",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-81/A metninde mülga kaydı bulunur; mevcut form içeriği varsayılmaz.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/81/a": "EK-81/A\n(Ek:RG-2/12/2014-29193)  (Mülga:RG-1/8/2017-30141) "
+      }
+    },
+    {
+      "id": "gy-024",
+      "question": "Antrepo stok defteri tablosunda net ağırlık, brüt ağırlık ve antrepoya giriş tarihi için ayrı alanlar var mı?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 83,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/annex/83"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "form_field",
+      "difficulty": "easy",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "EK-83 elektronik stok tablosunda net/brüt ağırlık ve giriş tarihi sütunları bulunur.",
+      "evidence": {
+        "gumruk_yonetmeligi/annex/83": "SHEET | Sayfa1\nAE1=(Ek:RG-1/8/2017-30141) (Bu değişiklik 1/1/2018 tarihinde yürürlüğe girer.\nAJ1=EK-83\nA2=ANTREPO İŞLETİCİLERİNCE TUTULACAK ANTREPO STOK DEFTERİ TABLOSU\nA3=1.Sıra No\nB3=2. Antrepo Beyannamesi\nE3=3. Rejim Kodu\nF3=4. Eşya Bilgileri\nI3=5.Kap Bilgileri\nL3=6.Net Ağırlık\nM3=7.Brüt Ağırlık\nN3=8.Antrepo Beyannamesinde Satışa Esas Bilgiler\nP3=9.Özet Beyan/Önceki Beyan No\nQ3=10.Girişte Toplam Kap\nR3=11.Antrepoya Giriş Tarihi"
+      }
+    },
+    {
+      "id": "gy-025",
+      "question": "Bağlayıcı tarife bilgisine başvuru kaç kalem eşya için yapılabilir ve kullanılacak başvuru formunda başvuru sahibi nasıl tanımlanır?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "28"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 1,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/28",
+        "gumruk_yonetmeligi/annex/1"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 28 EK-1 formuna açıkça atıf yapar; form başvuru sahibinin adı ve adresini ister.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/28": "Bağlayıcı Tarife Bilgisi başvurusu, ek-1'de yer alan Bağlayıcı Tarife Bilgisi Başvuru Formu ile yapılır. Bağlayıcı Tarife Bilgisi başvurularının sadece bir kalem eşya için yapılması gerekir. Bir kalem eşya deyiminden Türk Gümrük Tarife Cetvelinde aynı tarife pozisyonu alt açılımında bulunan ve aynı yasal ya da tercihli vergi oranına tabi olan eşya anlaşılır.",
+        "gumruk_yonetmeligi/annex/1": "EK 1\nBAĞLAYICI TARİFE BİLGİSİ BAŞVURU FORMU\nTABLE | 1. Başvuru Sahibi: Adı ve Adresi | SADECE RESMİ KULLANIM İÇİNDİR"
+      }
+    },
+    {
+      "id": "gy-026",
+      "question": "Parlayıcı veya özel tertibat gerektiren eşyanın antrepoya konulmasında hangi özel düzenek koşulu aranır ve atıf yapılan eşya listesi hangisidir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "330"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 62,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/330",
+        "gumruk_yonetmeligi/annex/62"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 330 EK-62 listesini antreponun özel düzenek koşuluyla bağlar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/330": "(Değişik:RG-12/6/2012-28321) Aşağıda belirtilen ve EK-62’de yer alan eşyanın, niteliklerine ve yapılacak faaliyetin özelliklerine uygun özel düzenek ve yapılara sahip genel veya özel antrepolara konulması zorunludur.\nParlayıcı, patlayıcı, yanıcı ve yanmayı artırıcı eşya,\nKorunmaları, soğuk hava depolarında olduğu gibi özel tertibat gerektiren eşya.",
+        "gumruk_yonetmeligi/annex/62": "EK 62\n(Değişik:RG-12/6/2012-28321) \nGeçici Depolama Yeri ve Antrepoya Alınması Bakımından Özellik Gösteren Eşya Listesi\n\tListe-1’de yer alan parlayıcı, patlayıcı, yanıcı ve yanmayı artırıcı eşya ile Liste-2’de yer alan diğer tehlikeli ve zararlı maddelere ilişkin, 30/10/2009 tarihli, 27391 mükerrer sayılı Resmî Gazete’de yayımlanan 2009/15454 sayılı Bakanlar Kurulu Kararı eki Tehlikeli Malların Karayolu ile Uluslararası Taşımacılığına ilişkin Avrupa Anlaşmasının (ADR) ekinde yer alan tehlikeli mallar listesi esas alınarak oluşturulan eşya listesi, sınıfları ve UN(BM) tehlikeli eşya kodları ile Liste-3’de yer alan korunmaları, soğuk hava depolarında olduğu gibi özel tertibat gerektiren eşya Bakanlığın kurumsal internet sayfasında duyurulur."
+      }
+    },
+    {
+      "id": "gy-027",
+      "question": "Serbest dolaşımda bulunmayan eşyanın antrepoda elleçlenmesine izin verilmesine ilişkin hüküm ile bu faaliyetlerin tarife pozisyonuna etkisini sınırlayan ek birlikte nerede düzenlenmiştir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "334"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 63,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/334",
+        "gumruk_yonetmeligi/annex/63"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 334 EK-63 faaliyetlerine atıf yapar; ek genel tarife pozisyonu kuralını verir.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/334": "MADDE 334 – (1) Kanunun 102 nci maddesinin birinci fıkrası uyarınca, serbest dolaşımda bulunmayan eşya için gümrük idarelerince (Mülga ibare:RG-23/5/2011-27942) (…) ek-63’te belirtilen elleçleme faaliyetlerine izin verilebilir.",
+        "gumruk_yonetmeligi/annex/63": "EK 63\nGÜMRÜK ANTREPOLARINDA VEYA SERBEST BÖLGELERDE YAPILABİLECEK ELLEÇLEME FAALİYETLERİNE İLİŞKİN LİSTE\nAksi belirtilmedikçe, aşağıda belirtilen elleçleme faaliyetlerinden hiçbiri sekizli tarife pozisyonunun değişmesine neden olmamalıdır. Gümrük idareleri, faaliyetin suiistimal hallerine yol açmasının muhtemel olduğu durumlarda, aşağıda belirtilen elleçleme faaliyetlerine izin vermezler."
+      }
+    },
+    {
+      "id": "gy-028",
+      "question": "Gümrük yükümlülüğü devam eden eski işlemler için teminat değiştirilirken yeni mektuba hangi ek ifadeler alınır ve bu ifadeler önceki riskleri nasıl kapsar?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "496"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 77,
+          "annex_subpart": "C"
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/496",
+        "gumruk_yonetmeligi/annex/77/c"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 496 EK-77/C ifadelerini gerektirir; ek önceki işlemlerden kaynaklı riskleri kapsar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/496": "MADDE 496 – (Değişik:RG-1/4/2020-31086)\nTeminatı veren, verdiği teminatın, idare amirinin izniyle kısmen veya tamamen başka bir teminat ile değiştirilmesini isteyebilir.\nDaha önce başlamış, gümrük yükümlülüğü devam eden gümrük işlemleri için verilmiş olan teminatın değiştirilmesinin talep edilmesi halinde yeni teminat mektubunun Ek-77/C’de yer alan metindeki ifadeleri de içermesi gerekir.",
+        "gumruk_yonetmeligi/annex/77/c": "“Ek-77/C\nTeminat Değişikliğinde Yararlanılacak Metin Örneği\n “Yukarıda bilgilerine yer verilen teminat mektubunun, anılan Lehtar tarafından, mektup konusu gümrük işlemi veya gümrük işlemleri ile ilgili olarak; işbu teminat mektubunun kabul tarihinden önce gerçekleştirilen, hâlihazırda gümrük yükümlülüğü devam eden gümrük işlemlerinden kaynaklı riskleri de karşılayacağımıza, gümrük işlemlerinden kaynaklanan gümrük vergilerinden ve diğer amme alacaklarından sorumlu olmaya ve gümrük idaresince yapılacak ilk istek üzerine bu durumu ispat eden başka bir belge aramaya lüzum görmeksizin itirazsız ödemeyi ve hakkımızda 6183 sayılı Kanun hükümlerinin uygulanmasını Bankamızın imza yetkilisi ve sorumlusu sıfatıyla ve banka nam ve hesabına yüklendiğimizi kabul, beyan ve taahhüt ederiz.” "
+      }
+    },
+    {
+      "id": "gy-029",
+      "question": "Gümrük vergisi veya para cezasının geri verilmesi ya da kaldırılması başvurusu hangi form ve kanalla yapılır; formda başvuru sahibinin banka hesap bilgisi istenir mi?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "502"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 78,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/502",
+        "gumruk_yonetmeligi/annex/78"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "medium",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 502 EK-78 ile elektronik başvuruyu düzenler; form banka hesap numarası ister.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/502": "MADDE 502 – (1) (Değişik:RG-1/4/2020-31086)(35) Gümrük vergilerinin ve para cezalarının geri verilmesi veya kaldırılması başvurusu, bu vergileri ve cezaları ödeyen veya ödemekle yükümlü olan kişi veya bunların temsilcileri veya hak ve yükümlülükleri devralan kişi tarafından Ek-78’de yer alan Geri Verme veya Kaldırma Başvurusu Formu ile elektronik olarak ilgili gümrük idarelerine yapılır. Bu Forma gerekli belgeler de elektronik ortamda eklenir.",
+        "gumruk_yonetmeligi/annex/78": "(Değişik:RG-1/4/2020-31086)(Bu değişiklik yayımı tarihinden iki ay sonra yürürlüğe girer.) Ek-78 \n        GERİ VERME VEYA KALDIRMA BAŞVURUSU FORMU\nTABLE | 1.Başvuru Sahibi veya Kanuni Temsilcisi \n(İsim, TC Kimlik No./Vergi No.,  Adres, Banka Hesap Numarası)  | 1.Başvuru Sahibi veya Kanuni Temsilcisi "
+      }
+    },
+    {
+      "id": "gy-030",
+      "question": "A, C, D ve E tipi antrepolarda stok kayıtlarını kim tutar; stok defterinin asgari bilgileri arasında net ve brüt ağırlık hangi ek tabloda gösterilir?",
+      "document_id": "gumruk_yonetmeligi",
+      "expected_sources": [
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "article_type": "normal",
+          "article_no": "536"
+        },
+        {
+          "document_id": "gumruk_yonetmeligi",
+          "source_type": "annex",
+          "annex_no": 83,
+          "annex_subpart": null
+        }
+      ],
+      "expected_source_keys": [
+        "gumruk_yonetmeligi/normal/536",
+        "gumruk_yonetmeligi/annex/83"
+      ],
+      "expected_document_ids": [
+        "gumruk_yonetmeligi"
+      ],
+      "category": "cross_reference",
+      "difficulty": "hard",
+      "source_verified": true,
+      "expert_validated": false,
+      "notes": "Madde 536 kayıt tutma yükümlülüğünü EK-83 asgari tablo içeriğiyle bağlar.",
+      "evidence": {
+        "gumruk_yonetmeligi/normal/536": "MADDE 536 – (1) Eşya, antrepoya, gümrük idaresinin denetimi altında alınır. Bu denetlemeyi gümrük adına, antrepoda görevlendirilmiş olan gümrük memuru (Ek ibare:RG-7/10/2016-29850) veya yetkilendirilmiş gümrük müşaviri (Mülga ibare:RG-30/6/2015-29402)(16) (…) yapar.\nA, C, D ve E tipi antrepolarda, Kanunun 99 uncu maddesinde belirtilen antrepo stok kayıtlarını antrepo işleticileri tutar. Bu kayıtlar gümrük idaresinin kontrolüne imkan verecek şekilde tutulur.\nB tipi antrepoda, denetleyici gümrük idaresi, rejime giriş beyannamesinin ve rejimi sona erdiren beyanname ve belgelerin kaydını tutar ve belgeleri muhafaza eder. B tipi antrepo işleticisi ve/veya kullanıcısı da, söz konusu belgeleri muhafaza eder. Stok kayıtları tutulmayabilir.\nF tipi antrepoda, gümrük kayıtları stok kayıtlarının yerini alır.\nEşyanın konulacağı gümrük antrepo tipi ve uygulanacak hükümler dikkate alınarak, kontrol için gerekli bütün ayrıntıları içermesi halinde, antrepo kullanıcıları tarafından ticari nedenlerle tutulan kayıtlar da stok kayıtları olarak kabul edilebilir.\nAntrepo rejimine giren eşya ile ilgili olarak, A, C, D ve E tipi antrepolarda stok kayıtlarının gösterildiği bir Antrepo Stok Defteri tutulur. Bu defterin her sayfası gümrük idaresi tarafından mühürlenir ve sayfa sayısı defterlerin başına şerhle onaylanır. Bilgisayar ile tutulan stok kayıtları defter hükmündedir.\n(Değişik:RG-1/8/2017-30141)(24) Bu defterde; Ek-83’teki tablo muhteviyatı asgari bilgiler yer alır.",
+        "gumruk_yonetmeligi/annex/83": "SHEET | Sayfa1\nAE1=(Ek:RG-1/8/2017-30141) (Bu değişiklik 1/1/2018 tarihinde yürürlüğe girer.\nAJ1=EK-83\nA2=ANTREPO İŞLETİCİLERİNCE TUTULACAK ANTREPO STOK DEFTERİ TABLOSU\nA3=1.Sıra No\nB3=2. Antrepo Beyannamesi\nE3=3. Rejim Kodu\nF3=4. Eşya Bilgileri\nI3=5.Kap Bilgileri\nL3=6.Net Ağırlık\nM3=7.Brüt Ağırlık\nN3=8.Antrepo Beyannamesinde Satışa Esas Bilgiler\nP3=9.Özet Beyan/Önceki Beyan No\nQ3=10.Girişte Toplam Kap\nR3=11.Antrepoya Giriş Tarihi"
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "baseline": "a31459fb03f90974b40ab645133ce9f3768bb19f",
+  "dataset_sha256": "63d296bcf1a02f7494f6469fc3aff479f96ab7c8ce2725843e95e470c6577a08",
+  "collection": "gumruk_mevzuati",
+  "collection_total": 1266,
+  "distribution": {
+    "4458_gumruk_kanunu": 276,
+    "5326_kabahatler_kanunu": 53,
+    "5607_kacakcilikla_mucadele_kanunu": 46,
+    "gumruk_yonetmeligi": 891
+  },
+  "article_chunks": 530,
+  "annex_chunks": 361,
+  "article_keys": 528,
+  "annex_keys": 98,
+  "identity_validation": "PASS",
+  "admitted_source_text_match": "PASS",
+  "production_sqlite_sha256": "4eafaa2121075b4a555d065b748c1421faceb96a66af5371b333b972b32526a3",
+  "production_unchanged": true,
+  "raw_source_sha256": {
+    "gumruk-yonetmeligi.docx": "5ac00a49016e59dd1f63f7eec21c6a9ddda0381ef40616ef6113d97f920d52eb",
+    "gumruk-yonetmeligi-ekler.zip": "aa3be601f14e39286edfe5cf7f4219c6563fb441fcab504bbb273f4078f97121"
+  },
+  "questions": 30,
+  "composition": {
+    "article_only": 14,
+    "multi_source": 6,
+    "annex_only": 10,
+    "mixed": 6
+  },
+  "difficulty": {
+    "easy": 10,
+    "hard": 6,
+    "medium": 14
+  },
+  "distinct_expected_keys": 32,
+  "validated_expected_keys": {
+    "gy-001": [
+      "gumruk_yonetmeligi/normal/1"
+    ],
+    "gy-002": [
+      "gumruk_yonetmeligi/normal/3"
+    ],
+    "gy-003": [
+      "gumruk_yonetmeligi/normal/26"
+    ],
+    "gy-004": [
+      "gumruk_yonetmeligi/normal/27"
+    ],
+    "gy-005": [
+      "gumruk_yonetmeligi/normal/30"
+    ],
+    "gy-006": [
+      "gumruk_yonetmeligi/normal/31"
+    ],
+    "gy-007": [
+      "gumruk_yonetmeligi/normal/39"
+    ],
+    "gy-008": [
+      "gumruk_yonetmeligi/normal/40"
+    ],
+    "gy-009": [
+      "gumruk_yonetmeligi/normal/41"
+    ],
+    "gy-010": [
+      "gumruk_yonetmeligi/normal/43"
+    ],
+    "gy-011": [
+      "gumruk_yonetmeligi/normal/44"
+    ],
+    "gy-012": [
+      "gumruk_yonetmeligi/normal/46"
+    ],
+    "gy-013": [
+      "gumruk_yonetmeligi/normal/47"
+    ],
+    "gy-014": [
+      "gumruk_yonetmeligi/normal/426"
+    ],
+    "gy-015": [
+      "gumruk_yonetmeligi/annex/1"
+    ],
+    "gy-016": [
+      "gumruk_yonetmeligi/annex/3"
+    ],
+    "gy-017": [
+      "gumruk_yonetmeligi/annex/62"
+    ],
+    "gy-018": [
+      "gumruk_yonetmeligi/annex/63"
+    ],
+    "gy-019": [
+      "gumruk_yonetmeligi/annex/69"
+    ],
+    "gy-020": [
+      "gumruk_yonetmeligi/annex/70/a"
+    ],
+    "gy-021": [
+      "gumruk_yonetmeligi/annex/77/a"
+    ],
+    "gy-022": [
+      "gumruk_yonetmeligi/annex/77/b"
+    ],
+    "gy-023": [
+      "gumruk_yonetmeligi/annex/81/a"
+    ],
+    "gy-024": [
+      "gumruk_yonetmeligi/annex/83"
+    ],
+    "gy-025": [
+      "gumruk_yonetmeligi/normal/28",
+      "gumruk_yonetmeligi/annex/1"
+    ],
+    "gy-026": [
+      "gumruk_yonetmeligi/normal/330",
+      "gumruk_yonetmeligi/annex/62"
+    ],
+    "gy-027": [
+      "gumruk_yonetmeligi/normal/334",
+      "gumruk_yonetmeligi/annex/63"
+    ],
+    "gy-028": [
+      "gumruk_yonetmeligi/normal/496",
+      "gumruk_yonetmeligi/annex/77/c"
+    ],
+    "gy-029": [
+      "gumruk_yonetmeligi/normal/502",
+      "gumruk_yonetmeligi/annex/78"
+    ],
+    "gy-030": [
+      "gumruk_yonetmeligi/normal/536",
+      "gumruk_yonetmeligi/annex/83"
+    ]
+  }
+}
